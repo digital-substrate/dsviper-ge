@@ -18,8 +18,7 @@ Use [GitHub Issues](https://github.com/digital-substrate/dsviper-ge/issues) and 
 Requires Python 3.10-3.14.
 
 ```bash
-pip install -r requirements.txt          # PySide6 and deps
-pip install dsviper                      # Viper Python binding
+pip install -r requirements.txt          # PySide6, the dsviper binding and deps
 python3 graph_editor.py                  # Launch
 python3 graph_editor.py path/to/db.db    # Open an existing database
 ```
