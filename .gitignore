@@ -87,3 +87,6 @@ CLAUDE.md
 
 # Logs
 *.log
+
+# Deposited by generate.py
+*.dsm.json
