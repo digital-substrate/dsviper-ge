@@ -10,7 +10,21 @@ runtime version (declared as a dependency in `requirements.txt`).
 
 ## [Unreleased]
 
-_No changes yet. Bug fixes for the next 1.2.x patch release will be listed here._
+### Changed
+- The typed infrastructure is generated from the Graph Editor model by `generate.py`
+  (kibo 2): the package `gei`, with the types in `gei.graph` and one scope per
+  attachment in `gei.graph.attachments` (`attachments.Graph.topology.union_vertex_keys`).
+  It replaces the copy of the 1.2 generated package that lived under `ge/`, and leaves
+  out the model's function pools, which belong to GraphEditor's C++ side.
+- The business functions, formerly `model/`, are the package `ge`.
+- Written against `gei`: a typed container is a Python one (`set[graph.VertexKey]()`
+  rather than `Set_Graph_VertexKey()`), `get` returns the document or `None` with no
+  optional to unwrap, and fields and methods are spelled in snake_case.
+
+### Added
+- `tests/golden/scenario.py`: the business functions run step by step on an in-memory
+  database, and every document they leave behind is compared with a recording made
+  from the 1.2 code.
 
 ## [1.2.0] - 2026-06-17
 

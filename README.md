@@ -34,6 +34,66 @@ Open an existing database:
 python3 graph_editor.py path/to/database.db
 ```
 
+## Code layout
+
+The application reads and writes the databases of the Graph Editor model — the model
+of the AppKit reference application, whose definitions live in
+`com.digitalsubstrate.ge`. Two packages sit on top of it:
+
+- `gei/` — the typed infrastructure, generated from the model by `generate.py`:
+  the types (`gei.graph.VertexKey`, `gei.graph.Position`) and one scope per
+  attachment (`gei.graph.attachments.Graph.topology`). Never edited by hand.
+- `ge/` — the business functions of the Graph Editor, written against `gei`.
+
+```python
+from gei import graph
+from gei.graph import attachments
+
+topology = attachments.Graph.topology.get(attachment_getting, graph_key)   # the document, or None
+if topology:
+    vertex_keys = topology.vertex_keys
+
+attachments.Graph.selection.union_vertex_keys(attachment_mutating, graph_key, {vertex_key})
+attachments.Vertex.visual_attributes.set(attachment_mutating, vertex_key,
+                                         graph.VertexVisualAttributes(value=1, color=color))
+```
+
+Types, fields and operations are named, so an editor completes them. A container field
+is a live view over the value, and accepts Python's own sets, lists and dicts when
+written.
+
+## Regenerating gei
+
+`gei/` is committed, so a fresh clone runs without regenerating. Regenerate after the
+model changes:
+
+```bash
+python3 generate.py
+```
+
+It needs, as sibling checkouts:
+
+- `../com.digitalsubstrate.ge` — the model's definitions (`definitions/Ge`, or set
+  `GE_DEFINITIONS`);
+- `../devkit-codegen-test` — the kibo 2 templates (`templates/`, or set
+  `KIBO_TEMPLATES`) and the Python runtime copied into `gei/_codegen`
+  (`runtime-proposed/python`, or set `KIBO_PYTHON_RUNTIME`);
+- `../kibo`, built: `target/kibo-2.x.y.jar`, or set `KIBO_JAR`.
+
+Only the `Base` feature is generated: types, attachments and the embedded definitions.
+The model's function pools belong to GraphEditor's C++ side and are left out.
+
+Always commit the regenerated files.
+
+## Checking the business functions
+
+`tests/golden/scenario.py` runs the functions of `ge/` step by step on an in-memory
+database and compares every document left behind with `tests/golden/golden.json`:
+
+```bash
+python3 tests/golden/scenario.py
+```
+
 ## Building
 
 Generated Qt files (`ui_*.py` and `resources_rc.py`) are committed,

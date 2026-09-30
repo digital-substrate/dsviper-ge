@@ -26,7 +26,8 @@ Objective-C/AppKit (reference)     Qt/C++ (ge-qt)           Python/PySide6 (dsvi
 | Definition Inspector | ds_inspect*.py   | ~180   | ✓ Complete |
 | UI Components        | components/*.py  | ~800   | ✓ Complete |
 | Render Engine        | render/*.py      | ~600   | ✓ Complete |
-| Model Layer          | model/*.py       | ~500   | ✓ Complete |
+| Business Functions   | ge/*.py          | ~500   | ✓ Complete |
+| Typed Infrastructure | gei/ (generated) | —      | ✓ Complete |
 
 ### Remaining Work
 

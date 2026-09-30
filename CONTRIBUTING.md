@@ -10,7 +10,8 @@ Use [GitHub Issues](https://github.com/digital-substrate/dsviper-ge/issues) and 
 
 1. Fork the repository and create a feature branch from `main`
 2. Make your changes (see "Running locally" below)
-3. Verify the app still launches and the flows you touched still work
+3. Verify the app still launches and the flows you touched still work; if you touched
+   `ge/`, run `python3 tests/golden/scenario.py`
 4. Open a pull request with a clear description of what changed and why
 
 ## Running locally
@@ -39,6 +40,14 @@ pyside6-rcc resources.qrc -o resources_rc.py             # Qt resources
 ## Architecture note
 
 This app depends on `dsviper`, the pre-built Viper Python binding (distributed on PyPI). All persistence and commit operations go through it — don't attempt to port Viper.
+
+`gei/` is generated from the Graph Editor model by `generate.py`: don't edit it by hand,
+regenerate it (see the README) and commit the result. The business functions belong in
+`ge/`.
+
+A change to `ge/` that is meant to change what a function writes needs the golden file
+re-recorded, deliberately: `python3 tests/golden/scenario.py --record`, and the diff of
+`tests/golden/golden.json` reviewed with the change.
 
 ## License
 
