@@ -75,9 +75,9 @@ It needs, as sibling checkouts:
 
 - `../com.digitalsubstrate.ge` — the model's definitions (`definitions/Ge`, or set
   `GE_DEFINITIONS`);
-- `../devkit-codegen-test` — the kibo 2 templates (`templates/`, or set
+- `../kibo-template-viper` on `kibo-2-dev` — the kibo 2 template pack (or set
   `KIBO_TEMPLATES`) and the Python runtime copied into `gei/_codegen`
-  (`runtime-proposed/python`, or set `KIBO_PYTHON_RUNTIME`);
+  (`python/runtime`, or set `KIBO_PYTHON_RUNTIME`);
 - `../kibo`, built: `target/kibo-2.x.y.jar`, or set `KIBO_JAR`.
 
 Only the `Base` feature is generated: types, attachments and the embedded definitions.

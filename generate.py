@@ -36,9 +36,9 @@ KIBO_MAJOR = 2
 TEMPLATES_MAJOR = 2
 
 DEFINITIONS = Path(os.environ.get('GE_DEFINITIONS') or SIBLINGS / 'com.digitalsubstrate.ge' / 'definitions' / 'Ge')
-TEMPLATES = Path(os.environ.get('KIBO_TEMPLATES') or SIBLINGS / 'devkit-codegen-test' / 'templates')
+TEMPLATES = Path(os.environ.get('KIBO_TEMPLATES') or SIBLINGS / 'kibo-template-viper')
 PYTHON_RUNTIME = Path(os.environ.get('KIBO_PYTHON_RUNTIME')
-                      or SIBLINGS / 'devkit-codegen-test' / 'runtime-proposed' / 'python')
+                      or SIBLINGS / 'kibo-template-viper' / 'python' / 'runtime')
 
 PACKAGE = 'gei'
 FEATURES = ['Base']
