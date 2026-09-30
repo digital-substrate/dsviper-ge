@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from dsviper import CommitStore, CommitDatabase, CommitStateBuilder, CommitState, CommitMutableState, ValueCommitId
 
-from ge import attachments, definitions
-from ge.data import Graph_GraphKey
-from model import graph
+from gei import definitions, graph
+from gei.graph import attachments
+from ge import graph as ge_graph
 
 
 class Context:
@@ -17,11 +17,11 @@ class Context:
 
     def __init__(self):
         self.store = CommitStore()
-        self.graph_key = Graph_GraphKey.create()
+        self.graph_key = graph.GraphKey.create()
 
     def create_database(self, file_path: str) -> CommitDatabase:
         result = CommitDatabase.create(file_path, documentation="A Graph Editor Commit Database")
-        result.extend_definitions(definitions.definitions())
+        result.extend_definitions(definitions())
         return result
 
     def use(self, database: CommitDatabase):
@@ -52,9 +52,7 @@ class Context:
         if not self.store.has_database():
             raise Exception("CommitStoreErrors::noDatabase")
 
-        attachment = self.store.state().definitions().check_attachment(
-            definitions.AttachmentRuntimeIds.Graph_Graph_Description)
-        count = len(self.store.state().attachment_getting().keys(attachment)) + 1
+        count = len(attachments.Graph.description.keys(self.store.state().attachment_getting())) + 1
         self.use_new_graph(f"G{count}")
 
     def use_new_graph(self, label: str):
@@ -76,13 +74,13 @@ class Context:
         self.load()
 
     def _create_initial_commit(self, database: CommitDatabase, state: CommitState) -> tuple[
-        ValueCommitId, Graph_GraphKey]:
+        ValueCommitId, graph.GraphKey]:
         return self._create_graph(database, state, "G1")
 
     def _create_graph(self, database: CommitDatabase, state: CommitState, label: str) -> tuple[
-        ValueCommitId, Graph_GraphKey]:
+        ValueCommitId, graph.GraphKey]:
         mutable_state = CommitMutableState(state)
-        graph_key = graph.create(mutable_state.attachment_mutating(), label)
+        graph_key = ge_graph.create(mutable_state.attachment_mutating(), label)
         commit_id = database.commit_mutations(f"New Graph '{label}'", mutable_state)
 
         return commit_id, graph_key
@@ -121,9 +119,9 @@ class Context:
 
     # --- Private ---
 
-    def _load_first_graph(self) -> Graph_GraphKey:
-        graph_keys = attachments.graph_graph_description_keys(self.store.state().attachment_getting())
+    def _load_first_graph(self) -> graph.GraphKey:
+        graph_keys = attachments.Graph.description.keys(self.store.state().attachment_getting())
         if not graph_keys:
             raise Exception("ContextErrors::missingGraphKey()")
 
-        return graph_keys.min()
+        return min(graph_keys)

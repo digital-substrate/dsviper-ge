@@ -9,7 +9,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBo
 
 from components import CommentsComponent, ListComponent
 from dsviper_components.ds_commit_actions import DSCommitActions
-from model.context import Context
+from ge.context import Context
 
 from dsviper import (
     CommitSynchronizer,
@@ -47,18 +47,18 @@ import sys
 from components import RenderComponent, StatisticsComponent, TagsComponent, TitleComponent, VertexComponent
 from select_graph_dialog import SelectGraphDialog
 
-from ge.data import Graph_Rectangle
-from model import graph_topology
-from model import graph_bug
-from model import graph_killer
-from model import graph_integrity
-from model import selection_vertices
-from model import selection_edges
-from model import selection_mixed
-from model import random as model_random
-from model import edge as model_edge
-from model import tools as model_tools
-from model import script_delete_selection
+from gei import graph
+from ge import graph_topology
+from ge import graph_bug
+from ge import graph_killer
+from ge import graph_integrity
+from ge import selection_vertices
+from ge import selection_edges
+from ge import selection_mixed
+from ge import random as model_random
+from ge import edge as model_edge
+from ge import tools as model_tools
+from ge import script_delete_selection
 
 
 class _LineEditUndoRedoFilter(QObject):
@@ -891,7 +891,7 @@ class MainWindow(QMainWindow):
     def _random_graph_triggered(self):
         context = Context.instance()
         size = self._render_component.render_widget().size()
-        rect = Graph_Rectangle()
+        rect = graph.Rectangle()
         rect.x, rect.y, rect.w, rect.h = 0, 0, size.width(), size.height()
         context.store.dispatch("Random Graph",
                                lambda m: model_random.graph(m, context.graph_key, 5, 6, rect))
@@ -899,7 +899,7 @@ class MainWindow(QMainWindow):
     def _random_vertex_triggered(self):
         context = Context.instance()
         size = self._render_component.render_widget().size()
-        rect = Graph_Rectangle()
+        rect = graph.Rectangle()
         rect.x, rect.y, rect.w, rect.h = 0, 0, size.width(), size.height()
         context.store.dispatch("Random Vertex",
                                lambda m: model_random.add_vertex(m, context.graph_key, rect))

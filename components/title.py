@@ -4,10 +4,8 @@ from PySide6.QtWidgets import QApplication, QWidget
 
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
 from .ui_title import Ui_TitleComponent
-from model.context import Context
-import ge.attachments as attachments
-
-
+from ge.context import Context
+from gei.graph import attachments as attachments
 class TitleComponent(QWidget, Ui_TitleComponent):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,7 +40,7 @@ class TitleComponent(QWidget, Ui_TitleComponent):
         if new_label != self._label:
             label = f"Set Title To '{new_label}'"
             self._context.store.dispatch(label,
-                                         lambda m: attachments.graph_graph_description_set_name(m,
+                                         lambda m: attachments.Graph.description.set_name(m,
                                                                                                 self._context.graph_key,
                                                                                                 new_label))
 
@@ -63,9 +61,9 @@ class TitleComponent(QWidget, Ui_TitleComponent):
 
         self.w_title_line_edit.blockSignals(True)
         try:
-            opt = attachments.graph_graph_description_get(attachment_getting, graph_key)
+            opt = attachments.Graph.description.get(attachment_getting, graph_key)
             if opt:
-                description = opt.unwrap()
+                description = opt
                 self._label = description.name
                 self.w_title_line_edit.setText(self._label)
         except Exception as e:

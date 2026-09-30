@@ -9,7 +9,7 @@ from PySide6.QtGui import QPainter, QPen, QPainterPath, QFontMetrics, QImage, qR
 from PySide6.QtWidgets import QWidget, QApplication
 
 import colors
-from ge.data import Graph_GraphKey, Graph_VertexKey, Graph_EdgeKey
+from gei import graph
 from .vertex import RenderVertex
 from .edge import RenderEdge
 
@@ -17,8 +17,8 @@ from .edge import RenderEdge
 @dataclass
 class MoveCopyData:
     """Data for move/copy operations."""
-    vertices: dict[Graph_VertexKey, RenderVertex] = field(default_factory=dict)
-    edges: dict[Graph_EdgeKey, RenderEdge] = field(default_factory=dict)
+    vertices: dict[graph.VertexKey, RenderVertex] = field(default_factory=dict)
+    edges: dict[graph.EdgeKey, RenderEdge] = field(default_factory=dict)
 
 
 class RenderGraph:
@@ -26,41 +26,41 @@ class RenderGraph:
 
     EDGE_MARGIN = 3.0
 
-    def __init__(self, graph_key: Graph_GraphKey):
+    def __init__(self, graph_key: graph.GraphKey):
         self.graph_key = graph_key
 
-        self.vertex_map: dict[Graph_VertexKey, RenderVertex] = {}
-        self.edge_map: dict[Graph_EdgeKey, RenderEdge] = {}
+        self.vertex_map: dict[graph.VertexKey, RenderVertex] = {}
+        self.edge_map: dict[graph.EdgeKey, RenderEdge] = {}
         self.is_valid = True
 
-        self.vertex_keys: set[Graph_VertexKey] = set()
-        self.edge_keys: set[Graph_EdgeKey] = set()
-        self.selected_vertex_keys: set[Graph_VertexKey] = set()
-        self.selected_edge_keys: set[Graph_EdgeKey] = set()
+        self.vertex_keys: set[graph.VertexKey] = set()
+        self.edge_keys: set[graph.EdgeKey] = set()
+        self.selected_vertex_keys: set[graph.VertexKey] = set()
+        self.selected_edge_keys: set[graph.EdgeKey] = set()
 
         self.vertices: list[RenderVertex] = []
         self.edges: list[RenderEdge] = []
         self.selected_vertices: list[RenderVertex] = []
         self.selected_edges: list[RenderEdge] = []
 
-        self.connector_vertex_key: Optional[Graph_VertexKey] = None
+        self.connector_vertex_key: Optional[graph.VertexKey] = None
         self.move_copy_data: Optional[MoveCopyData] = None
 
         self.interactive_start_location = QPointF()
         self.interactive_drag_offset = QPointF()
-        self.interactive_vertex_keys: set[Graph_VertexKey] = set()
+        self.interactive_vertex_keys: set[graph.VertexKey] = set()
 
         self._painter: Optional[QPainter] = None
         self._rect = QRectF()
 
     @staticmethod
-    def make(graph_key: Graph_GraphKey) -> RenderGraph:
+    def make(graph_key: graph.GraphKey) -> RenderGraph:
         return RenderGraph(graph_key)
 
     def has_selection(self) -> bool:
         return len(self.selected_vertex_keys) > 0 or len(self.selected_edge_keys) > 0
 
-    def has_edge(self, va_key: Graph_VertexKey, vb_key: Graph_VertexKey) -> bool:
+    def has_edge(self, va_key: graph.VertexKey, vb_key: graph.VertexKey) -> bool:
         for edge in self.edge_map.values():
             if ((edge.va.vertex_key == va_key and edge.vb.vertex_key == vb_key) or
                 (edge.va.vertex_key == vb_key and edge.vb.vertex_key == va_key)):
@@ -287,9 +287,9 @@ class RenderGraph:
         self.update_rendered_edges()
 
     def move_copy_collect_vertices(self):
-        from model.context import Context
-        from ge import attachments
-        from model import tools
+        from ge.context import Context
+        from gei.graph import attachments
+        from ge import tools
 
         context = Context.instance()
         if not context or not context.store.has_database():
@@ -300,7 +300,7 @@ class RenderGraph:
         self.interactive_vertex_keys.clear()
 
         value = tools.next_vertex_value(attachment_getting, self.graph_key)
-        vertex_map: dict[Graph_VertexKey, Graph_VertexKey] = {}
+        vertex_map: dict[graph.VertexKey, graph.VertexKey] = {}
         data = MoveCopyData()
 
         candidate_vertex_keys = set(self.selected_vertex_keys)
@@ -314,7 +314,7 @@ class RenderGraph:
         for vertex_key in candidate_vertex_keys:
             vertex = self.vertex_map.get(vertex_key)
             if vertex:
-                new_vertex_key = Graph_VertexKey.create()
+                new_vertex_key = graph.VertexKey.create()
                 new_render_vertex = RenderVertex.make(new_vertex_key, value, vertex.position, vertex.color, True)
                 vertex_map[vertex_key] = new_vertex_key
                 self.vertex_map[new_vertex_key] = new_render_vertex
@@ -323,7 +323,7 @@ class RenderGraph:
                 self.interactive_vertex_keys.add(new_vertex_key)
                 value += 1
 
-        candidate_edge_keys: set[Graph_EdgeKey] = set()
+        candidate_edge_keys: set[graph.EdgeKey] = set()
         for edge_key, render_edge in self.edge_map.items():
             if edge_key in self.selected_edge_keys:
                 if (render_edge.va.vertex_key in candidate_vertex_keys or
@@ -336,7 +336,7 @@ class RenderGraph:
                 va_key = vertex_map.get(edge.va.vertex_key, edge.va.vertex_key)
                 vb_key = vertex_map.get(edge.vb.vertex_key, edge.vb.vertex_key)
 
-                new_edge_key = Graph_EdgeKey.create()
+                new_edge_key = graph.EdgeKey.create()
                 render_edge = RenderEdge.make(new_edge_key, self.vertex_map[va_key], self.vertex_map[vb_key])
                 self.edge_map[new_edge_key] = render_edge
                 self.edge_keys.add(new_edge_key)

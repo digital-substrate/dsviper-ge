@@ -4,10 +4,9 @@ from PySide6.QtWidgets import QFrame, QWidget
 
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
 from .ui_statistics import Ui_StatisticsComponent
-from model.context import Context
-import ge.attachments as attachments
-import ge.data as data
-
+from ge.context import Context
+from gei.graph import attachments as attachments
+from gei import graph
 class StatisticsComponent(QWidget, Ui_StatisticsComponent):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -47,25 +46,25 @@ class StatisticsComponent(QWidget, Ui_StatisticsComponent):
         attachment_getting = self._context.store.attachment_getting()
         graph_key = self._context.graph_key
 
-        vertex_keys = data.Set_Graph_VertexKey()
-        edge_keys = data.Set_Graph_EdgeKey()
-        if opt := attachments.graph_graph_topology_get(attachment_getting, graph_key):
-            topology = opt.unwrap()
+        vertex_keys = set[graph.VertexKey]()
+        edge_keys = set[graph.EdgeKey]()
+        if opt := attachments.Graph.topology.get(attachment_getting, graph_key):
+            topology = opt
             vertex_keys = topology.vertex_keys
             edge_keys = topology.edge_keys
 
-        selected_vertex_keys = data.Set_Graph_VertexKey()
-        selected_edge_keys = data.Set_Graph_EdgeKey()
-        if opt := attachments.graph_graph_selection_get(attachment_getting, graph_key):
-            selection = opt.unwrap()
+        selected_vertex_keys = set[graph.VertexKey]()
+        selected_edge_keys = set[graph.EdgeKey]()
+        if opt := attachments.Graph.selection.get(attachment_getting, graph_key):
+            selection = opt
             selected_vertex_keys = selection.vertex_keys
             selected_edge_keys = selection.edge_keys
 
         self.w_vertices_label.setText(f"{len(selected_vertex_keys):03d}/{len(vertex_keys):03d}")
         self.w_edges_label.setText(f"{len(selected_edge_keys):03d}/{len(edge_keys):03d}")
 
-        values = [opt.unwrap().value for vertex_key in vertex_keys
-                  if (opt := attachments.graph_vertex_visual_attributes_get(attachment_getting, vertex_key))]
+        values = [opt.value for vertex_key in vertex_keys
+                  if (opt := attachments.Vertex.visual_attributes.get(attachment_getting, vertex_key))]
 
         if values:
             self.w_min_max_label.setText(f"{min(values):03d}/{max(values):03d}")

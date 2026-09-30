@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ge.data import Graph_EdgeKey
+from gei import graph
 from .vertex import RenderVertex
 
 
 @dataclass
 class RenderEdge:
     """An edge for rendering."""
-    edge_key: Graph_EdgeKey
+    edge_key: graph.EdgeKey
     va: RenderVertex
     vb: RenderVertex
 
@@ -17,7 +17,7 @@ class RenderEdge:
         return self.va.is_valid and self.vb.is_valid
 
     @staticmethod
-    def make(edge_key: Graph_EdgeKey, va: RenderVertex, vb: RenderVertex) -> RenderEdge:
+    def make(edge_key: graph.EdgeKey, va: RenderVertex, vb: RenderVertex) -> RenderEdge:
         return RenderEdge(edge_key, va, vb)
 
     def __lt__(self, other: RenderEdge) -> bool:

@@ -4,9 +4,9 @@ import dsviper
 from PySide6.QtWidgets import QFrame, QListWidgetItem, QApplication
 
 from .ui_comments import Ui_CommentsComponent
-from model.context import Context
+from ge.context import Context
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
-from ge import attachments
+from gei.graph import attachments
 
 
 class CommentsItem(QListWidgetItem):
@@ -74,7 +74,7 @@ class CommentsComponent(QFrame, Ui_CommentsComponent):
         comment = label
         self._context.store.dispatch(
             f"Insert Comment '{comment}'",
-            lambda m: attachments.graph_graph_comments_insert(
+            lambda m: attachments.Graph.comments.insert(
                 m, self._context.graph_key, position, dsviper.ValueUUId.create(), comment
             )
         )
@@ -99,7 +99,7 @@ class CommentsComponent(QFrame, Ui_CommentsComponent):
         item_position = item.position
         self._context.store.dispatch(
             f"Update Comment '{item_label}' to '{new_label}'",
-            lambda m: attachments.graph_graph_comments_update(
+            lambda m: attachments.Graph.comments.update(
                 m, self._context.graph_key, item_position, new_label
             )
         )
@@ -119,7 +119,7 @@ class CommentsComponent(QFrame, Ui_CommentsComponent):
         item_position = item.position
         self._context.store.dispatch(
             f"Remove Comment '{item_label}'",
-            lambda m: attachments.graph_graph_comments_remove(
+            lambda m: attachments.Graph.comments.remove(
                 m, self._context.graph_key, item_position
             )
         )
@@ -142,9 +142,9 @@ class CommentsComponent(QFrame, Ui_CommentsComponent):
         self.w_list_widget.clear()
 
         try:
-            opt_comments = attachments.graph_graph_comments_get(attachment_getting, graph_key)
+            opt_comments = attachments.Graph.comments.get(attachment_getting, graph_key)
             if opt_comments:
-                comments = opt_comments.unwrap()
+                comments = opt_comments
                 for position, element in comments.items():
                     CommentsItem(element, position, self.w_list_widget)
         except Exception as e:

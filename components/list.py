@@ -7,16 +7,11 @@ from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QFrame, QListWidgetItem
 
 from .ui_list import Ui_ListComponent
-from model.context import Context
+from ge.context import Context
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
-from ge import attachments
-from ge.data import (
-    Graph_VertexKey,
-    Graph_EdgeKey,
-    Set_Graph_VertexKey,
-    Set_Graph_EdgeKey,
-)
-from model import selection_mixed
+from gei.graph import attachments
+from gei import graph
+from ge import selection_mixed
 from list.element import ListVertex, ListEdge
 from list.vertex_widget import ListVertexWidget
 from list.edge_widget import ListEdgeWidget
@@ -62,8 +57,8 @@ class ListComponent(QFrame, Ui_ListComponent):
     def _item_selection_changed(self):
         selected_items = self.w_list_widget.selectedItems()
 
-        selected_vertices = Set_Graph_VertexKey()
-        selected_edges = Set_Graph_EdgeKey()
+        selected_vertices = set[graph.VertexKey]()
+        selected_edges = set[graph.EdgeKey]()
 
         for item in selected_items:
             row = self.w_list_widget.indexFromItem(item).row()
@@ -151,10 +146,10 @@ class ListComponent(QFrame, Ui_ListComponent):
             sorted_graph = GraphSortedByValue.build(attachment_getting, graph_key)
 
             # Get topology vertex keys
-            vertex_keys = Set_Graph_VertexKey()
-            opt_topology = attachments.graph_graph_topology_get(attachment_getting, graph_key)
+            vertex_keys = set[graph.VertexKey]()
+            opt_topology = attachments.Graph.topology.get(attachment_getting, graph_key)
             if opt_topology:
-                vertex_keys = opt_topology.unwrap().vertex_keys
+                vertex_keys = opt_topology.vertex_keys
 
             for sorted_vertex in sorted_graph.sorted_vertices():
                 list_vertex = self._create_list_vertex(
@@ -187,11 +182,11 @@ class ListComponent(QFrame, Ui_ListComponent):
         graph_key = self._context.graph_key
 
         try:
-            vertex_keys = Set_Graph_VertexKey()
-            edge_keys = Set_Graph_EdgeKey()
-            opt_selection = attachments.graph_graph_selection_get(attachment_getting, graph_key)
+            vertex_keys = set[graph.VertexKey]()
+            edge_keys = set[graph.EdgeKey]()
+            opt_selection = attachments.Graph.selection.get(attachment_getting, graph_key)
             if opt_selection:
-                selection = opt_selection.unwrap()
+                selection = opt_selection
                 vertex_keys = selection.vertex_keys
                 edge_keys = selection.edge_keys
 
@@ -208,12 +203,12 @@ class ListComponent(QFrame, Ui_ListComponent):
 
         return result
 
-    def _create_list_vertex(self, getting, vertex_key: Graph_VertexKey,
-                            vertex_keys: Set_Graph_VertexKey) -> ListVertex:
+    def _create_list_vertex(self, getting, vertex_key: graph.VertexKey,
+                            vertex_keys: set[graph.VertexKey]) -> ListVertex:
         """Create a ListVertex from a vertex key."""
-        opt_attrs = attachments.graph_vertex_visual_attributes_get(getting, vertex_key)
+        opt_attrs = attachments.Vertex.visual_attributes.get(getting, vertex_key)
         if opt_attrs:
-            attrs = opt_attrs.unwrap()
+            attrs = opt_attrs
             value = attrs.value
             color = QColor(
                 int(attrs.color.red * 255),
@@ -227,9 +222,9 @@ class ListComponent(QFrame, Ui_ListComponent):
         exists = vertex_key in vertex_keys
         return ListVertex.make(vertex_key, value, color, exists)
 
-    def _create_list_edge(self, getting, edge_key: Graph_EdgeKey,
-                          va_key: Graph_VertexKey, vb_key: Graph_VertexKey,
-                          vertex_keys: Set_Graph_VertexKey) -> ListEdge:
+    def _create_list_edge(self, getting, edge_key: graph.EdgeKey,
+                          va_key: graph.VertexKey, vb_key: graph.VertexKey,
+                          vertex_keys: set[graph.VertexKey]) -> ListEdge:
         """Create a ListEdge from an edge key."""
         va = self._create_list_vertex(getting, va_key, vertex_keys)
         vb = self._create_list_vertex(getting, vb_key, vertex_keys)

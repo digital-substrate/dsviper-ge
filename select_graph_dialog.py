@@ -6,9 +6,9 @@ from PySide6.QtCore import QItemSelectionModel
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QDialog, QWidget, QListWidgetItem
 
-from model.context import Context
-from ge import attachments
-from ge.data import Graph_GraphKey
+from ge.context import Context
+from gei.graph import attachments
+from gei import graph
 
 from ui_select_graph_dialog import Ui_SelectGraphDialog
 
@@ -16,7 +16,7 @@ from ui_select_graph_dialog import Ui_SelectGraphDialog
 @dataclass
 class _Item:
     label: str
-    graph_key: Graph_GraphKey
+    graph_key: graph.GraphKey
 
 
 class SelectGraphDialog(QDialog):
@@ -52,12 +52,12 @@ class SelectGraphDialog(QDialog):
         self._items.clear()
 
         try:
-            graph_keys = attachments.graph_graph_description_keys(attachment_getting)
+            graph_keys = attachments.Graph.description.keys(attachment_getting)
             for graph_key in graph_keys:
-                opt = attachments.graph_graph_description_get(attachment_getting, graph_key)
+                opt = attachments.Graph.description.get(attachment_getting, graph_key)
                 if not opt:
                     continue
-                description = opt.unwrap()
+                description = opt
                 self._items.append(_Item(label=description.name, graph_key=graph_key))
 
             self._items.sort(key=lambda item: item.label)

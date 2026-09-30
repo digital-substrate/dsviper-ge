@@ -5,8 +5,8 @@ from typing import TYPE_CHECKING
 
 from dsviper import AttachmentGetting
 
-from ge import attachments
-from ge.data import Graph_GraphKey, Graph_VertexKey, Graph_EdgeKey
+from gei.graph import attachments
+from gei import graph
 
 if TYPE_CHECKING:
     pass
@@ -15,14 +15,14 @@ if TYPE_CHECKING:
 @dataclass
 class SortedEdge:
     """An edge in the sorted graph."""
-    edge_key: Graph_EdgeKey
-    vertex_key: Graph_VertexKey
+    edge_key: graph.EdgeKey
+    vertex_key: graph.VertexKey
 
 
 @dataclass
 class SortedVertex:
     """A vertex in the sorted graph."""
-    vertex_key: Graph_VertexKey
+    vertex_key: graph.VertexKey
     value: int
     edges: list[SortedEdge] = field(default_factory=list)
 
@@ -31,7 +31,7 @@ class GraphSortedByValue:
     """A graph structure sorted by vertex value."""
 
     def __init__(self):
-        self.vertices: dict[Graph_VertexKey, SortedVertex] = {}
+        self.vertices: dict[graph.VertexKey, SortedVertex] = {}
 
     def sorted_vertices(self) -> list[SortedVertex]:
         """Get vertices sorted by value."""
@@ -40,42 +40,42 @@ class GraphSortedByValue:
         return result
 
     @staticmethod
-    def build(getting: AttachmentGetting, graph_key: Graph_GraphKey) -> GraphSortedByValue:
+    def build(getting: AttachmentGetting, graph_key: graph.GraphKey) -> GraphSortedByValue:
         """Build a sorted graph from attachments."""
         result = GraphSortedByValue()
 
         vertex_keys = set()
         edge_keys = set()
 
-        opt_topology = attachments.graph_graph_topology_get(getting, graph_key)
+        opt_topology = attachments.Graph.topology.get(getting, graph_key)
         if opt_topology:
-            topology = opt_topology.unwrap()
+            topology = opt_topology
             vertex_keys = set(topology.vertex_keys)
             edge_keys = set(topology.edge_keys)
 
         # Add vertices from edge topologies (in case they're not in graph topology)
         for edge_key in edge_keys:
-            opt_edge_topo = attachments.graph_edge_topology_get(getting, edge_key)
+            opt_edge_topo = attachments.Edge.topology.get(getting, edge_key)
             if opt_edge_topo:
-                edge_topo = opt_edge_topo.unwrap()
+                edge_topo = opt_edge_topo
                 vertex_keys.add(edge_topo.va_key)
                 vertex_keys.add(edge_topo.vb_key)
 
         # Build vertex entries
         for vertex_key in vertex_keys:
-            opt_attrs = attachments.graph_vertex_visual_attributes_get(getting, vertex_key)
+            opt_attrs = attachments.Vertex.visual_attributes.get(getting, vertex_key)
             value = -1
             if opt_attrs:
-                value = opt_attrs.unwrap().value
+                value = opt_attrs.value
             result.vertices[vertex_key] = SortedVertex(vertex_key, value)
 
         # Build edge entries
         for edge_key in edge_keys:
-            opt_edge_topo = attachments.graph_edge_topology_get(getting, edge_key)
+            opt_edge_topo = attachments.Edge.topology.get(getting, edge_key)
             if not opt_edge_topo:
                 continue
 
-            edge_topo = opt_edge_topo.unwrap()
+            edge_topo = opt_edge_topo
             va_key = edge_topo.va_key
             vb_key = edge_topo.vb_key
 

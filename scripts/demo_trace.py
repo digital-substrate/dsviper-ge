@@ -1,9 +1,8 @@
 from __future__ import annotations
 from dsviper import *
-from ge import *
-import ge.attachments as gea
-
-
+from gei import graph
+from gei.graph import attachments
+from gei.graph import attachments as gea
 state = ctx.state()
 for a in state.definitions().attachments():
     for k in state.attachment_getting().keys(a):

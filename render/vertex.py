@@ -5,13 +5,13 @@ from dataclasses import dataclass
 from PySide6.QtCore import QPointF
 from PySide6.QtGui import QColor
 
-from ge.data import Graph_VertexKey
+from gei import graph
 
 
 @dataclass
 class RenderVertex:
     """A vertex for rendering."""
-    vertex_key: Graph_VertexKey
+    vertex_key: graph.VertexKey
     value: int
     position: QPointF
     color: QColor
@@ -21,7 +21,7 @@ class RenderVertex:
         return "?" if self.value == -1 else str(self.value)
 
     @staticmethod
-    def make(vertex_key: Graph_VertexKey, value: int, position: QPointF,
+    def make(vertex_key: graph.VertexKey, value: int, position: QPointF,
              color: QColor, is_valid: bool) -> RenderVertex:
         return RenderVertex(vertex_key, value, position, color, is_valid)
 

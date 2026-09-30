@@ -4,10 +4,10 @@ from PySide6.QtGui import QCursor
 from PySide6.QtWidgets import QFrame, QHBoxLayout
 
 from .ui_render import Ui_RenderComponent
-from model.context import Context
+from ge.context import Context
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
 from render.widget import RenderWidget
-from ge.data import Graph_GraphKey, Graph_VertexKey, Graph_EdgeKey
+from gei import graph
 
 
 class RenderComponent(QFrame, Ui_RenderComponent):
@@ -52,21 +52,21 @@ class RenderComponent(QFrame, Ui_RenderComponent):
 
     # MARK: - Picking
 
-    def pick_vertex(self) -> Graph_VertexKey | None:
+    def pick_vertex(self) -> graph.VertexKey | None:
         """Pick a vertex at the current cursor position."""
         if self._render_widget.render_graph():
             location = self._render_widget.mapFromGlobal(QCursor.pos())
             return self._render_widget.pick_vertex(location)
         return None
 
-    def pick_edge(self) -> Graph_EdgeKey | None:
+    def pick_edge(self) -> graph.EdgeKey | None:
         """Pick an edge at the current cursor position."""
         if self._render_widget.render_graph():
             location = self._render_widget.mapFromGlobal(QCursor.pos())
             return self._render_widget.pick_edge(location)
         return None
 
-    def pick_graph(self) -> Graph_GraphKey | None:
+    def pick_graph(self) -> graph.GraphKey | None:
         """Pick a graph at the current cursor position."""
         if self._render_widget.render_graph():
             mouse_pos = self._render_widget.mapFromGlobal(QCursor.pos())

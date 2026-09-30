@@ -4,13 +4,13 @@ from dataclasses import dataclass, field
 
 from PySide6.QtGui import QColor
 
-from ge.data import Graph_VertexKey, Graph_EdgeKey
+from gei import graph
 
 
 @dataclass
 class ListVertex:
     """Represents a vertex in the list."""
-    vertex_key: Graph_VertexKey
+    vertex_key: graph.VertexKey
     value: int
     color: QColor
     exists: bool
@@ -19,14 +19,14 @@ class ListVertex:
         return str(self.value)
 
     @staticmethod
-    def make(vertex_key: Graph_VertexKey, value: int, color: QColor, exists: bool) -> ListVertex:
+    def make(vertex_key: graph.VertexKey, value: int, color: QColor, exists: bool) -> ListVertex:
         return ListVertex(vertex_key, value, color, exists)
 
 
 @dataclass
 class ListEdge:
     """Represents an edge in the list."""
-    edge_key: Graph_EdgeKey
+    edge_key: graph.EdgeKey
     va: ListVertex
     vb: ListVertex
 
@@ -34,5 +34,5 @@ class ListEdge:
         return f"{self.va.value} - {self.vb.value}"
 
     @staticmethod
-    def make(edge_key: Graph_EdgeKey, va: ListVertex, vb: ListVertex) -> ListEdge:
+    def make(edge_key: graph.EdgeKey, va: ListVertex, vb: ListVertex) -> ListEdge:
         return ListEdge(edge_key, va, vb)

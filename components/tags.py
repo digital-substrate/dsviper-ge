@@ -3,10 +3,10 @@ from __future__ import annotations
 from PySide6.QtWidgets import QFrame, QTreeWidgetItem, QApplication
 
 from .ui_tags import Ui_TagsComponent
-from model.context import Context
+from ge.context import Context
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
-from ge import attachments
-from ge.data import Map_string_to_string, Set_string
+from gei.graph import attachments
+from gei import graph
 
 
 class TagsComponent(QFrame, Ui_TagsComponent):
@@ -72,8 +72,8 @@ class TagsComponent(QFrame, Ui_TagsComponent):
 
         self._context.store.dispatch(
             f"Set Tag '{key}':'{value}'",
-            lambda m: attachments.graph_graph_tags_union(
-                m, self._context.graph_key, Map_string_to_string({key: value})
+            lambda m: attachments.Graph.tags.union(
+                m, self._context.graph_key, dict[str, str]({key: value})
             )
         )
 
@@ -88,8 +88,8 @@ class TagsComponent(QFrame, Ui_TagsComponent):
 
         self._context.store.dispatch(
             f"Update Tag '{key}':'{value}'",
-            lambda m: attachments.graph_graph_tags_update(
-                m, self._context.graph_key, Map_string_to_string({key: value})
+            lambda m: attachments.Graph.tags.update(
+                m, self._context.graph_key, dict[str, str]({key: value})
             )
         )
 
@@ -107,8 +107,8 @@ class TagsComponent(QFrame, Ui_TagsComponent):
 
         self._context.store.dispatch(
             "Unset Tag",
-            lambda m: attachments.graph_graph_tags_subtract(
-                m, self._context.graph_key, Set_string(keys)
+            lambda m: attachments.Graph.tags.subtract(
+                m, self._context.graph_key, set[str](keys)
             )
         )
 
@@ -141,9 +141,9 @@ class TagsComponent(QFrame, Ui_TagsComponent):
         self.w_tree_widget.clear()
 
         try:
-            opt_tags = attachments.graph_graph_tags_get(attachment_getting, graph_key)
+            opt_tags = attachments.Graph.tags.get(attachment_getting, graph_key)
             if opt_tags:
-                tags = opt_tags.unwrap()
+                tags = opt_tags
                 for key, value in tags.items():
                     QTreeWidgetItem(self.w_tree_widget, [key, value])
         except Exception as e:
