@@ -6,7 +6,7 @@ from .ui_tags import Ui_TagsComponent
 from ge.context import Context
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 
 
 class TagsComponent(QFrame, Ui_TagsComponent):
@@ -73,7 +73,7 @@ class TagsComponent(QFrame, Ui_TagsComponent):
         self._context.store.dispatch(
             f"Set Tag '{key}':'{value}'",
             lambda m: attachments.Graph.tags.union(
-                m, self._context.graph_key, dict[str, str]({key: value})
+                m, self._context.graph_key, containers.Map_of_string_to_string({key: value})
             )
         )
 
@@ -89,7 +89,7 @@ class TagsComponent(QFrame, Ui_TagsComponent):
         self._context.store.dispatch(
             f"Update Tag '{key}':'{value}'",
             lambda m: attachments.Graph.tags.update(
-                m, self._context.graph_key, dict[str, str]({key: value})
+                m, self._context.graph_key, containers.Map_of_string_to_string({key: value})
             )
         )
 
@@ -108,7 +108,7 @@ class TagsComponent(QFrame, Ui_TagsComponent):
         self._context.store.dispatch(
             "Unset Tag",
             lambda m: attachments.Graph.tags.subtract(
-                m, self._context.graph_key, set[str](keys)
+                m, self._context.graph_key, containers.Set_of_string(keys)
             )
         )
 

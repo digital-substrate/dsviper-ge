@@ -1,13 +1,13 @@
 from dsviper import AttachmentMutating
 
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 
 from ge import tools
 from ge import random as model_random
 
 
-def find_valid_vertex_keys(attachment_mutating: AttachmentMutating) -> set[graph.VertexKey]:
+def find_valid_vertex_keys(attachment_mutating: AttachmentMutating) -> containers.Set_of_Graph_VertexKey:
     """Find vertices that have both visual and render attributes."""
     visual_keys = attachments.Vertex.visual_attributes.keys(attachment_mutating)
     render_keys = attachments.Vertex.render_2d_attributes.keys(attachment_mutating)
@@ -16,9 +16,9 @@ def find_valid_vertex_keys(attachment_mutating: AttachmentMutating) -> set[graph
 
 def _may_delete(vertex_key: graph.VertexKey,
                 edge_key: graph.EdgeKey,
-                valid_vertex_keys: set[graph.VertexKey],
-                vertex_to_remove_keys: set[graph.VertexKey],
-                edges_to_remove_keys: set[graph.EdgeKey]) -> None:
+                valid_vertex_keys: containers.Set_of_Graph_VertexKey,
+                vertex_to_remove_keys: containers.Set_of_Graph_VertexKey,
+                edges_to_remove_keys: containers.Set_of_Graph_EdgeKey) -> None:
     """Mark vertex and edge for removal if vertex is invalid."""
     if vertex_key not in valid_vertex_keys:
         vertex_to_remove_keys.add(vertex_key)
@@ -27,8 +27,8 @@ def _may_delete(vertex_key: graph.VertexKey,
 
 def restore_by_deleting(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Restore integrity by deleting invalid vertices and edges."""
-    vertex_keys = set[graph.VertexKey]()
-    edge_keys = set[graph.EdgeKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
+    edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
@@ -39,13 +39,13 @@ def restore_by_deleting(attachment_mutating: AttachmentMutating, graph_key: grap
     valid_vertex_keys = find_valid_vertex_keys(attachment_mutating)
 
     # Remove invalid vertices
-    vertex_to_remove_keys = set[graph.VertexKey]()
+    vertex_to_remove_keys = containers.Set_of_Graph_VertexKey()
     for vertex_key in vertex_keys:
         if vertex_key not in valid_vertex_keys:
             vertex_to_remove_keys.add(vertex_key)
 
     # Remove invalid edges
-    edges_to_remove_keys = set[graph.EdgeKey]()
+    edges_to_remove_keys = containers.Set_of_Graph_EdgeKey()
     for edge_key in edge_keys:
         opt_edge = attachments.Edge.topology.get(attachment_mutating, edge_key)
         if not opt_edge:
@@ -67,10 +67,10 @@ def restore_by_deleting(attachment_mutating: AttachmentMutating, graph_key: grap
 
 def _may_restore_edge_vertex(vertex_key: graph.VertexKey,
                              edge_key: graph.EdgeKey,
-                             restorable_vertex_keys: set[graph.VertexKey],
-                             vertex_to_restore_keys: set[graph.VertexKey],
-                             vertex_to_remove_keys: set[graph.VertexKey],
-                             edge_to_remove_keys: set[graph.EdgeKey]) -> None:
+                             restorable_vertex_keys: containers.Set_of_Graph_VertexKey,
+                             vertex_to_restore_keys: containers.Set_of_Graph_VertexKey,
+                             vertex_to_remove_keys: containers.Set_of_Graph_VertexKey,
+                             edge_to_remove_keys: containers.Set_of_Graph_EdgeKey) -> None:
     """Mark vertex for restore or removal based on restorability."""
     if vertex_key in restorable_vertex_keys:
         vertex_to_restore_keys.add(vertex_key)
@@ -81,8 +81,8 @@ def _may_restore_edge_vertex(vertex_key: graph.VertexKey,
 
 def restore_by_respawning(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Restore integrity by respawning valid vertices and removing invalid ones."""
-    vertex_keys = set[graph.VertexKey]()
-    edge_keys = set[graph.EdgeKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
+    edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
@@ -94,8 +94,8 @@ def restore_by_respawning(attachment_mutating: AttachmentMutating, graph_key: gr
 
     # Start by removing non-restorable vertices
     vertex_to_remove_keys = tools.difference_vertex_keys(vertex_keys, restorable_vertex_keys)
-    vertex_to_restore_keys = set[graph.VertexKey]()
-    edge_to_remove_keys = set[graph.EdgeKey]()
+    vertex_to_restore_keys = containers.Set_of_Graph_VertexKey()
+    edge_to_remove_keys = containers.Set_of_Graph_EdgeKey()
 
     for edge_key in edge_keys:
         opt_edge = attachments.Edge.topology.get(attachment_mutating, edge_key)
@@ -118,13 +118,13 @@ class _RespawnState:
     def __init__(self, vertex_value: int):
         self.index = 0
         self.vertex_value = vertex_value
-        self.vertex_to_respawn_keys = set[graph.VertexKey]()
+        self.vertex_to_respawn_keys = containers.Set_of_Graph_VertexKey()
 
 
 def _respawn(attachment_mutating: AttachmentMutating,
              vertex_key: graph.VertexKey,
-             vertex_visual_attributes_keys: set[graph.VertexKey],
-             vertex_render_2d_attributes_keys: set[graph.VertexKey],
+             vertex_visual_attributes_keys: containers.Set_of_Graph_VertexKey,
+             vertex_render_2d_attributes_keys: containers.Set_of_Graph_VertexKey,
              state: _RespawnState) -> None:
     """Respawn a vertex by creating missing attributes."""
     if vertex_key not in vertex_visual_attributes_keys:
@@ -151,8 +151,8 @@ def restore_by_creating(attachment_mutating: AttachmentMutating,
                         graph_key: graph.GraphKey,
                         value: int) -> None:
     """Restore integrity by creating missing vertex attributes."""
-    vertex_keys = set[graph.VertexKey]()
-    edge_keys = set[graph.EdgeKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
+    edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
@@ -164,7 +164,7 @@ def restore_by_creating(attachment_mutating: AttachmentMutating,
     vertex_render_2d_attributes_keys = attachments.Vertex.render_2d_attributes.keys(attachment_mutating)
 
     valid_vertex_keys = find_valid_vertex_keys(attachment_mutating)
-    edge_to_remove_keys = set[graph.EdgeKey]()
+    edge_to_remove_keys = containers.Set_of_Graph_EdgeKey()
 
     state = _RespawnState(value)
 

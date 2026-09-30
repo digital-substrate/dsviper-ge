@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import typing
+
 from PySide6.QtCore import QObject, Signal, QPointF
 from PySide6.QtGui import QColor
 
@@ -13,7 +15,7 @@ class TransientNotifier(QObject):
     """
 
     # Signals
-    vertices_moved = Signal(object, QPointF)  # set[graph.VertexKey], offset
+    vertices_moved = Signal(object, QPointF)  # the moved vertex keys, offset
     vertex_value_changed = Signal(object, int)  # graph.VertexKey, value
     vertex_color_changed = Signal(object, QColor)  # graph.VertexKey, color
     vertex_position_changed = Signal(object, QPointF)  # graph.VertexKey, position
@@ -29,7 +31,7 @@ class TransientNotifier(QObject):
     def __init__(self):
         super().__init__()
 
-    def notify_vertices_move(self, keys: set[graph.VertexKey], offset: QPointF):
+    def notify_vertices_move(self, keys: typing.Iterable[graph.VertexKey], offset: QPointF):
         """Notify that vertices are being moved."""
         self.vertices_moved.emit(keys, offset)
 

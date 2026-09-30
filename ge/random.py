@@ -4,7 +4,7 @@ import string
 from dsviper import AttachmentMutating, AttachmentGetting, ValueUUId
 
 from gei.graph import attachments
-from gei import graph as gei_graph
+from gei import containers, graph as gei_graph
 
 from ge import vertex as model_vertex
 from ge import edge as model_edge
@@ -60,7 +60,7 @@ def add_vertex(attachment_mutating: AttachmentMutating,
     value = next_vertex_value(attachment_mutating, graph_key)
     vertex_key = create_vertex(attachment_mutating, value, rect)
 
-    vertex_keys = set[gei_graph.VertexKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
     vertex_keys.add(vertex_key)
     attachments.Graph.topology.union_vertex_keys(attachment_mutating, graph_key, vertex_keys)
 
@@ -161,7 +161,7 @@ def graph(attachment_mutating: AttachmentMutating,
     """Generate a random graph with vertices and edges."""
     value = next_vertex_value(attachment_mutating, graph_key)
 
-    vertex_keys = set[gei_graph.VertexKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
     vertex_list = []
 
     for i in range(vertex_count):
@@ -177,10 +177,10 @@ def graph(attachment_mutating: AttachmentMutating,
 
 def add_edges(attachment_mutating: AttachmentMutating,
               edge_count: int,
-              vertex_keys: list[gei_graph.VertexKey]) -> set[gei_graph.EdgeKey]:
+              vertex_keys: list[gei_graph.VertexKey]) -> containers.Set_of_Graph_EdgeKey:
     """Add multiple random edges between given vertices."""
     edges: list[tuple[gei_graph.VertexKey, gei_graph.VertexKey]] = []
-    edge_keys = set[gei_graph.EdgeKey]()
+    edge_keys = containers.Set_of_Graph_EdgeKey()
 
     max_edges = len(vertex_keys) * (len(vertex_keys) - 1) // 2
     count = min(max_edges, edge_count)
@@ -218,7 +218,7 @@ def tag(attachment_mutating: AttachmentMutating, graph_key: gei_graph.GraphKey) 
     """Add a random tag to the graph."""
     key = make_word(3)
     value = make_word(5)
-    tags = dict[str, str]({key: value})
+    tags = containers.Map_of_string_to_string({key: value})
     attachments.Graph.tags.union(attachment_mutating, graph_key, tags)
 
 

@@ -1,7 +1,7 @@
 from dsviper import AttachmentMutating, AttachmentGetting
 
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 
 from ge import tools
 
@@ -10,22 +10,22 @@ def clear(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) ->
     """Clear all topology, selection, comments, and tags from a graph."""
     attachments.Graph.topology.set(attachment_mutating, graph_key, graph.GraphTopology())
     attachments.Graph.selection.set(attachment_mutating, graph_key, graph.GraphSelection())
-    attachments.Graph.comments.set(attachment_mutating, graph_key, list[str]())
-    attachments.Graph.tags.set(attachment_mutating, graph_key, dict[str, str]())
+    attachments.Graph.comments.set(attachment_mutating, graph_key, containers.XArray_of_string())
+    attachments.Graph.tags.set(attachment_mutating, graph_key, containers.Map_of_string_to_string())
 
 
 def remove(attachment_mutating: AttachmentMutating,
            graph_key: graph.GraphKey,
-           vertex_keys: set[graph.VertexKey],
-           edge_keys: set[graph.EdgeKey]) -> None:
+           vertex_keys: containers.Set_of_Graph_VertexKey,
+           edge_keys: containers.Set_of_Graph_EdgeKey) -> None:
     """Remove vertices and edges from the graph, including connected edges."""
-    topology_edge_keys = set[graph.EdgeKey]()
+    topology_edge_keys = containers.Set_of_Graph_EdgeKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
         topology_edge_keys = opt.edge_keys
 
     # Find edges connected to removed vertices
-    connected_edge_keys = set[graph.EdgeKey]()
+    connected_edge_keys = containers.Set_of_Graph_EdgeKey()
     for vertex_key in vertex_keys:
         for edge_key in topology_edge_keys:
             opt_edge = attachments.Edge.topology.get(attachment_mutating, edge_key)
@@ -42,7 +42,7 @@ def remove(attachment_mutating: AttachmentMutating,
 
 def remove_bugged(attachment_mutating: AttachmentMutating,
                   graph_key: graph.GraphKey,
-                  vertex_keys: set[graph.VertexKey]) -> None:
+                  vertex_keys: containers.Set_of_Graph_VertexKey) -> None:
     """Remove vertices without removing connected edges (intentionally buggy)."""
     attachments.Graph.topology.subtract_vertex_keys(attachment_mutating, graph_key, vertex_keys)
 
@@ -88,8 +88,8 @@ def has_edges(attachment_getting: AttachmentGetting, graph_key: graph.GraphKey) 
 
 def has_remaining_edges(attachment_getting: AttachmentGetting, graph_key: graph.GraphKey) -> bool:
     """Check if there are remaining edges that can be added to the graph."""
-    vertex_keys = set[graph.VertexKey]()
-    edge_keys = set[graph.EdgeKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
+    edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.topology.get(attachment_getting, graph_key)
     if opt:

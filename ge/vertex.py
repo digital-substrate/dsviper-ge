@@ -1,7 +1,7 @@
 from dsviper import AttachmentMutating
 
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 
 
 def create(attachment_mutating: AttachmentMutating,
@@ -31,7 +31,7 @@ def add(attachment_mutating: AttachmentMutating,
 
     vertex_key = create(attachment_mutating, value, position, color)
 
-    vertex_keys = set[graph.VertexKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
     vertex_keys.add(vertex_key)
     attachments.Graph.topology.union_vertex_keys(attachment_mutating, graph_key, vertex_keys)
 

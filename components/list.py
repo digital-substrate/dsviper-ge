@@ -10,7 +10,7 @@ from .ui_list import Ui_ListComponent
 from ge.context import Context
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 from ge import selection_mixed
 from list.element import ListVertex, ListEdge
 from list.vertex_widget import ListVertexWidget
@@ -57,8 +57,8 @@ class ListComponent(QFrame, Ui_ListComponent):
     def _item_selection_changed(self):
         selected_items = self.w_list_widget.selectedItems()
 
-        selected_vertices = set[graph.VertexKey]()
-        selected_edges = set[graph.EdgeKey]()
+        selected_vertices = containers.Set_of_Graph_VertexKey()
+        selected_edges = containers.Set_of_Graph_EdgeKey()
 
         for item in selected_items:
             row = self.w_list_widget.indexFromItem(item).row()
@@ -146,7 +146,7 @@ class ListComponent(QFrame, Ui_ListComponent):
             sorted_graph = GraphSortedByValue.build(attachment_getting, graph_key)
 
             # Get topology vertex keys
-            vertex_keys = set[graph.VertexKey]()
+            vertex_keys = containers.Set_of_Graph_VertexKey()
             opt_topology = attachments.Graph.topology.get(attachment_getting, graph_key)
             if opt_topology:
                 vertex_keys = opt_topology.vertex_keys
@@ -182,8 +182,8 @@ class ListComponent(QFrame, Ui_ListComponent):
         graph_key = self._context.graph_key
 
         try:
-            vertex_keys = set[graph.VertexKey]()
-            edge_keys = set[graph.EdgeKey]()
+            vertex_keys = containers.Set_of_Graph_VertexKey()
+            edge_keys = containers.Set_of_Graph_EdgeKey()
             opt_selection = attachments.Graph.selection.get(attachment_getting, graph_key)
             if opt_selection:
                 selection = opt_selection
@@ -204,7 +204,7 @@ class ListComponent(QFrame, Ui_ListComponent):
         return result
 
     def _create_list_vertex(self, getting, vertex_key: graph.VertexKey,
-                            vertex_keys: set[graph.VertexKey]) -> ListVertex:
+                            vertex_keys: containers.Set_of_Graph_VertexKey) -> ListVertex:
         """Create a ListVertex from a vertex key."""
         opt_attrs = attachments.Vertex.visual_attributes.get(getting, vertex_key)
         if opt_attrs:
@@ -224,7 +224,7 @@ class ListComponent(QFrame, Ui_ListComponent):
 
     def _create_list_edge(self, getting, edge_key: graph.EdgeKey,
                           va_key: graph.VertexKey, vb_key: graph.VertexKey,
-                          vertex_keys: set[graph.VertexKey]) -> ListEdge:
+                          vertex_keys: containers.Set_of_Graph_VertexKey) -> ListEdge:
         """Create a ListEdge from an edge key."""
         va = self._create_list_vertex(getting, va_key, vertex_keys)
         vb = self._create_list_vertex(getting, vb_key, vertex_keys)

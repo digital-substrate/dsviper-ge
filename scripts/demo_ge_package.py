@@ -1,6 +1,6 @@
 from __future__ import annotations
 from dsviper import *
-from gei import graph
+from gei import containers, graph
 from gei.graph import attachments as A
 import random
 import traceback
@@ -20,7 +20,8 @@ def random_comment(attachment_mutating: AttachmentMutating, graph_key: graph.Gra
 
 
 def random_tag(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey):
-    A.Graph.tags.union(attachment_mutating, graph_key, {random_word(3): random_word(5)})
+    A.Graph.tags.union(attachment_mutating, graph_key,
+                      containers.Map_of_string_to_string({random_word(3): random_word(5)}))
 
 
 def random_position(min: int, max: int) -> graph.Position:
@@ -46,7 +47,9 @@ def create_vertex(attachment_mutating: AttachmentMutating, graph_key: graph.Grap
 
 def add_vertex(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey, value: int, position: graph.Position, color: graph.Color) -> graph.VertexKey:
     vertex_key = create_vertex(attachment_mutating, graph_key, value, position, color)
-    A.Graph.topology.union_vertex_keys(attachment_mutating, graph_key, {vertex_key})
+    keys = containers.Set_of_Graph_VertexKey()
+    keys.add(vertex_key)
+    A.Graph.topology.union_vertex_keys(attachment_mutating, graph_key, keys)
     return vertex_key
 
 
@@ -59,7 +62,9 @@ def random_vertex(attachment_mutating: AttachmentMutating, graph_key: graph.Grap
 def create_edge(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey, va_key: graph.VertexKey, vb_key: graph.VertexKey) -> graph.EdgeKey:
     edge_key = graph.EdgeKey.create()
     A.Edge.topology.set(attachment_mutating, edge_key, graph.EdgeTopology(va_key=va_key, vb_key=vb_key))
-    A.Graph.topology.union_edge_keys(attachment_mutating, graph_key, {edge_key})
+    keys = containers.Set_of_Graph_EdgeKey()
+    keys.add(edge_key)
+    A.Graph.topology.union_edge_keys(attachment_mutating, graph_key, keys)
     return edge_key
 
 
@@ -120,17 +125,17 @@ def random_graph(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
                return True
         return False
 
-    def r_add_edge(attachment_mutating: AttachmentMutating, va_key: graph.VertexKey, vb_key: graph.VertexKey, edges: list[graph.EdgeTopology], edge_keys: set[graph.EdgeKey]):
+    def r_add_edge(attachment_mutating: AttachmentMutating, va_key: graph.VertexKey, vb_key: graph.VertexKey, edges: list[graph.EdgeTopology], edge_keys: containers.Set_of_Graph_EdgeKey):
         edge_key = graph.EdgeKey.create()
         edge = graph.EdgeTopology(va_key=va_key, vb_key=vb_key)
         A.Edge.topology.set(attachment_mutating, edge_key, edge)
         edges.append(edge)
         edge_keys.add(edge_key)
 
-    def r_add_edges(attachment_mutating: AttachmentMutating, edge_count: int, vertex_keys: set[graph.VertexKey]):
+    def r_add_edges(attachment_mutating: AttachmentMutating, edge_count: int, vertex_keys: containers.Set_of_Graph_VertexKey):
         candidate_keys = list(vertex_keys)
         edges: list[graph.EdgeTopology] = list()
-        edge_keys: set[graph.EdgeKey] = set()
+        edge_keys = containers.Set_of_Graph_EdgeKey()
 
         max_edge = len(vertex_keys) * (len(vertex_keys) - 1) / 2
         count = min(max_edge, edge_count)
@@ -147,7 +152,7 @@ def random_graph(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
         return edge_keys
 
     value = r_next_value(attachment_mutating)
-    vertex_keys: set[graph.VertexKey] = set()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
     for _ in range(vertex_count):
         vertex_keys.add(r_vertex(attachment_mutating, graph_key, value))
         value += 1

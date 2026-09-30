@@ -1,7 +1,7 @@
 from dsviper import AttachmentMutating
 
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 
 from ge import random as model_random
 
@@ -14,7 +14,7 @@ def mixed(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) ->
 
 def vertices(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Randomly select approximately 1/4 of the vertices."""
-    vertex_keys = set[graph.VertexKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
@@ -25,7 +25,7 @@ def vertices(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey)
         return
 
     count = len(vertex_keys) // 4
-    random_vertex_keys = set[graph.VertexKey]()
+    random_vertex_keys = containers.Set_of_Graph_VertexKey()
 
     while len(random_vertex_keys) < count:
         candidate = model_random.random_int() % len(candidate_keys)
@@ -36,7 +36,7 @@ def vertices(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey)
 
 def edges(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Randomly select approximately 1/4 of the edges."""
-    edge_keys = set[graph.EdgeKey]()
+    edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
@@ -47,7 +47,7 @@ def edges(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) ->
         return
 
     count = len(edge_keys) // 4
-    random_edge_keys = set[graph.EdgeKey]()
+    random_edge_keys = containers.Set_of_Graph_EdgeKey()
 
     while len(random_edge_keys) < count:
         candidate = model_random.random_int() % len(candidate_keys)

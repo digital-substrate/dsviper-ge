@@ -1,15 +1,15 @@
 from dsviper import AttachmentMutating, AttachmentGetting
 
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 
 from ge import tools
 
 
 def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Select all vertices and edges in the graph."""
-    vertex_keys = set[graph.VertexKey]()
-    edge_keys = set[graph.EdgeKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
+    edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
@@ -23,8 +23,8 @@ def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKe
 
 def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Deselect all vertices and edges in the graph."""
-    vertex_keys = set[graph.VertexKey]()
-    edge_keys = set[graph.EdgeKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
+    edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
@@ -38,8 +38,8 @@ def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
 
 def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Invert the selection of all vertices and edges."""
-    vertex_keys = set[graph.VertexKey]()
-    edge_keys = set[graph.EdgeKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
+    edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
@@ -47,8 +47,8 @@ def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -
         vertex_keys = topology.vertex_keys
         edge_keys = topology.edge_keys
 
-    selected_vertex_keys = set[graph.VertexKey]()
-    selected_edge_keys = set[graph.EdgeKey]()
+    selected_vertex_keys = containers.Set_of_Graph_VertexKey()
+    selected_edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
@@ -66,11 +66,11 @@ def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -
 
 def set_selection(attachment_mutating: AttachmentMutating,
                   graph_key: graph.GraphKey,
-                  vertex_keys: set[graph.VertexKey],
-                  edge_keys: set[graph.EdgeKey]) -> None:
+                  vertex_keys: containers.Set_of_Graph_VertexKey,
+                  edge_keys: containers.Set_of_Graph_EdgeKey) -> None:
     """Set the selection to specific vertices and edges."""
-    selected_vertex_keys = set[graph.VertexKey]()
-    selected_edge_keys = set[graph.EdgeKey]()
+    selected_vertex_keys = containers.Set_of_Graph_VertexKey()
+    selected_edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:

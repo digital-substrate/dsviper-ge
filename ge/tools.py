@@ -1,7 +1,7 @@
 from dsviper import AttachmentGetting
 
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 
 
 def next_vertex_value(attachment_getting: AttachmentGetting, graph_key: graph.GraphKey) -> int:
@@ -74,26 +74,26 @@ def safe_edge_label_from_vertices(attachment_getting: AttachmentGetting,
         return "?-?"
 
 
-def difference_vertex_keys(a: set[graph.VertexKey], b: set[graph.VertexKey]) -> set[graph.VertexKey]:
+def difference_vertex_keys(a: containers.Set_of_Graph_VertexKey, b: containers.Set_of_Graph_VertexKey) -> containers.Set_of_Graph_VertexKey:
     """Return elements in a but not in b."""
     return a - b
 
 
-def difference_edge_keys(a: set[graph.EdgeKey], b: set[graph.EdgeKey]) -> set[graph.EdgeKey]:
+def difference_edge_keys(a: containers.Set_of_Graph_EdgeKey, b: containers.Set_of_Graph_EdgeKey) -> containers.Set_of_Graph_EdgeKey:
     """Return elements in a but not in b."""
     return a - b
 
 
-def intersection_vertex_keys(a: set[graph.VertexKey], b: set[graph.VertexKey]) -> set[graph.VertexKey]:
+def intersection_vertex_keys(a: containers.Set_of_Graph_VertexKey, b: containers.Set_of_Graph_VertexKey) -> containers.Set_of_Graph_VertexKey:
     """Return elements in both a and b."""
     return a & b
 
 
-def intersection_edge_keys(a: set[graph.EdgeKey], b: set[graph.EdgeKey]) -> set[graph.EdgeKey]:
+def intersection_edge_keys(a: containers.Set_of_Graph_EdgeKey, b: containers.Set_of_Graph_EdgeKey) -> containers.Set_of_Graph_EdgeKey:
     """Return elements in both a and b."""
     return a & b
 
 
-def union_edge_keys(a: set[graph.EdgeKey], b: set[graph.EdgeKey]) -> set[graph.EdgeKey]:
+def union_edge_keys(a: containers.Set_of_Graph_EdgeKey, b: containers.Set_of_Graph_EdgeKey) -> containers.Set_of_Graph_EdgeKey:
     """Return elements in a or b."""
     return a | b

@@ -1,16 +1,16 @@
 from dsviper import AttachmentMutating, AttachmentGetting
 
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 
 from ge import random as model_random
 
 
 def referenced_keys(attachment_getting: AttachmentGetting,
-                    graph_key: graph.GraphKey) -> set[graph.VertexKey]:
+                    graph_key: graph.GraphKey) -> containers.Set_of_Graph_VertexKey:
     """Get all vertex keys referenced by the graph (including from edges)."""
-    vertex_keys = set[graph.VertexKey]()
-    edge_keys = set[graph.EdgeKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
+    edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.topology.get(attachment_getting, graph_key)
     if opt:
@@ -29,7 +29,7 @@ def referenced_keys(attachment_getting: AttachmentGetting,
 
 
 def increment_value(attachment_mutating: AttachmentMutating,
-                    vertex_keys: set[graph.VertexKey],
+                    vertex_keys: containers.Set_of_Graph_VertexKey,
                     increment: int) -> None:
     """Increment the value of vertices."""
     color = model_random.make_color()

@@ -1,7 +1,7 @@
 from dsviper import AttachmentMutating
 
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 
 from render.graph import MoveCopyData
 
@@ -11,7 +11,7 @@ def run(attachment_mutating: AttachmentMutating,
         move_copy_data: MoveCopyData,
         offset: graph.Position) -> None:
 
-    vertex_keys = set[graph.VertexKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
     for vertex_key, render_vertex in move_copy_data.vertices.items():
         color = graph.Color()
         color.red = render_vertex.color.redF()
@@ -32,7 +32,7 @@ def run(attachment_mutating: AttachmentMutating,
 
         vertex_keys.add(vertex_key)
 
-    edge_keys = set[graph.EdgeKey]()
+    edge_keys = containers.Set_of_Graph_EdgeKey()
     for edge_key, render_edge in move_copy_data.edges.items():
         topology = graph.EdgeTopology()
         topology.va_key = render_edge.va.vertex_key

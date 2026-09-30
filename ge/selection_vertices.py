@@ -1,7 +1,7 @@
 from dsviper import AttachmentMutating, AttachmentGetting
 
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 
 from ge import tools
 
@@ -10,8 +10,8 @@ def select(attachment_mutating: AttachmentMutating,
            graph_key: graph.GraphKey,
            vertex_key: graph.VertexKey) -> None:
     """Select a single vertex, deselecting all others."""
-    selected_vertex_keys = set[graph.VertexKey]()
-    selected_edge_keys = set[graph.EdgeKey]()
+    selected_vertex_keys = containers.Set_of_Graph_VertexKey()
+    selected_edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
@@ -21,7 +21,7 @@ def select(attachment_mutating: AttachmentMutating,
 
     attachments.Graph.selection.subtract_vertex_keys(attachment_mutating, graph_key, selected_vertex_keys)
 
-    new_selection = set[graph.VertexKey]()
+    new_selection = containers.Set_of_Graph_VertexKey()
     new_selection.add(vertex_key)
     attachments.Graph.selection.union_vertex_keys(attachment_mutating, graph_key, new_selection)
     attachments.Graph.selection.subtract_edge_keys(attachment_mutating, graph_key, selected_edge_keys)
@@ -29,10 +29,10 @@ def select(attachment_mutating: AttachmentMutating,
 
 def select_multiple(attachment_mutating: AttachmentMutating,
                     graph_key: graph.GraphKey,
-                    vertex_keys: set[graph.VertexKey]) -> None:
+                    vertex_keys: containers.Set_of_Graph_VertexKey) -> None:
     """Select multiple vertices, deselecting all others."""
-    selected_vertex_keys = set[graph.VertexKey]()
-    selected_edge_keys = set[graph.EdgeKey]()
+    selected_vertex_keys = containers.Set_of_Graph_VertexKey()
+    selected_edge_keys = containers.Set_of_Graph_EdgeKey()
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
@@ -50,7 +50,7 @@ def combine(attachment_mutating: AttachmentMutating,
             vertex_key: graph.VertexKey,
             selected: bool) -> None:
     """Add or remove a vertex from the selection."""
-    vertex_keys = set[graph.VertexKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
     vertex_keys.add(vertex_key)
 
     if selected:
@@ -61,7 +61,7 @@ def combine(attachment_mutating: AttachmentMutating,
 
 def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Select all vertices in the graph."""
-    vertex_keys = set[graph.VertexKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
         vertex_keys = opt.vertex_keys
@@ -71,7 +71,7 @@ def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKe
 
 def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Deselect all vertices in the graph."""
-    vertex_keys = set[graph.VertexKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
         vertex_keys = opt.vertex_keys
@@ -81,12 +81,12 @@ def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
 
 def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Invert the vertex selection."""
-    vertex_keys = set[graph.VertexKey]()
+    vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
         vertex_keys = opt.vertex_keys
 
-    selected_vertex_keys = set[graph.VertexKey]()
+    selected_vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
         selected_vertex_keys = opt.vertex_keys
@@ -98,7 +98,7 @@ def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -
 
 def restore(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Restore selected vertices to the topology."""
-    selected_vertex_keys = set[graph.VertexKey]()
+    selected_vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
         selected_vertex_keys = opt.vertex_keys
@@ -112,7 +112,7 @@ def increment_value(attachment_mutating: AttachmentMutating,
     """Increment the value of all selected vertices."""
     from ge import random as model_random
 
-    selected_vertex_keys = set[graph.VertexKey]()
+    selected_vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
         selected_vertex_keys = opt.vertex_keys
@@ -131,9 +131,9 @@ def has_selected(attachment_getting: AttachmentGetting, graph_key: graph.GraphKe
     return len(selected(attachment_getting, graph_key)) > 0
 
 
-def selected(attachment_getting: AttachmentGetting, graph_key: graph.GraphKey) -> set[graph.VertexKey]:
+def selected(attachment_getting: AttachmentGetting, graph_key: graph.GraphKey) -> containers.Set_of_Graph_VertexKey:
     """Get the set of selected vertices."""
     opt = attachments.Graph.selection.get(attachment_getting, graph_key)
     if opt:
         return opt.vertex_keys
-    return set[graph.VertexKey]()
+    return containers.Set_of_Graph_VertexKey()

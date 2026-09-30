@@ -25,3 +25,5 @@ def definitions() -> dsviper.DefinitionsConst:
     return dsviper.Definitions.decode(blob).const()
 
 set_definitions(definitions)
+
+from . import containers  # noqa: E402  -- loads every unit, and declares every container shape

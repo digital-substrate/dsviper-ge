@@ -14,8 +14,10 @@ import typing
 import dsviper
 
 from .. import definitions
-from .._codegen import (NEUF as _NEUF, AnyConceptKey, Mapping, Ordered, Proxy, Sequence,
-                        is_known, register, unwrap, wrap)
+from .._codegen import NEUF as _NEUF, AnyConceptKey, Proxy, is_known, register, unwrap, wrap
+
+if typing.TYPE_CHECKING:
+    from .. import containers
 
 EDGE: dsviper.ValueUUId = dsviper.ValueUUId.create("4d5c7e70-1262-eac1-f8c1-2eb35df4c5cf")
 GRAPH: dsviper.ValueUUId = dsviper.ValueUUId.create("0785ad82-048d-7992-5680-edd838ee5ad6")
@@ -408,19 +410,19 @@ class GraphSelection(Proxy):
             setattr(self, name, field)
 
     @property
-    def vertex_keys(self) -> Sequence[VertexKey]:
+    def vertex_keys(self) -> containers.Set_of_Graph_VertexKey:
         return wrap(self._value.at("vertexKeys", encoded=False))
 
     @vertex_keys.setter
-    def vertex_keys(self, value: Sequence[VertexKey]) -> None:
+    def vertex_keys(self, value: containers.Set_of_Graph_VertexKey) -> None:
         self._value.set("vertexKeys", unwrap(value))
 
     @property
-    def edge_keys(self) -> Sequence[EdgeKey]:
+    def edge_keys(self) -> containers.Set_of_Graph_EdgeKey:
         return wrap(self._value.at("edgeKeys", encoded=False))
 
     @edge_keys.setter
-    def edge_keys(self, value: Sequence[EdgeKey]) -> None:
+    def edge_keys(self, value: containers.Set_of_Graph_EdgeKey) -> None:
         self._value.set("edgeKeys", unwrap(value))
 
     def __repr__(self) -> str:
@@ -454,19 +456,19 @@ class GraphTopology(Proxy):
             setattr(self, name, field)
 
     @property
-    def vertex_keys(self) -> Sequence[VertexKey]:
+    def vertex_keys(self) -> containers.Set_of_Graph_VertexKey:
         return wrap(self._value.at("vertexKeys", encoded=False))
 
     @vertex_keys.setter
-    def vertex_keys(self, value: Sequence[VertexKey]) -> None:
+    def vertex_keys(self, value: containers.Set_of_Graph_VertexKey) -> None:
         self._value.set("vertexKeys", unwrap(value))
 
     @property
-    def edge_keys(self) -> Sequence[EdgeKey]:
+    def edge_keys(self) -> containers.Set_of_Graph_EdgeKey:
         return wrap(self._value.at("edgeKeys", encoded=False))
 
     @edge_keys.setter
-    def edge_keys(self, value: Sequence[EdgeKey]) -> None:
+    def edge_keys(self, value: containers.Set_of_Graph_EdgeKey) -> None:
         self._value.set("edgeKeys", unwrap(value))
 
     def __repr__(self) -> str:

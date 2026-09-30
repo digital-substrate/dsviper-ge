@@ -1,7 +1,7 @@
 from dsviper import AttachmentMutating
 
 from gei.graph import attachments
-from gei import graph
+from gei import containers, graph
 
 from ge import vertex as model_vertex
 from ge import edge as model_edge
@@ -31,10 +31,10 @@ def create_with_missing_vertex(attachment_mutating: AttachmentMutating, graph_ke
 
     # Introduce the bug: only include v0 and v1 in topology, but all edges
     topology = graph.GraphTopology()
-    topology.vertex_keys = set[graph.VertexKey]()
+    topology.vertex_keys = containers.Set_of_Graph_VertexKey()
     topology.vertex_keys.add(v0)
     topology.vertex_keys.add(v1)
-    topology.edge_keys = set[graph.EdgeKey]()
+    topology.edge_keys = containers.Set_of_Graph_EdgeKey()
     topology.edge_keys.add(e0)
     topology.edge_keys.add(e1)
     topology.edge_keys.add(e2)
@@ -74,12 +74,12 @@ def create_with_missing_vertex_properties(attachment_mutating: AttachmentMutatin
 
     # Mix valid and invalid vertices/edges in topology
     topology = graph.GraphTopology()
-    topology.vertex_keys = set[graph.VertexKey]()
+    topology.vertex_keys = containers.Set_of_Graph_VertexKey()
     topology.vertex_keys.add(v0)
     topology.vertex_keys.add(v1)
     topology.vertex_keys.add(v4)
     topology.vertex_keys.add(v5)
-    topology.edge_keys = set[graph.EdgeKey]()
+    topology.edge_keys = containers.Set_of_Graph_EdgeKey()
     topology.edge_keys.add(e0)
     topology.edge_keys.add(e1)
     topology.edge_keys.add(e2)
