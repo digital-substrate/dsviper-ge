@@ -93,12 +93,18 @@ def type_xarray_string(): return dsviper.TypeXArray(type_string())
 class Optional_of_AnyConceptKey(Declared, Optional["AnyConceptKey"]):
     __slots__ = ()
 
+    def __init__(self, value: Optional_of_AnyConceptKey | AnyConceptKey | None | None = None) -> None:
+        super().__init__(value)
+
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_optional_AnyConceptKey()
 
 class Optional_of_XArray_of_string(Declared, Optional["containers.XArray_of_string"]):
     __slots__ = ()
+
+    def __init__(self, value: Optional_of_XArray_of_string | containers.XArray_of_string | typing.Sequence[str] | None | None = None) -> None:
+        super().__init__(value)
 
     @classmethod
     def type(cls) -> dsviper.Type:
@@ -107,12 +113,18 @@ class Optional_of_XArray_of_string(Declared, Optional["containers.XArray_of_stri
 class Optional_of_Graph_EdgeKey(Declared, Optional["graph.EdgeKey"]):
     __slots__ = ()
 
+    def __init__(self, value: Optional_of_Graph_EdgeKey | graph.EdgeKey | None | None = None) -> None:
+        super().__init__(value)
+
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_optional_Graph_EdgeKey()
 
 class Optional_of_Graph_EdgeTopology(Declared, Optional["graph.EdgeTopology"]):
     __slots__ = ()
+
+    def __init__(self, value: Optional_of_Graph_EdgeTopology | graph.EdgeTopology | None | None = None) -> None:
+        super().__init__(value)
 
     @classmethod
     def type(cls) -> dsviper.Type:
@@ -121,12 +133,18 @@ class Optional_of_Graph_EdgeTopology(Declared, Optional["graph.EdgeTopology"]):
 class Optional_of_Graph_GraphDescription(Declared, Optional["graph.GraphDescription"]):
     __slots__ = ()
 
+    def __init__(self, value: Optional_of_Graph_GraphDescription | graph.GraphDescription | None | None = None) -> None:
+        super().__init__(value)
+
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_optional_Graph_GraphDescription()
 
 class Optional_of_Graph_GraphKey(Declared, Optional["graph.GraphKey"]):
     __slots__ = ()
+
+    def __init__(self, value: Optional_of_Graph_GraphKey | graph.GraphKey | None | None = None) -> None:
+        super().__init__(value)
 
     @classmethod
     def type(cls) -> dsviper.Type:
@@ -135,12 +153,18 @@ class Optional_of_Graph_GraphKey(Declared, Optional["graph.GraphKey"]):
 class Optional_of_Graph_GraphSelection(Declared, Optional["graph.GraphSelection"]):
     __slots__ = ()
 
+    def __init__(self, value: Optional_of_Graph_GraphSelection | graph.GraphSelection | None | None = None) -> None:
+        super().__init__(value)
+
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_optional_Graph_GraphSelection()
 
 class Optional_of_Graph_GraphTopology(Declared, Optional["graph.GraphTopology"]):
     __slots__ = ()
+
+    def __init__(self, value: Optional_of_Graph_GraphTopology | graph.GraphTopology | None | None = None) -> None:
+        super().__init__(value)
 
     @classmethod
     def type(cls) -> dsviper.Type:
@@ -149,12 +173,18 @@ class Optional_of_Graph_GraphTopology(Declared, Optional["graph.GraphTopology"])
 class Optional_of_Graph_Vertex2DAttributes(Declared, Optional["graph.Vertex2DAttributes"]):
     __slots__ = ()
 
+    def __init__(self, value: Optional_of_Graph_Vertex2DAttributes | graph.Vertex2DAttributes | None | None = None) -> None:
+        super().__init__(value)
+
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_optional_Graph_Vertex2DAttributes()
 
 class Optional_of_Graph_VertexKey(Declared, Optional["graph.VertexKey"]):
     __slots__ = ()
+
+    def __init__(self, value: Optional_of_Graph_VertexKey | graph.VertexKey | None | None = None) -> None:
+        super().__init__(value)
 
     @classmethod
     def type(cls) -> dsviper.Type:
@@ -163,6 +193,9 @@ class Optional_of_Graph_VertexKey(Declared, Optional["graph.VertexKey"]):
 class Optional_of_Graph_VertexVisualAttributes(Declared, Optional["graph.VertexVisualAttributes"]):
     __slots__ = ()
 
+    def __init__(self, value: Optional_of_Graph_VertexVisualAttributes | graph.VertexVisualAttributes | None | None = None) -> None:
+        super().__init__(value)
+
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_optional_Graph_VertexVisualAttributes()
@@ -170,17 +203,26 @@ class Optional_of_Graph_VertexVisualAttributes(Declared, Optional["graph.VertexV
 class Optional_of_Map_of_string_to_string(Declared, Optional["containers.Map_of_string_to_string"]):
     __slots__ = ()
 
+    def __init__(self, value: Optional_of_Map_of_string_to_string | containers.Map_of_string_to_string | dict[str, str] | None | None = None) -> None:
+        super().__init__(value)
+
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_optional_map_string_to_string()
 class Vector_of_string(Declared, Sequence["str"]):
     __slots__ = ()
 
+    def __init__(self, value: Vector_of_string | typing.Sequence[str] | None = None) -> None:
+        super().__init__(value)
+
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_vector_string()
 class Set_of_Graph_EdgeKey(Declared, Sequence["graph.EdgeKey"]):
     __slots__ = ()
+
+    def __init__(self, value: Set_of_Graph_EdgeKey | typing.Iterable[graph.EdgeKey] | None = None) -> None:
+        super().__init__(value)
 
     @classmethod
     def type(cls) -> dsviper.Type:
@@ -189,12 +231,18 @@ class Set_of_Graph_EdgeKey(Declared, Sequence["graph.EdgeKey"]):
 class Set_of_Graph_GraphKey(Declared, Sequence["graph.GraphKey"]):
     __slots__ = ()
 
+    def __init__(self, value: Set_of_Graph_GraphKey | typing.Iterable[graph.GraphKey] | None = None) -> None:
+        super().__init__(value)
+
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_set_Graph_GraphKey()
 
 class Set_of_Graph_VertexKey(Declared, Sequence["graph.VertexKey"]):
     __slots__ = ()
+
+    def __init__(self, value: Set_of_Graph_VertexKey | typing.Iterable[graph.VertexKey] | None = None) -> None:
+        super().__init__(value)
 
     @classmethod
     def type(cls) -> dsviper.Type:
@@ -203,17 +251,26 @@ class Set_of_Graph_VertexKey(Declared, Sequence["graph.VertexKey"]):
 class Set_of_string(Declared, Sequence["str"]):
     __slots__ = ()
 
+    def __init__(self, value: Set_of_string | typing.Iterable[str] | None = None) -> None:
+        super().__init__(value)
+
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_set_string()
 class Map_of_string_to_string(Declared, Mapping["str", "str"]):
     __slots__ = ()
 
+    def __init__(self, value: Map_of_string_to_string | dict[str, str] | None = None) -> None:
+        super().__init__(value)
+
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_map_string_to_string()
 class XArray_of_string(Declared, Ordered["str"]):
     __slots__ = ()
+
+    def __init__(self, value: XArray_of_string | typing.Sequence[str] | None = None) -> None:
+        super().__init__(value)
 
     @classmethod
     def type(cls) -> dsviper.Type:
