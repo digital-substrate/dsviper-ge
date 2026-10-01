@@ -73,13 +73,13 @@ def next_vertex_value(attachment_getting: AttachmentGetting, graph_key: gei_grap
     if not opt:
         return 1
 
-    topology = opt
+    topology = opt.unwrap()
     max_value = 0
 
     for vertex_key in topology.vertex_keys:
         opt_attr = attachments.Vertex.visual_attributes.get(attachment_getting, vertex_key)
         if opt_attr:
-            attrs = opt_attr
+            attrs = opt_attr.unwrap()
             max_value = max(max_value, attrs.value)
 
     return max_value + 1
@@ -92,7 +92,7 @@ def find_edge_topology(attachment_getting: AttachmentGetting,
     if not opt:
         return None
 
-    topology = opt
+    topology = opt.unwrap()
     vertex_keys = list(topology.vertex_keys)
     edge_keys = topology.edge_keys
 
@@ -129,12 +129,12 @@ def has_edge(attachment_getting: AttachmentGetting,
     if not opt:
         return False
 
-    topology = opt
+    topology = opt.unwrap()
 
     for edge_key in topology.edge_keys:
         opt_edge = attachments.Edge.topology.get(attachment_getting, edge_key)
         if opt_edge:
-            edge = opt_edge
+            edge = opt_edge.unwrap()
             same_edge = ((edge.va_key == va_key and edge.vb_key == vb_key) or
                          (edge.va_key == vb_key and edge.vb_key == va_key))
             if same_edge:

@@ -22,7 +22,7 @@ def remove(attachment_mutating: AttachmentMutating,
     topology_edge_keys = containers.Set_of_Graph_EdgeKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        topology_edge_keys = opt.edge_keys
+        topology_edge_keys = opt.unwrap().edge_keys
 
     # Find edges connected to removed vertices
     connected_edge_keys = containers.Set_of_Graph_EdgeKey()
@@ -31,7 +31,7 @@ def remove(attachment_mutating: AttachmentMutating,
             opt_edge = attachments.Edge.topology.get(attachment_mutating, edge_key)
             if not opt_edge:
                 continue
-            edge = opt_edge
+            edge = opt_edge.unwrap()
             if edge.va_key == vertex_key or edge.vb_key == vertex_key:
                 connected_edge_keys.add(edge_key)
 
@@ -56,12 +56,12 @@ def has_edge(attachment_getting: AttachmentGetting,
     if not opt:
         return None
 
-    topology = opt
+    topology = opt.unwrap()
     for edge_key in topology.edge_keys:
         opt_edge = attachments.Edge.topology.get(attachment_getting, edge_key)
         if not opt_edge:
             continue
-        edge = opt_edge
+        edge = opt_edge.unwrap()
 
         if ((edge.va_key == va_key and edge.vb_key == vb_key) or
             (edge.va_key == vb_key and edge.vb_key == va_key)):
@@ -74,7 +74,7 @@ def has_vertices(attachment_getting: AttachmentGetting, graph_key: graph.GraphKe
     """Check if the graph has any vertices."""
     opt = attachments.Graph.topology.get(attachment_getting, graph_key)
     if opt:
-        return len(opt.vertex_keys) > 0
+        return len(opt.unwrap().vertex_keys) > 0
     return False
 
 
@@ -82,7 +82,7 @@ def has_edges(attachment_getting: AttachmentGetting, graph_key: graph.GraphKey) 
     """Check if the graph has any edges."""
     opt = attachments.Graph.topology.get(attachment_getting, graph_key)
     if opt:
-        return len(opt.edge_keys) > 0
+        return len(opt.unwrap().edge_keys) > 0
     return False
 
 
@@ -93,7 +93,7 @@ def has_remaining_edges(attachment_getting: AttachmentGetting, graph_key: graph.
 
     opt = attachments.Graph.topology.get(attachment_getting, graph_key)
     if opt:
-        topology = opt
+        topology = opt.unwrap()
         vertex_keys = topology.vertex_keys
         edge_keys = topology.edge_keys
 

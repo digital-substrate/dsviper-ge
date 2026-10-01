@@ -13,7 +13,7 @@ def restore(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) 
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        topology = opt
+        topology = opt.unwrap()
         vertex_keys = topology.vertex_keys
         edge_keys = topology.edge_keys
 
@@ -22,7 +22,7 @@ def restore(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) 
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        selection = opt
+        selection = opt.unwrap()
         selected_vertex_keys = selection.vertex_keys
         selected_edge_keys = selection.edge_keys
 

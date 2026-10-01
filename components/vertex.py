@@ -193,7 +193,7 @@ class VertexComponent(QFrame, Ui_VertexComponent):
             vertex_keys = set()
             opt_selection = attachments.Graph.selection.get(attachment_getting, graph_key)
             if opt_selection:
-                selection = opt_selection
+                selection = opt_selection.unwrap()
                 vertex_keys = set(selection.vertex_keys)
 
             if len(vertex_keys) == 1:
@@ -232,7 +232,7 @@ class VertexComponent(QFrame, Ui_VertexComponent):
             self._color = QColor(255, 255, 255)
             opt_visual = attachments.Vertex.visual_attributes.get(attachment_getting, self._vertex_key)
             if opt_visual:
-                visual = opt_visual
+                visual = opt_visual.unwrap()
                 self._value = visual.value
                 self._color = QColor(
                     int(visual.color.red * 255),
@@ -243,7 +243,7 @@ class VertexComponent(QFrame, Ui_VertexComponent):
             self._location = QPointF()
             opt_render = attachments.Vertex.render_2d_attributes.get(attachment_getting, self._vertex_key)
             if opt_render:
-                render = opt_render
+                render = opt_render.unwrap()
                 self._location = QPointF(render.position.x, render.position.y)
 
             self._controls_configure()

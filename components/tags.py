@@ -143,7 +143,7 @@ class TagsComponent(QFrame, Ui_TagsComponent):
         try:
             opt_tags = attachments.Graph.tags.get(attachment_getting, graph_key)
             if opt_tags:
-                tags = opt_tags
+                tags = opt_tags.unwrap()
                 for key, value in tags.items():
                     QTreeWidgetItem(self.w_tree_widget, [key, value])
         except Exception as e:

@@ -18,7 +18,7 @@ def vertices(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey)
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        vertex_keys = opt.vertex_keys
+        vertex_keys = opt.unwrap().vertex_keys
 
     candidate_keys = list(vertex_keys)
     if not candidate_keys:
@@ -40,7 +40,7 @@ def edges(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) ->
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        edge_keys = opt.edge_keys
+        edge_keys = opt.unwrap().edge_keys
 
     candidate_keys = list(edge_keys)
     if not candidate_keys:

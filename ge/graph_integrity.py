@@ -32,7 +32,7 @@ def restore_by_deleting(attachment_mutating: AttachmentMutating, graph_key: grap
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        topology = opt
+        topology = opt.unwrap()
         vertex_keys = topology.vertex_keys
         edge_keys = topology.edge_keys
 
@@ -52,7 +52,7 @@ def restore_by_deleting(attachment_mutating: AttachmentMutating, graph_key: grap
             edges_to_remove_keys.add(edge_key)
             continue
 
-        edge = opt_edge
+        edge = opt_edge.unwrap()
 
         # Missing referenced vertices in graph vertices
         if edge.va_key not in vertex_keys or edge.vb_key not in vertex_keys:
@@ -86,7 +86,7 @@ def restore_by_respawning(attachment_mutating: AttachmentMutating, graph_key: gr
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        topology = opt
+        topology = opt.unwrap()
         vertex_keys = topology.vertex_keys
         edge_keys = topology.edge_keys
 
@@ -103,7 +103,7 @@ def restore_by_respawning(attachment_mutating: AttachmentMutating, graph_key: gr
             edge_to_remove_keys.add(edge_key)
             continue
 
-        edge = opt_edge
+        edge = opt_edge.unwrap()
         _may_restore_edge_vertex(edge.va_key, edge_key, restorable_vertex_keys,
                                  vertex_to_restore_keys, vertex_to_remove_keys, edge_to_remove_keys)
         _may_restore_edge_vertex(edge.vb_key, edge_key, restorable_vertex_keys,
@@ -156,7 +156,7 @@ def restore_by_creating(attachment_mutating: AttachmentMutating,
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        topology = opt
+        topology = opt.unwrap()
         vertex_keys = topology.vertex_keys
         edge_keys = topology.edge_keys
 
@@ -179,7 +179,7 @@ def restore_by_creating(attachment_mutating: AttachmentMutating,
             edge_to_remove_keys.add(edge_key)
             continue
 
-        edge = opt_edge
+        edge = opt_edge.unwrap()
         _respawn(attachment_mutating, edge.va_key, vertex_visual_attributes_keys,
                  vertex_render_2d_attributes_keys, state)
         _respawn(attachment_mutating, edge.vb_key, vertex_visual_attributes_keys,

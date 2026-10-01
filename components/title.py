@@ -63,7 +63,7 @@ class TitleComponent(QWidget, Ui_TitleComponent):
         try:
             opt = attachments.Graph.description.get(attachment_getting, graph_key)
             if opt:
-                description = opt
+                description = opt.unwrap()
                 self._label = description.name
                 self.w_title_line_edit.setText(self._label)
         except Exception as e:

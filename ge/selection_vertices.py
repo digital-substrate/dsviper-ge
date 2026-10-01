@@ -15,7 +15,7 @@ def select(attachment_mutating: AttachmentMutating,
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        selection = opt
+        selection = opt.unwrap()
         selected_vertex_keys = selection.vertex_keys
         selected_edge_keys = selection.edge_keys
 
@@ -36,7 +36,7 @@ def select_multiple(attachment_mutating: AttachmentMutating,
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        selection = opt
+        selection = opt.unwrap()
         selected_vertex_keys = selection.vertex_keys
         selected_edge_keys = selection.edge_keys
 
@@ -64,7 +64,7 @@ def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKe
     vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        vertex_keys = opt.vertex_keys
+        vertex_keys = opt.unwrap().vertex_keys
 
     attachments.Graph.selection.union_vertex_keys(attachment_mutating, graph_key, vertex_keys)
 
@@ -74,7 +74,7 @@ def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
     vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        vertex_keys = opt.vertex_keys
+        vertex_keys = opt.unwrap().vertex_keys
 
     attachments.Graph.selection.subtract_vertex_keys(attachment_mutating, graph_key, vertex_keys)
 
@@ -84,12 +84,12 @@ def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -
     vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        vertex_keys = opt.vertex_keys
+        vertex_keys = opt.unwrap().vertex_keys
 
     selected_vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        selected_vertex_keys = opt.vertex_keys
+        selected_vertex_keys = opt.unwrap().vertex_keys
 
     attachments.Graph.selection.subtract_vertex_keys(attachment_mutating, graph_key, vertex_keys)
     attachments.Graph.selection.union_vertex_keys(
@@ -101,7 +101,7 @@ def restore(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) 
     selected_vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        selected_vertex_keys = opt.vertex_keys
+        selected_vertex_keys = opt.unwrap().vertex_keys
 
     attachments.Graph.topology.union_vertex_keys(attachment_mutating, graph_key, selected_vertex_keys)
 
@@ -115,13 +115,13 @@ def increment_value(attachment_mutating: AttachmentMutating,
     selected_vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        selected_vertex_keys = opt.vertex_keys
+        selected_vertex_keys = opt.unwrap().vertex_keys
 
     color = model_random.make_color()
     for vertex_key in selected_vertex_keys:
         opt_attr = attachments.Vertex.visual_attributes.get(attachment_mutating, vertex_key)
         if opt_attr:
-            attrs = opt_attr
+            attrs = opt_attr.unwrap()
             attachments.Vertex.visual_attributes.set_value(attachment_mutating, vertex_key, attrs.value + increment)
             attachments.Vertex.visual_attributes.set_color(attachment_mutating, vertex_key, color)
 
@@ -135,5 +135,5 @@ def selected(attachment_getting: AttachmentGetting, graph_key: graph.GraphKey) -
     """Get the set of selected vertices."""
     opt = attachments.Graph.selection.get(attachment_getting, graph_key)
     if opt:
-        return opt.vertex_keys
+        return opt.unwrap().vertex_keys
     return containers.Set_of_Graph_VertexKey()

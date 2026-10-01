@@ -12,11 +12,11 @@ def next_vertex_value(attachment_getting: AttachmentGetting, graph_key: graph.Gr
     if not opt:
         return result + 1
 
-    topology = opt
+    topology = opt.unwrap()
     for vertex_key in topology.vertex_keys:
         opt_attr = attachments.Vertex.visual_attributes.get(attachment_getting, vertex_key)
         if opt_attr:
-            attrs = opt_attr
+            attrs = opt_attr.unwrap()
             result = max(result, attrs.value)
 
     return result + 1
@@ -26,7 +26,7 @@ def vertex_label(attachment_getting: AttachmentGetting, vertex_key: graph.Vertex
     """Get the label for a vertex (its value as string)."""
     opt = attachments.Vertex.visual_attributes.get(attachment_getting, vertex_key)
     if opt:
-        return str(opt.value)
+        return str(opt.unwrap().value)
     return "?"
 
 
@@ -44,7 +44,7 @@ def edge_label(attachment_getting: AttachmentGetting, edge_key: graph.EdgeKey) -
     opt = attachments.Edge.topology.get(attachment_getting, edge_key)
     if not opt:
         return "?-?"
-    edge = opt
+    edge = opt.unwrap()
     return edge_label_from_vertices(attachment_getting, edge.va_key, edge.vb_key)
 
 

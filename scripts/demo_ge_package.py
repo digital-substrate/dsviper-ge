@@ -69,11 +69,12 @@ def create_edge(attachment_mutating: AttachmentMutating, graph_key: graph.GraphK
 
 
 def has_edge(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey, va_key: graph.VertexKey, vb_key: graph.VertexKey) -> graph.EdgeKey | None:
-    topology = A.Graph.topology.get(attachment_mutating, graph_key)
+    topology = A.Graph.topology.get(attachment_mutating, graph_key).unwrap()
     for edge_key in topology.edge_keys:
-        e_topology = A.Edge.topology.get(attachment_mutating, edge_key)
-        if e_topology is None:
+        opt_topology = A.Edge.topology.get(attachment_mutating, edge_key)
+        if not opt_topology:
             continue
+        e_topology = opt_topology.unwrap()
 
         e_va_key = e_topology.va_key
         e_vb_key = e_topology.vb_key
@@ -83,7 +84,7 @@ def has_edge(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey,
     return None
 
 def random_edge(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> graph.EdgeKey:
-    topology = A.Graph.topology.get(attachment_mutating, graph_key)
+    topology = A.Graph.topology.get(attachment_mutating, graph_key).unwrap()
     vertex_keys = topology.vertex_keys
     edge_keys = topology.edge_keys
 
@@ -111,7 +112,7 @@ def random_graph(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
         value = -1
         for key in A.Vertex.visual_attributes.keys(attachment_getting):
             if v := A.Vertex.visual_attributes.get(attachment_getting, key):
-                value = max(value, v.value)
+                value = max(value, v.unwrap().value)
         return value + 1
 
     def r_vertex(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey, value) -> graph.VertexKey:

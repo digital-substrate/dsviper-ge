@@ -15,7 +15,7 @@ def select(attachment_mutating: AttachmentMutating,
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        selection = opt
+        selection = opt.unwrap()
         vertex_keys = selection.vertex_keys
         edge_keys = selection.edge_keys
 
@@ -46,7 +46,7 @@ def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKe
     edge_keys = containers.Set_of_Graph_EdgeKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        edge_keys = opt.edge_keys
+        edge_keys = opt.unwrap().edge_keys
 
     attachments.Graph.selection.union_edge_keys(attachment_mutating, graph_key, edge_keys)
 
@@ -56,7 +56,7 @@ def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
     edge_keys = containers.Set_of_Graph_EdgeKey()
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        edge_keys = opt.edge_keys
+        edge_keys = opt.unwrap().edge_keys
 
     attachments.Graph.selection.subtract_edge_keys(attachment_mutating, graph_key, edge_keys)
 
@@ -66,12 +66,12 @@ def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -
     edge_keys = containers.Set_of_Graph_EdgeKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        edge_keys = opt.edge_keys
+        edge_keys = opt.unwrap().edge_keys
 
     selected_edge_keys = containers.Set_of_Graph_EdgeKey()
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        selected_edge_keys = opt.edge_keys
+        selected_edge_keys = opt.unwrap().edge_keys
 
     attachments.Graph.selection.subtract_edge_keys(attachment_mutating, graph_key, selected_edge_keys)
     attachments.Graph.selection.union_edge_keys(
@@ -82,7 +82,7 @@ def selected(attachment_getting: AttachmentGetting, graph_key: graph.GraphKey) -
     """Get the set of selected edges."""
     opt = attachments.Graph.selection.get(attachment_getting, graph_key)
     if opt:
-        return opt.edge_keys
+        return opt.unwrap().edge_keys
     return containers.Set_of_Graph_EdgeKey()
 
 

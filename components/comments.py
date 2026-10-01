@@ -144,7 +144,7 @@ class CommentsComponent(QFrame, Ui_CommentsComponent):
         try:
             opt_comments = attachments.Graph.comments.get(attachment_getting, graph_key)
             if opt_comments:
-                comments = opt_comments
+                comments = opt_comments.unwrap()
                 for position, element in comments.items():
                     CommentsItem(element, position, self.w_list_widget)
         except Exception as e:

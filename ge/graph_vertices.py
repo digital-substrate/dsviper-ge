@@ -14,14 +14,14 @@ def referenced_keys(attachment_getting: AttachmentGetting,
 
     opt = attachments.Graph.topology.get(attachment_getting, graph_key)
     if opt:
-        topology = opt
+        topology = opt.unwrap()
         vertex_keys = topology.vertex_keys
         edge_keys = topology.edge_keys
 
     for edge_key in edge_keys:
         opt_edge = attachments.Edge.topology.get(attachment_getting, edge_key)
         if opt_edge:
-            edge_topo = opt_edge
+            edge_topo = opt_edge.unwrap()
             vertex_keys.add(edge_topo.va_key)
             vertex_keys.add(edge_topo.vb_key)
 
@@ -36,7 +36,7 @@ def increment_value(attachment_mutating: AttachmentMutating,
     for vertex_key in vertex_keys:
         opt = attachments.Vertex.visual_attributes.get(attachment_mutating, vertex_key)
         if opt:
-            attrs = opt
+            attrs = opt.unwrap()
             attachments.Vertex.visual_attributes.set_value(
                 attachment_mutating, vertex_key, attrs.value + increment
             )
@@ -51,7 +51,7 @@ def move(attachment_mutating: AttachmentMutating,
     for vertex_key in vertex_keys:
         opt = attachments.Vertex.render_2d_attributes.get(attachment_mutating, vertex_key)
         if opt:
-            attrs = opt
+            attrs = opt.unwrap()
             position = graph.Position()
             position.x = attrs.position.x + offset.x
             position.y = attrs.position.y + offset.y

@@ -49,21 +49,21 @@ class StatisticsComponent(QWidget, Ui_StatisticsComponent):
         vertex_keys = containers.Set_of_Graph_VertexKey()
         edge_keys = containers.Set_of_Graph_EdgeKey()
         if opt := attachments.Graph.topology.get(attachment_getting, graph_key):
-            topology = opt
+            topology = opt.unwrap()
             vertex_keys = topology.vertex_keys
             edge_keys = topology.edge_keys
 
         selected_vertex_keys = containers.Set_of_Graph_VertexKey()
         selected_edge_keys = containers.Set_of_Graph_EdgeKey()
         if opt := attachments.Graph.selection.get(attachment_getting, graph_key):
-            selection = opt
+            selection = opt.unwrap()
             selected_vertex_keys = selection.vertex_keys
             selected_edge_keys = selection.edge_keys
 
         self.w_vertices_label.setText(f"{len(selected_vertex_keys):03d}/{len(vertex_keys):03d}")
         self.w_edges_label.setText(f"{len(selected_edge_keys):03d}/{len(edge_keys):03d}")
 
-        values = [opt.value for vertex_key in vertex_keys
+        values = [opt.unwrap().value for vertex_key in vertex_keys
                   if (opt := attachments.Vertex.visual_attributes.get(attachment_getting, vertex_key))]
 
         if values:

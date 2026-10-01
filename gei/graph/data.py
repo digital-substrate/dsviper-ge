@@ -14,7 +14,7 @@ import typing
 import dsviper
 
 from .. import definitions
-from .._codegen import NEUF as _NEUF, AnyConceptKey, Proxy, is_known, register, unwrap, wrap
+from .._codegen import NOT_GIVEN, AnyConceptKey, Key, NotGiven, Proxy, is_known, register, unwrap, wrap
 
 if typing.TYPE_CHECKING:
     from .. import containers
@@ -32,7 +32,7 @@ RECTANGLE: dsviper.ValueUUId = dsviper.ValueUUId.create("dce3db08-b7f7-946c-f02a
 VERTEX_2D_ATTRIBUTES: dsviper.ValueUUId = dsviper.ValueUUId.create("d233a482-09ff-5363-8316-97ae4ba4ab5e")
 VERTEX_VISUAL_ATTRIBUTES: dsviper.ValueUUId = dsviper.ValueUUId.create("a530433b-d52c-b261-30aa-aa4b3a623fd8")
 
-class EdgeKey(Proxy):
+class EdgeKey(Key):
     """An edge in a graph."""
     __slots__ = ()
 
@@ -46,15 +46,15 @@ class EdgeKey(Proxy):
     def type(cls) -> dsviper.Type:
         return dsviper.TypeKey(cls.concept())
 
-    def __init__(self, identifier: typing.Any = _NEUF):
-        if identifier is _NEUF:
+    def __init__(self, identifier: typing.Any = NOT_GIVEN):
+        if identifier is NOT_GIVEN:
             identifier = None
         elif identifier is None:
             raise TypeError("None is not an instance identifier")
 
         if isinstance(identifier, dsviper.ValueKey):
-            if not identifier.is_member(self.concept()):
-                raise TypeError("this value is not a Graph::EdgeKey")
+            if identifier.type() != self.type():
+                raise TypeError(f"this value is not a Graph::EdgeKey: {identifier.detail_type_representation()}")
             super().__init__(identifier)
         elif identifier is None or isinstance(identifier, (dsviper.ValueUUId, str)):
             super().__init__(dsviper.ValueKey.create(self.concept(), identifier))
@@ -83,9 +83,16 @@ class EdgeKey(Proxy):
         return AnyConceptKey(self._value.to_any_concept_key())
 
     @classmethod
-    def from_any_concept_key(cls, key) -> EdgeKey | None:
+    def from_any_concept_key(cls, key: AnyConceptKey | Proxy | dsviper.ValueKey) -> EdgeKey | None:
         value = key._value if isinstance(key, Proxy) else key
-        return cls(value) if value.type_concept().runtime_id() == EDGE else None
+        return cls(value.to_member_key(cls.concept())) if value.is_member(cls.concept()) else None
+
+    @classmethod
+    def from_key(cls, key: Proxy | dsviper.ValueKey) -> EdgeKey:
+        value = key._value if isinstance(key, Proxy) else key
+        if not value.is_member(cls.concept()):
+            raise TypeError(f"{value.detail_type_representation()} does not designate a Graph::Edge")
+        return cls(value.to_member_key(cls.concept()))
 
     def description(self) -> str:
         return f"{self._value.instance_id().encoded()}:Graph::EdgeKey"
@@ -98,7 +105,7 @@ class EdgeKey(Proxy):
 
 
 
-class GraphKey(Proxy):
+class GraphKey(Key):
     """A graph."""
     __slots__ = ()
 
@@ -112,15 +119,15 @@ class GraphKey(Proxy):
     def type(cls) -> dsviper.Type:
         return dsviper.TypeKey(cls.concept())
 
-    def __init__(self, identifier: typing.Any = _NEUF):
-        if identifier is _NEUF:
+    def __init__(self, identifier: typing.Any = NOT_GIVEN):
+        if identifier is NOT_GIVEN:
             identifier = None
         elif identifier is None:
             raise TypeError("None is not an instance identifier")
 
         if isinstance(identifier, dsviper.ValueKey):
-            if not identifier.is_member(self.concept()):
-                raise TypeError("this value is not a Graph::GraphKey")
+            if identifier.type() != self.type():
+                raise TypeError(f"this value is not a Graph::GraphKey: {identifier.detail_type_representation()}")
             super().__init__(identifier)
         elif identifier is None or isinstance(identifier, (dsviper.ValueUUId, str)):
             super().__init__(dsviper.ValueKey.create(self.concept(), identifier))
@@ -149,9 +156,16 @@ class GraphKey(Proxy):
         return AnyConceptKey(self._value.to_any_concept_key())
 
     @classmethod
-    def from_any_concept_key(cls, key) -> GraphKey | None:
+    def from_any_concept_key(cls, key: AnyConceptKey | Proxy | dsviper.ValueKey) -> GraphKey | None:
         value = key._value if isinstance(key, Proxy) else key
-        return cls(value) if value.type_concept().runtime_id() == GRAPH else None
+        return cls(value.to_member_key(cls.concept())) if value.is_member(cls.concept()) else None
+
+    @classmethod
+    def from_key(cls, key: Proxy | dsviper.ValueKey) -> GraphKey:
+        value = key._value if isinstance(key, Proxy) else key
+        if not value.is_member(cls.concept()):
+            raise TypeError(f"{value.detail_type_representation()} does not designate a Graph::Graph")
+        return cls(value.to_member_key(cls.concept()))
 
     def description(self) -> str:
         return f"{self._value.instance_id().encoded()}:Graph::GraphKey"
@@ -164,7 +178,7 @@ class GraphKey(Proxy):
 
 
 
-class VertexKey(Proxy):
+class VertexKey(Key):
     """A vertex in a graph."""
     __slots__ = ()
 
@@ -178,15 +192,15 @@ class VertexKey(Proxy):
     def type(cls) -> dsviper.Type:
         return dsviper.TypeKey(cls.concept())
 
-    def __init__(self, identifier: typing.Any = _NEUF):
-        if identifier is _NEUF:
+    def __init__(self, identifier: typing.Any = NOT_GIVEN):
+        if identifier is NOT_GIVEN:
             identifier = None
         elif identifier is None:
             raise TypeError("None is not an instance identifier")
 
         if isinstance(identifier, dsviper.ValueKey):
-            if not identifier.is_member(self.concept()):
-                raise TypeError("this value is not a Graph::VertexKey")
+            if identifier.type() != self.type():
+                raise TypeError(f"this value is not a Graph::VertexKey: {identifier.detail_type_representation()}")
             super().__init__(identifier)
         elif identifier is None or isinstance(identifier, (dsviper.ValueUUId, str)):
             super().__init__(dsviper.ValueKey.create(self.concept(), identifier))
@@ -215,9 +229,16 @@ class VertexKey(Proxy):
         return AnyConceptKey(self._value.to_any_concept_key())
 
     @classmethod
-    def from_any_concept_key(cls, key) -> VertexKey | None:
+    def from_any_concept_key(cls, key: AnyConceptKey | Proxy | dsviper.ValueKey) -> VertexKey | None:
         value = key._value if isinstance(key, Proxy) else key
-        return cls(value) if value.type_concept().runtime_id() == VERTEX else None
+        return cls(value.to_member_key(cls.concept())) if value.is_member(cls.concept()) else None
+
+    @classmethod
+    def from_key(cls, key: Proxy | dsviper.ValueKey) -> VertexKey:
+        value = key._value if isinstance(key, Proxy) else key
+        if not value.is_member(cls.concept()):
+            raise TypeError(f"{value.detail_type_representation()} does not designate a Graph::Vertex")
+        return cls(value.to_member_key(cls.concept()))
 
     def description(self) -> str:
         return f"{self._value.instance_id().encoded()}:Graph::VertexKey"
@@ -243,17 +264,23 @@ class Color(Proxy):
         return cls(dsviper.ValueStructure.cast(
             dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
-    def __init__(self, value: dsviper.ValueStructure | dict | None = None, /, **fields):
-        if value is None:
-            value = dsviper.ValueStructure(self.type())
-        elif isinstance(value, dict):
-            value = dsviper.ValueStructure(self.type(), value)
-        elif value.type() != self.type():
+    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+                 red: float | NotGiven = NOT_GIVEN,
+                 green: float | NotGiven = NOT_GIVEN,
+                 blue: float | NotGiven = NOT_GIVEN) -> None:
+        if source is None:
+            source = dsviper.ValueStructure(self.type())
+        elif isinstance(source, dict):
+            source = dsviper.ValueStructure(self.type(), source)
+        elif source.type() != self.type():
             raise TypeError("this value is not a Graph::Color")
-        super().__init__(value)
-
-        for name, field in fields.items():
-            setattr(self, name, field)
+        super().__init__(source)
+        if not isinstance(red, NotGiven):
+            self.red = red
+        if not isinstance(green, NotGiven):
+            self.green = green
+        if not isinstance(blue, NotGiven):
+            self.blue = blue
 
     @property
     def red(self) -> float:
@@ -297,17 +324,20 @@ class EdgeTopology(Proxy):
         return cls(dsviper.ValueStructure.cast(
             dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
-    def __init__(self, value: dsviper.ValueStructure | dict | None = None, /, **fields):
-        if value is None:
-            value = dsviper.ValueStructure(self.type())
-        elif isinstance(value, dict):
-            value = dsviper.ValueStructure(self.type(), value)
-        elif value.type() != self.type():
+    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+                 va_key: VertexKey | NotGiven = NOT_GIVEN,
+                 vb_key: VertexKey | NotGiven = NOT_GIVEN) -> None:
+        if source is None:
+            source = dsviper.ValueStructure(self.type())
+        elif isinstance(source, dict):
+            source = dsviper.ValueStructure(self.type(), source)
+        elif source.type() != self.type():
             raise TypeError("this value is not a Graph::EdgeTopology")
-        super().__init__(value)
-
-        for name, field in fields.items():
-            setattr(self, name, field)
+        super().__init__(source)
+        if not isinstance(va_key, NotGiven):
+            self.va_key = va_key
+        if not isinstance(vb_key, NotGiven):
+            self.vb_key = vb_key
 
     @property
     def va_key(self) -> VertexKey:
@@ -343,17 +373,23 @@ class GraphDescription(Proxy):
         return cls(dsviper.ValueStructure.cast(
             dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
-    def __init__(self, value: dsviper.ValueStructure | dict | None = None, /, **fields):
-        if value is None:
-            value = dsviper.ValueStructure(self.type())
-        elif isinstance(value, dict):
-            value = dsviper.ValueStructure(self.type(), value)
-        elif value.type() != self.type():
+    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+                 name: str | NotGiven = NOT_GIVEN,
+                 author: str | NotGiven = NOT_GIVEN,
+                 create_date: str | NotGiven = NOT_GIVEN) -> None:
+        if source is None:
+            source = dsviper.ValueStructure(self.type())
+        elif isinstance(source, dict):
+            source = dsviper.ValueStructure(self.type(), source)
+        elif source.type() != self.type():
             raise TypeError("this value is not a Graph::GraphDescription")
-        super().__init__(value)
-
-        for name, field in fields.items():
-            setattr(self, name, field)
+        super().__init__(source)
+        if not isinstance(name, NotGiven):
+            self.name = name
+        if not isinstance(author, NotGiven):
+            self.author = author
+        if not isinstance(create_date, NotGiven):
+            self.create_date = create_date
 
     @property
     def name(self) -> str:
@@ -397,17 +433,20 @@ class GraphSelection(Proxy):
         return cls(dsviper.ValueStructure.cast(
             dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
-    def __init__(self, value: dsviper.ValueStructure | dict | None = None, /, **fields):
-        if value is None:
-            value = dsviper.ValueStructure(self.type())
-        elif isinstance(value, dict):
-            value = dsviper.ValueStructure(self.type(), value)
-        elif value.type() != self.type():
+    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+                 vertex_keys: containers.Set_of_Graph_VertexKey | NotGiven = NOT_GIVEN,
+                 edge_keys: containers.Set_of_Graph_EdgeKey | NotGiven = NOT_GIVEN) -> None:
+        if source is None:
+            source = dsviper.ValueStructure(self.type())
+        elif isinstance(source, dict):
+            source = dsviper.ValueStructure(self.type(), source)
+        elif source.type() != self.type():
             raise TypeError("this value is not a Graph::GraphSelection")
-        super().__init__(value)
-
-        for name, field in fields.items():
-            setattr(self, name, field)
+        super().__init__(source)
+        if not isinstance(vertex_keys, NotGiven):
+            self.vertex_keys = vertex_keys
+        if not isinstance(edge_keys, NotGiven):
+            self.edge_keys = edge_keys
 
     @property
     def vertex_keys(self) -> containers.Set_of_Graph_VertexKey:
@@ -443,17 +482,20 @@ class GraphTopology(Proxy):
         return cls(dsviper.ValueStructure.cast(
             dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
-    def __init__(self, value: dsviper.ValueStructure | dict | None = None, /, **fields):
-        if value is None:
-            value = dsviper.ValueStructure(self.type())
-        elif isinstance(value, dict):
-            value = dsviper.ValueStructure(self.type(), value)
-        elif value.type() != self.type():
+    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+                 vertex_keys: containers.Set_of_Graph_VertexKey | NotGiven = NOT_GIVEN,
+                 edge_keys: containers.Set_of_Graph_EdgeKey | NotGiven = NOT_GIVEN) -> None:
+        if source is None:
+            source = dsviper.ValueStructure(self.type())
+        elif isinstance(source, dict):
+            source = dsviper.ValueStructure(self.type(), source)
+        elif source.type() != self.type():
             raise TypeError("this value is not a Graph::GraphTopology")
-        super().__init__(value)
-
-        for name, field in fields.items():
-            setattr(self, name, field)
+        super().__init__(source)
+        if not isinstance(vertex_keys, NotGiven):
+            self.vertex_keys = vertex_keys
+        if not isinstance(edge_keys, NotGiven):
+            self.edge_keys = edge_keys
 
     @property
     def vertex_keys(self) -> containers.Set_of_Graph_VertexKey:
@@ -489,17 +531,20 @@ class Position(Proxy):
         return cls(dsviper.ValueStructure.cast(
             dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
-    def __init__(self, value: dsviper.ValueStructure | dict | None = None, /, **fields):
-        if value is None:
-            value = dsviper.ValueStructure(self.type())
-        elif isinstance(value, dict):
-            value = dsviper.ValueStructure(self.type(), value)
-        elif value.type() != self.type():
+    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+                 x: float | NotGiven = NOT_GIVEN,
+                 y: float | NotGiven = NOT_GIVEN) -> None:
+        if source is None:
+            source = dsviper.ValueStructure(self.type())
+        elif isinstance(source, dict):
+            source = dsviper.ValueStructure(self.type(), source)
+        elif source.type() != self.type():
             raise TypeError("this value is not a Graph::Position")
-        super().__init__(value)
-
-        for name, field in fields.items():
-            setattr(self, name, field)
+        super().__init__(source)
+        if not isinstance(x, NotGiven):
+            self.x = x
+        if not isinstance(y, NotGiven):
+            self.y = y
 
     @property
     def x(self) -> float:
@@ -535,17 +580,26 @@ class Rectangle(Proxy):
         return cls(dsviper.ValueStructure.cast(
             dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
-    def __init__(self, value: dsviper.ValueStructure | dict | None = None, /, **fields):
-        if value is None:
-            value = dsviper.ValueStructure(self.type())
-        elif isinstance(value, dict):
-            value = dsviper.ValueStructure(self.type(), value)
-        elif value.type() != self.type():
+    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+                 x: float | NotGiven = NOT_GIVEN,
+                 y: float | NotGiven = NOT_GIVEN,
+                 w: float | NotGiven = NOT_GIVEN,
+                 h: float | NotGiven = NOT_GIVEN) -> None:
+        if source is None:
+            source = dsviper.ValueStructure(self.type())
+        elif isinstance(source, dict):
+            source = dsviper.ValueStructure(self.type(), source)
+        elif source.type() != self.type():
             raise TypeError("this value is not a Graph::Rectangle")
-        super().__init__(value)
-
-        for name, field in fields.items():
-            setattr(self, name, field)
+        super().__init__(source)
+        if not isinstance(x, NotGiven):
+            self.x = x
+        if not isinstance(y, NotGiven):
+            self.y = y
+        if not isinstance(w, NotGiven):
+            self.w = w
+        if not isinstance(h, NotGiven):
+            self.h = h
 
     @property
     def x(self) -> float:
@@ -601,17 +655,20 @@ class VertexVisualAttributes(Proxy):
         return cls(dsviper.ValueStructure.cast(
             dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
-    def __init__(self, value: dsviper.ValueStructure | dict | None = None, /, **fields):
-        if value is None:
-            value = dsviper.ValueStructure(self.type())
-        elif isinstance(value, dict):
-            value = dsviper.ValueStructure(self.type(), value)
-        elif value.type() != self.type():
+    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+                 value: int | NotGiven = NOT_GIVEN,
+                 color: Color | NotGiven = NOT_GIVEN) -> None:
+        if source is None:
+            source = dsviper.ValueStructure(self.type())
+        elif isinstance(source, dict):
+            source = dsviper.ValueStructure(self.type(), source)
+        elif source.type() != self.type():
             raise TypeError("this value is not a Graph::VertexVisualAttributes")
-        super().__init__(value)
-
-        for name, field in fields.items():
-            setattr(self, name, field)
+        super().__init__(source)
+        if not isinstance(value, NotGiven):
+            self.value = value
+        if not isinstance(color, NotGiven):
+            self.color = color
 
     @property
     def value(self) -> int:
@@ -647,17 +704,17 @@ class Vertex2DAttributes(Proxy):
         return cls(dsviper.ValueStructure.cast(
             dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
-    def __init__(self, value: dsviper.ValueStructure | dict | None = None, /, **fields):
-        if value is None:
-            value = dsviper.ValueStructure(self.type())
-        elif isinstance(value, dict):
-            value = dsviper.ValueStructure(self.type(), value)
-        elif value.type() != self.type():
+    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+                 position: Position | NotGiven = NOT_GIVEN) -> None:
+        if source is None:
+            source = dsviper.ValueStructure(self.type())
+        elif isinstance(source, dict):
+            source = dsviper.ValueStructure(self.type(), source)
+        elif source.type() != self.type():
             raise TypeError("this value is not a Graph::Vertex2DAttributes")
-        super().__init__(value)
-
-        for name, field in fields.items():
-            setattr(self, name, field)
+        super().__init__(source)
+        if not isinstance(position, NotGiven):
+            self.position = position
 
     @property
     def position(self) -> Position:

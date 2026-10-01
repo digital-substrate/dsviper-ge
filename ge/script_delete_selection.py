@@ -15,7 +15,7 @@ def delete_selection(attachment_mutating: AttachmentMutating,
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        selection = opt
+        selection = opt.unwrap()
         vertex_keys = selection.vertex_keys
         edge_keys = selection.edge_keys
 
@@ -30,7 +30,7 @@ def delete_selection_bugged(attachment_mutating: AttachmentMutating,
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        vertex_keys = opt.vertex_keys
+        vertex_keys = opt.unwrap().vertex_keys
 
     graph_topology.remove_bugged(attachment_mutating, graph_key, vertex_keys)
     selection_edges.deselect_all(attachment_mutating, graph_key)

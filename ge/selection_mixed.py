@@ -13,7 +13,7 @@ def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKe
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        topology = opt
+        topology = opt.unwrap()
         vertex_keys = topology.vertex_keys
         edge_keys = topology.edge_keys
 
@@ -28,7 +28,7 @@ def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        topology = opt
+        topology = opt.unwrap()
         vertex_keys = topology.vertex_keys
         edge_keys = topology.edge_keys
 
@@ -43,7 +43,7 @@ def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -
 
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
     if opt:
-        topology = opt
+        topology = opt.unwrap()
         vertex_keys = topology.vertex_keys
         edge_keys = topology.edge_keys
 
@@ -52,7 +52,7 @@ def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        selection = opt
+        selection = opt.unwrap()
         selected_vertex_keys = selection.vertex_keys
         selected_edge_keys = selection.edge_keys
 
@@ -74,7 +74,7 @@ def set_selection(attachment_mutating: AttachmentMutating,
 
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
     if opt:
-        selection = opt
+        selection = opt.unwrap()
         selected_vertex_keys = selection.vertex_keys
         selected_edge_keys = selection.edge_keys
 
@@ -88,6 +88,6 @@ def has_selected(attachment_getting: AttachmentGetting, graph_key: graph.GraphKe
     """Check if any vertices or edges are selected."""
     opt = attachments.Graph.selection.get(attachment_getting, graph_key)
     if opt:
-        selection = opt
+        selection = opt.unwrap()
         return len(selection.vertex_keys) > 0 or len(selection.edge_keys) > 0
     return False

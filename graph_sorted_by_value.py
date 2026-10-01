@@ -49,7 +49,7 @@ class GraphSortedByValue:
 
         opt_topology = attachments.Graph.topology.get(getting, graph_key)
         if opt_topology:
-            topology = opt_topology
+            topology = opt_topology.unwrap()
             vertex_keys = set(topology.vertex_keys)
             edge_keys = set(topology.edge_keys)
 
@@ -57,7 +57,7 @@ class GraphSortedByValue:
         for edge_key in edge_keys:
             opt_edge_topo = attachments.Edge.topology.get(getting, edge_key)
             if opt_edge_topo:
-                edge_topo = opt_edge_topo
+                edge_topo = opt_edge_topo.unwrap()
                 vertex_keys.add(edge_topo.va_key)
                 vertex_keys.add(edge_topo.vb_key)
 
@@ -66,7 +66,7 @@ class GraphSortedByValue:
             opt_attrs = attachments.Vertex.visual_attributes.get(getting, vertex_key)
             value = -1
             if opt_attrs:
-                value = opt_attrs.value
+                value = opt_attrs.unwrap().value
             result.vertices[vertex_key] = SortedVertex(vertex_key, value)
 
         # Build edge entries
@@ -75,7 +75,7 @@ class GraphSortedByValue:
             if not opt_edge_topo:
                 continue
 
-            edge_topo = opt_edge_topo
+            edge_topo = opt_edge_topo.unwrap()
             va_key = edge_topo.va_key
             vb_key = edge_topo.vb_key
 

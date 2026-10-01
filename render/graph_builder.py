@@ -30,7 +30,7 @@ def _render_vertex(getting: AttachmentGetting, is_valid: bool,
     """Create a RenderVertex from attachments."""
     opt_attrs = attachments.Vertex.visual_attributes.get(getting, vertex_key)
     if opt_attrs:
-        attrs = opt_attrs
+        attrs = opt_attrs.unwrap()
         value = attrs.value
         color = _q_color_from_color(attrs.color)
     else:
@@ -47,12 +47,12 @@ def _collect_vertices(getting: AttachmentGetting, graph: RenderGraph):
     opt_topology = attachments.Graph.topology.get(getting, graph.graph_key)
     vertex_keys = set()
     if opt_topology:
-        vertex_keys = set(opt_topology.vertex_keys)
+        vertex_keys = set(opt_topology.unwrap().vertex_keys)
 
     for vertex_key in vertex_keys:
         opt_attrs = attachments.Vertex.render_2d_attributes.get(getting, vertex_key)
         if opt_attrs:
-            attrs = opt_attrs
+            attrs = opt_attrs.unwrap()
             r_vertex = _render_vertex(getting, True, attrs.position, vertex_key)
             graph.vertex_map[vertex_key] = r_vertex
             graph.vertex_keys.add(vertex_key)
@@ -66,7 +66,7 @@ def _collect_edge_vertex_keys(getting: AttachmentGetting, edge_keys: set[gei_gra
     for edge_key in edge_keys:
         opt_topology = attachments.Edge.topology.get(getting, edge_key)
         if opt_topology:
-            topology = opt_topology
+            topology = opt_topology.unwrap()
             result.add(topology.va_key)
             result.add(topology.vb_key)
     return result
@@ -77,14 +77,14 @@ def _collect_edges(getting: AttachmentGetting, graph: RenderGraph):
     opt_topology = attachments.Graph.topology.get(getting, graph.graph_key)
     edge_keys = set()
     if opt_topology:
-        edge_keys = set(opt_topology.edge_keys)
+        edge_keys = set(opt_topology.unwrap().edge_keys)
 
     vertex_keys = _collect_edge_vertex_keys(getting, edge_keys)
     for vertex_key in vertex_keys:
         if vertex_key not in graph.vertex_map:
             opt_attrs = attachments.Vertex.render_2d_attributes.get(getting, vertex_key)
             if opt_attrs:
-                attrs = opt_attrs
+                attrs = opt_attrs.unwrap()
                 graph.vertex_map[vertex_key] = _render_vertex(getting, False, attrs.position, vertex_key)
                 graph.vertex_keys.add(vertex_key)
         graph.is_valid = False
@@ -95,7 +95,7 @@ def _collect_edges(getting: AttachmentGetting, graph: RenderGraph):
             graph.is_valid = False
             continue
 
-        topology = opt_topology
+        topology = opt_topology.unwrap()
         va = graph.vertex_map.get(topology.va_key)
         vb = graph.vertex_map.get(topology.vb_key)
 
@@ -110,7 +110,7 @@ def _collect_selection(getting: AttachmentGetting, graph: RenderGraph):
     graph.selected_vertex_keys.clear()
     graph.selected_edge_keys.clear()
     if opt_selection:
-        selection = opt_selection
+        selection = opt_selection.unwrap()
         graph.selected_vertex_keys = set(selection.vertex_keys)
         graph.selected_edge_keys = set(selection.edge_keys)
 
