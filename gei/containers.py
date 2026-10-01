@@ -18,7 +18,6 @@ from ._codegen import AnyValue, Declared, Fixed, Mapping, Matrix, Optional, Orde
 if typing.TYPE_CHECKING:
     from . import containers
     from ._codegen import AnyConceptKey
-from . import graph
 
 type_bool = lambda: dsviper.TypeBool()
 type_uint8 = lambda: dsviper.TypeUInt8()
@@ -275,5 +274,7 @@ class XArray_of_string(Declared, Ordered["str"]):
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_xarray_string()
+
+from . import graph  # noqa: E402
 
 declare(Optional_of_AnyConceptKey, Optional_of_XArray_of_string, Optional_of_Graph_EdgeKey, Optional_of_Graph_EdgeTopology, Optional_of_Graph_GraphDescription, Optional_of_Graph_GraphKey, Optional_of_Graph_GraphSelection, Optional_of_Graph_GraphTopology, Optional_of_Graph_Vertex2DAttributes, Optional_of_Graph_VertexKey, Optional_of_Graph_VertexVisualAttributes, Optional_of_Map_of_string_to_string, Vector_of_string, Set_of_Graph_EdgeKey, Set_of_Graph_GraphKey, Set_of_Graph_VertexKey, Set_of_string, Map_of_string_to_string, XArray_of_string)
