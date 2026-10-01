@@ -13,7 +13,7 @@ import typing
 import dsviper
 
 from . import definitions
-from ._codegen import Declared, Mapping, Optional, Ordered, Sequence, Variant, declare
+from ._codegen import AnyValue, Declared, Mapping, Optional, Ordered, Sequence, Variant, declare
 
 if typing.TYPE_CHECKING:
     from . import containers
