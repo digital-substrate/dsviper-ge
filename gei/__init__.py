@@ -15,7 +15,7 @@ import zlib
 import dsviper
 
 from . import resources
-from ._codegen import AnyConceptKey, AnyValue, set_definitions
+from ._codegen import AnyConceptKey, AnyValue
 
 __all__ = ["AnyConceptKey", "AnyValue", "definitions"]
 
@@ -24,6 +24,5 @@ def definitions() -> dsviper.DefinitionsConst:
     blob = dsviper.ValueBlob(zlib.decompress(base64.b64decode(resources.B64_DEFINITIONS)))
     return dsviper.Definitions.decode(blob).const()
 
-set_definitions(definitions)
 
-from . import containers  # noqa: E402  -- loads every unit, and declares every container shape
+from . import containers  # noqa: E402

@@ -62,11 +62,6 @@ class EdgeKey(Key):
             raise TypeError(f"{identifier!r} is not an instance identifier")
 
     @classmethod
-    def decode(cls, blob, **kwargs) -> EdgeKey:
-        return cls(dsviper.ValueKey.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
-
-    @classmethod
     def create(cls) -> EdgeKey:
         return cls(dsviper.ValueUUId.create())
 
@@ -133,11 +128,6 @@ class GraphKey(Key):
             super().__init__(dsviper.ValueKey.create(self.concept(), identifier))
         else:
             raise TypeError(f"{identifier!r} is not an instance identifier")
-
-    @classmethod
-    def decode(cls, blob, **kwargs) -> GraphKey:
-        return cls(dsviper.ValueKey.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
     @classmethod
     def create(cls) -> GraphKey:
@@ -208,11 +198,6 @@ class VertexKey(Key):
             raise TypeError(f"{identifier!r} is not an instance identifier")
 
     @classmethod
-    def decode(cls, blob, **kwargs) -> VertexKey:
-        return cls(dsviper.ValueKey.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
-
-    @classmethod
     def create(cls) -> VertexKey:
         return cls(dsviper.ValueUUId.create())
 
@@ -258,11 +243,6 @@ class Color(Proxy):
     @functools.cache
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(COLOR)
-
-    @classmethod
-    def decode(cls, blob, **kwargs) -> Color:
-        return cls(dsviper.ValueStructure.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
     def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
                  red: float | NotGiven = NOT_GIVEN,
@@ -319,11 +299,6 @@ class EdgeTopology(Proxy):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(EDGE_TOPOLOGY)
 
-    @classmethod
-    def decode(cls, blob, **kwargs) -> EdgeTopology:
-        return cls(dsviper.ValueStructure.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
-
     def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
                  va_key: VertexKey | NotGiven = NOT_GIVEN,
                  vb_key: VertexKey | NotGiven = NOT_GIVEN) -> None:
@@ -367,11 +342,6 @@ class GraphDescription(Proxy):
     @functools.cache
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(GRAPH_DESCRIPTION)
-
-    @classmethod
-    def decode(cls, blob, **kwargs) -> GraphDescription:
-        return cls(dsviper.ValueStructure.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
     def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
                  name: str | NotGiven = NOT_GIVEN,
@@ -428,11 +398,6 @@ class GraphSelection(Proxy):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(GRAPH_SELECTION)
 
-    @classmethod
-    def decode(cls, blob, **kwargs) -> GraphSelection:
-        return cls(dsviper.ValueStructure.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
-
     def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
                  vertex_keys: containers.Set_of_Graph_VertexKey | NotGiven = NOT_GIVEN,
                  edge_keys: containers.Set_of_Graph_EdgeKey | NotGiven = NOT_GIVEN) -> None:
@@ -476,11 +441,6 @@ class GraphTopology(Proxy):
     @functools.cache
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(GRAPH_TOPOLOGY)
-
-    @classmethod
-    def decode(cls, blob, **kwargs) -> GraphTopology:
-        return cls(dsviper.ValueStructure.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
     def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
                  vertex_keys: containers.Set_of_Graph_VertexKey | NotGiven = NOT_GIVEN,
@@ -526,11 +486,6 @@ class Position(Proxy):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(POSITION)
 
-    @classmethod
-    def decode(cls, blob, **kwargs) -> Position:
-        return cls(dsviper.ValueStructure.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
-
     def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
                  x: float | NotGiven = NOT_GIVEN,
                  y: float | NotGiven = NOT_GIVEN) -> None:
@@ -574,11 +529,6 @@ class Rectangle(Proxy):
     @functools.cache
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(RECTANGLE)
-
-    @classmethod
-    def decode(cls, blob, **kwargs) -> Rectangle:
-        return cls(dsviper.ValueStructure.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
     def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
                  x: float | NotGiven = NOT_GIVEN,
@@ -650,11 +600,6 @@ class VertexVisualAttributes(Proxy):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(VERTEX_VISUAL_ATTRIBUTES)
 
-    @classmethod
-    def decode(cls, blob, **kwargs) -> VertexVisualAttributes:
-        return cls(dsviper.ValueStructure.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
-
     def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
                  value: int | NotGiven = NOT_GIVEN,
                  color: Color | NotGiven = NOT_GIVEN) -> None:
@@ -698,11 +643,6 @@ class Vertex2DAttributes(Proxy):
     @functools.cache
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(VERTEX_2D_ATTRIBUTES)
-
-    @classmethod
-    def decode(cls, blob, **kwargs) -> Vertex2DAttributes:
-        return cls(dsviper.ValueStructure.cast(
-            dsviper.Value.decode(blob, cls.type(), definitions(), **kwargs)))
 
     def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
                  position: Position | NotGiven = NOT_GIVEN) -> None:
