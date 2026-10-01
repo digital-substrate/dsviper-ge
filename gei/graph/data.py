@@ -95,7 +95,7 @@ class EdgeKey(Key):
         return cls(value.to_member_key(cls.concept()))
 
     def description(self) -> str:
-        return f"{self._value.instance_id().encoded()}:Graph::EdgeKey"
+        return f"{self._value.instance_id().encoded()}:Graph::EdgeKey{self._held()}"
 
     def is_known(self) -> bool:
         return is_known(self._value)
@@ -168,7 +168,7 @@ class GraphKey(Key):
         return cls(value.to_member_key(cls.concept()))
 
     def description(self) -> str:
-        return f"{self._value.instance_id().encoded()}:Graph::GraphKey"
+        return f"{self._value.instance_id().encoded()}:Graph::GraphKey{self._held()}"
 
     def is_known(self) -> bool:
         return is_known(self._value)
@@ -241,7 +241,7 @@ class VertexKey(Key):
         return cls(value.to_member_key(cls.concept()))
 
     def description(self) -> str:
-        return f"{self._value.instance_id().encoded()}:Graph::VertexKey"
+        return f"{self._value.instance_id().encoded()}:Graph::VertexKey{self._held()}"
 
     def is_known(self) -> bool:
         return is_known(self._value)
