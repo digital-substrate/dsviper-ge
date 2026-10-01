@@ -13,7 +13,7 @@ import typing
 import dsviper
 
 from . import definitions
-from ._codegen import AnyValue, Declared, Mapping, Optional, Ordered, Sequence, Variant, declare
+from ._codegen import AnyValue, Declared, Fixed, Mapping, Matrix, Optional, Ordered, SetView, Variant, Vector, declare
 
 if typing.TYPE_CHECKING:
     from . import containers
@@ -209,7 +209,7 @@ class Optional_of_Map_of_string_to_string(Declared, Optional["containers.Map_of_
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_optional_map_string_to_string()
-class Vector_of_string(Declared, Sequence["str"]):
+class Vector_of_string(Declared, Vector["str"]):
     __slots__ = ()
 
     def __init__(self, value: Vector_of_string | typing.Sequence[str] | None = None) -> None:
@@ -218,7 +218,7 @@ class Vector_of_string(Declared, Sequence["str"]):
     @classmethod
     def type(cls) -> dsviper.Type:
         return type_vector_string()
-class Set_of_Graph_EdgeKey(Declared, Sequence["graph.EdgeKey"]):
+class Set_of_Graph_EdgeKey(Declared, SetView["graph.EdgeKey"]):
     __slots__ = ()
 
     def __init__(self, value: Set_of_Graph_EdgeKey | typing.Iterable[graph.EdgeKey] | None = None) -> None:
@@ -228,7 +228,7 @@ class Set_of_Graph_EdgeKey(Declared, Sequence["graph.EdgeKey"]):
     def type(cls) -> dsviper.Type:
         return type_set_Graph_EdgeKey()
 
-class Set_of_Graph_GraphKey(Declared, Sequence["graph.GraphKey"]):
+class Set_of_Graph_GraphKey(Declared, SetView["graph.GraphKey"]):
     __slots__ = ()
 
     def __init__(self, value: Set_of_Graph_GraphKey | typing.Iterable[graph.GraphKey] | None = None) -> None:
@@ -238,7 +238,7 @@ class Set_of_Graph_GraphKey(Declared, Sequence["graph.GraphKey"]):
     def type(cls) -> dsviper.Type:
         return type_set_Graph_GraphKey()
 
-class Set_of_Graph_VertexKey(Declared, Sequence["graph.VertexKey"]):
+class Set_of_Graph_VertexKey(Declared, SetView["graph.VertexKey"]):
     __slots__ = ()
 
     def __init__(self, value: Set_of_Graph_VertexKey | typing.Iterable[graph.VertexKey] | None = None) -> None:
@@ -248,7 +248,7 @@ class Set_of_Graph_VertexKey(Declared, Sequence["graph.VertexKey"]):
     def type(cls) -> dsviper.Type:
         return type_set_Graph_VertexKey()
 
-class Set_of_string(Declared, Sequence["str"]):
+class Set_of_string(Declared, SetView["str"]):
     __slots__ = ()
 
     def __init__(self, value: Set_of_string | typing.Iterable[str] | None = None) -> None:
