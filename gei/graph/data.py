@@ -38,7 +38,7 @@ class EdgeKey(Key):
 
     @classmethod
     @functools.cache
-    def concept(cls):
+    def concept(cls) -> dsviper.TypeConcept:
         return definitions().check_concept(EDGE)
 
     @classmethod
@@ -106,7 +106,7 @@ class GraphKey(Key):
 
     @classmethod
     @functools.cache
-    def concept(cls):
+    def concept(cls) -> dsviper.TypeConcept:
         return definitions().check_concept(GRAPH)
 
     @classmethod
@@ -174,7 +174,7 @@ class VertexKey(Key):
 
     @classmethod
     @functools.cache
-    def concept(cls):
+    def concept(cls) -> dsviper.TypeConcept:
         return definitions().check_concept(VERTEX)
 
     @classmethod
