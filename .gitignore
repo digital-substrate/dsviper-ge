@@ -88,5 +88,5 @@ CLAUDE.md
 # Logs
 *.log
 
-# Deposited by generate.py
+# A model rendered to JSON, never committed
 *.dsm.json

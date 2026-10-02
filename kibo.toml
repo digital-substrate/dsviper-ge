@@ -1,0 +1,11 @@
+[project]
+definitions = "../com.digitalsubstrate.ge/definitions/Ge"
+infrastructure = "gei"
+
+[generator]
+templates = "2"
+
+[target.python]
+features = ["Base"]
+output = "."
+clean = true

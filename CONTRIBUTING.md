@@ -41,7 +41,7 @@ pyside6-rcc resources.qrc -o resources_rc.py             # Qt resources
 
 This app depends on `dsviper`, the pre-built Viper Python binding (distributed on PyPI). All persistence and commit operations go through it — don't attempt to port Viper.
 
-`gei/` is generated from the Graph Editor model by `generate.py`: don't edit it by hand,
+`gei/` is generated from the Graph Editor model as `kibo.toml` declares: don't edit it by hand,
 regenerate it (see the README) and commit the result. The business functions belong in
 `ge/`.
 

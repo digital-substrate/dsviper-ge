@@ -40,7 +40,7 @@ The application reads and writes the databases of the Graph Editor model — the
 of the AppKit reference application, whose definitions live in
 `com.digitalsubstrate.ge`. Two packages sit on top of it:
 
-- `gei/` — the typed infrastructure, generated from the model by `generate.py`:
+- `gei/` — the typed infrastructure, generated from the model as `kibo.toml` declares:
   the types (`gei.graph.VertexKey`, `gei.graph.Position`) and one scope per
   attachment (`gei.graph.attachments.Graph.topology`). Never edited by hand.
 - `ge/` — the business functions of the Graph Editor, written against `gei`.
@@ -68,17 +68,20 @@ written.
 model changes:
 
 ```bash
-python3 generate.py
+python3 ../kibo-project/kibo_project.py generate
 ```
 
-It needs, as sibling checkouts:
+`kibo.toml` declares the generation: the model's definitions, the infrastructure name
+`gei`, the template pack's line and the features. It needs, as sibling checkouts:
 
-- `../com.digitalsubstrate.ge` — the model's definitions (`definitions/Ge`, or set
-  `GE_DEFINITIONS`);
-- `../kibo-template-viper` on `kibo-2-dev` — the kibo 2 template pack (or set
-  `KIBO_TEMPLATES`) and the Python runtime copied into `gei/_codegen`
-  (`python/runtime`, or set `KIBO_PYTHON_RUNTIME`);
-- `../kibo`, built: `target/kibo-2.x.y.jar`, or set `KIBO_JAR`.
+- `../kibo-project` — the tool that reads `kibo.toml` and drives kibo;
+- `../com.digitalsubstrate.ge` — the model's definitions (`definitions/Ge`);
+- `../kibo-template-viper` on `kibo-2-dev` — the kibo 2 template pack, with the Python
+  runtime copied into `gei/_codegen` (or set `KIBO_TEMPLATES`);
+- `../kibo`, built: the newest `target/kibo-X.Y.Z.jar` the pack accepts, or set `KIBO_JAR`.
+
+`gei/` is emptied before each generation, so a type the model no longer declares leaves
+no file behind.
 
 Only the `Base` feature is generated: types, attachments and the embedded definitions.
 The model's function pools belong to GraphEditor's C++ side and are left out.
