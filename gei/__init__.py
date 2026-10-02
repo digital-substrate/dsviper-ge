@@ -16,7 +16,7 @@ import dsviper as _dsviper
 from . import resources
 from ._codegen import AnyConceptKey, AnyValue, Key
 
-__all__ = ["AnyConceptKey", "AnyValue", "Key", "definitions"]
+__all__ = ["AnyConceptKey", "AnyValue", "Key", "containers", "definitions", "graph"]
 
 @_functools.cache
 def definitions() -> _dsviper.DefinitionsConst:
@@ -25,3 +25,4 @@ def definitions() -> _dsviper.DefinitionsConst:
 
 
 from . import containers  # noqa: E402
+from . import graph  # noqa: E402
