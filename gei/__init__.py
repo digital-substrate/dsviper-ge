@@ -5,8 +5,6 @@
 # Commercial use requires a Commercial Licence from Digital Substrate.
 
 
-from __future__ import annotations
-
 import base64 as _base64
 import functools as _functools
 import zlib as _zlib

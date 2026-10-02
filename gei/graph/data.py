@@ -77,12 +77,12 @@ class EdgeKey(Key):
         return AnyConceptKey(self._value.to_any_concept_key())
 
     @classmethod
-    def from_any_concept_key(cls, key: AnyConceptKey | Proxy | dsviper.ValueKey) -> EdgeKey | None:
+    def from_any_concept_key(cls, key: AnyConceptKey | Proxy[dsviper.ValueKey] | dsviper.ValueKey) -> EdgeKey | None:
         value = key._value if isinstance(key, Proxy) else key
         return cls(value.to_member_key(cls.concept())) if value.is_member(cls.concept()) else None
 
     @classmethod
-    def from_key(cls, key: Proxy | dsviper.ValueKey) -> EdgeKey:
+    def from_key(cls, key: Proxy[dsviper.ValueKey] | dsviper.ValueKey) -> EdgeKey:
         value = key._value if isinstance(key, Proxy) else key
         if not value.is_member(cls.concept()):
             raise TypeError(f"{value.detail_type_representation()} does not designate a Graph::Edge")
@@ -144,12 +144,12 @@ class GraphKey(Key):
         return AnyConceptKey(self._value.to_any_concept_key())
 
     @classmethod
-    def from_any_concept_key(cls, key: AnyConceptKey | Proxy | dsviper.ValueKey) -> GraphKey | None:
+    def from_any_concept_key(cls, key: AnyConceptKey | Proxy[dsviper.ValueKey] | dsviper.ValueKey) -> GraphKey | None:
         value = key._value if isinstance(key, Proxy) else key
         return cls(value.to_member_key(cls.concept())) if value.is_member(cls.concept()) else None
 
     @classmethod
-    def from_key(cls, key: Proxy | dsviper.ValueKey) -> GraphKey:
+    def from_key(cls, key: Proxy[dsviper.ValueKey] | dsviper.ValueKey) -> GraphKey:
         value = key._value if isinstance(key, Proxy) else key
         if not value.is_member(cls.concept()):
             raise TypeError(f"{value.detail_type_representation()} does not designate a Graph::Graph")
@@ -211,12 +211,12 @@ class VertexKey(Key):
         return AnyConceptKey(self._value.to_any_concept_key())
 
     @classmethod
-    def from_any_concept_key(cls, key: AnyConceptKey | Proxy | dsviper.ValueKey) -> VertexKey | None:
+    def from_any_concept_key(cls, key: AnyConceptKey | Proxy[dsviper.ValueKey] | dsviper.ValueKey) -> VertexKey | None:
         value = key._value if isinstance(key, Proxy) else key
         return cls(value.to_member_key(cls.concept())) if value.is_member(cls.concept()) else None
 
     @classmethod
-    def from_key(cls, key: Proxy | dsviper.ValueKey) -> VertexKey:
+    def from_key(cls, key: Proxy[dsviper.ValueKey] | dsviper.ValueKey) -> VertexKey:
         value = key._value if isinstance(key, Proxy) else key
         if not value.is_member(cls.concept()):
             raise TypeError(f"{value.detail_type_representation()} does not designate a Graph::Vertex")
@@ -232,7 +232,7 @@ class VertexKey(Key):
         return self.description()
 
 
-class Color(Proxy):
+class Color(Proxy[dsviper.ValueStructure]):
     """An RGB Color."""
     __slots__ = ()
 
@@ -287,7 +287,7 @@ class Color(Proxy):
         return f"Graph::Color(red={self.red}, green={self.green}, blue={self.blue})"
 
 
-class EdgeTopology(Proxy):
+class EdgeTopology(Proxy[dsviper.ValueStructure]):
     """An edge in the graph topology."""
     __slots__ = ()
 
@@ -331,7 +331,7 @@ class EdgeTopology(Proxy):
         return f"Graph::EdgeTopology(va_key={self.va_key}, vb_key={self.vb_key})"
 
 
-class GraphDescription(Proxy):
+class GraphDescription(Proxy[dsviper.ValueStructure]):
     """The descriptive information's."""
     __slots__ = ()
 
@@ -386,7 +386,7 @@ class GraphDescription(Proxy):
         return f"Graph::GraphDescription(name={self.name}, author={self.author}, create_date={self.create_date})"
 
 
-class GraphSelection(Proxy):
+class GraphSelection(Proxy[dsviper.ValueStructure]):
     """The selected vertices and edges."""
     __slots__ = ()
 
@@ -430,7 +430,7 @@ class GraphSelection(Proxy):
         return f"Graph::GraphSelection(vertex_keys={self.vertex_keys}, edge_keys={self.edge_keys})"
 
 
-class GraphTopology(Proxy):
+class GraphTopology(Proxy[dsviper.ValueStructure]):
     """The vertices and edges of the graph topology."""
     __slots__ = ()
 
@@ -474,7 +474,7 @@ class GraphTopology(Proxy):
         return f"Graph::GraphTopology(vertex_keys={self.vertex_keys}, edge_keys={self.edge_keys})"
 
 
-class Position(Proxy):
+class Position(Proxy[dsviper.ValueStructure]):
     """A Position."""
     __slots__ = ()
 
@@ -518,7 +518,7 @@ class Position(Proxy):
         return f"Graph::Position(x={self.x}, y={self.y})"
 
 
-class Rectangle(Proxy):
+class Rectangle(Proxy[dsviper.ValueStructure]):
     """A Rectangle."""
     __slots__ = ()
 
@@ -588,7 +588,7 @@ class Rectangle(Proxy):
         return f"Graph::Rectangle(x={self.x}, y={self.y}, w={self.w}, h={self.h})"
 
 
-class VertexVisualAttributes(Proxy):
+class VertexVisualAttributes(Proxy[dsviper.ValueStructure]):
     """The visual attributes of a vertex."""
     __slots__ = ()
 
@@ -632,7 +632,7 @@ class VertexVisualAttributes(Proxy):
         return f"Graph::VertexVisualAttributes(value={self.value}, color={self.color})"
 
 
-class Vertex2DAttributes(Proxy):
+class Vertex2DAttributes(Proxy[dsviper.ValueStructure]):
     """The attributes used to render a topological vertex in 2D."""
     __slots__ = ()
 
