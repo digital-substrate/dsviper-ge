@@ -97,6 +97,8 @@ class EdgeKey(Key):
     def __repr__(self) -> str:
         return self.description()
 
+    def to_concept_key(self) -> EdgeKey:
+        return typing.cast("EdgeKey", super().to_concept_key())
 
 
 class GraphKey(Key):
@@ -164,6 +166,8 @@ class GraphKey(Key):
     def __repr__(self) -> str:
         return self.description()
 
+    def to_concept_key(self) -> GraphKey:
+        return typing.cast("GraphKey", super().to_concept_key())
 
 
 class VertexKey(Key):
@@ -231,6 +235,8 @@ class VertexKey(Key):
     def __repr__(self) -> str:
         return self.description()
 
+    def to_concept_key(self) -> VertexKey:
+        return typing.cast("VertexKey", super().to_concept_key())
 
 class Color(Proxy[dsviper.ValueStructure]):
     """An RGB Color."""
