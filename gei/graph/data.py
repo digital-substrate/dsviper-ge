@@ -101,6 +101,7 @@ class EdgeKey(Key):
         return typing.cast("EdgeKey", super().to_concept_key())
 
 
+
 class GraphKey(Key):
     """A graph."""
     __slots__ = ()
@@ -168,6 +169,7 @@ class GraphKey(Key):
 
     def to_concept_key(self) -> GraphKey:
         return typing.cast("GraphKey", super().to_concept_key())
+
 
 
 class VertexKey(Key):
@@ -238,6 +240,7 @@ class VertexKey(Key):
     def to_concept_key(self) -> VertexKey:
         return typing.cast("VertexKey", super().to_concept_key())
 
+
 class Color(Proxy[dsviper.ValueStructure]):
     """An RGB Color."""
     __slots__ = ()
@@ -247,7 +250,7 @@ class Color(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(COLOR)
 
-    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+    def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  red: float | NotGiven = NOT_GIVEN,
                  green: float | NotGiven = NOT_GIVEN,
                  blue: float | NotGiven = NOT_GIVEN) -> None:
@@ -267,7 +270,7 @@ class Color(Proxy[dsviper.ValueStructure]):
 
     @property
     def red(self) -> float:
-        return self._value.at("red")
+        return typing.cast("float", self._value.at("red"))
 
     @red.setter
     def red(self, value: float) -> None:
@@ -275,7 +278,7 @@ class Color(Proxy[dsviper.ValueStructure]):
 
     @property
     def green(self) -> float:
-        return self._value.at("green")
+        return typing.cast("float", self._value.at("green"))
 
     @green.setter
     def green(self, value: float) -> None:
@@ -283,7 +286,7 @@ class Color(Proxy[dsviper.ValueStructure]):
 
     @property
     def blue(self) -> float:
-        return self._value.at("blue")
+        return typing.cast("float", self._value.at("blue"))
 
     @blue.setter
     def blue(self, value: float) -> None:
@@ -302,7 +305,7 @@ class EdgeTopology(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(EDGE_TOPOLOGY)
 
-    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+    def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  va_key: VertexKey | NotGiven = NOT_GIVEN,
                  vb_key: VertexKey | NotGiven = NOT_GIVEN) -> None:
         if source is None:
@@ -319,7 +322,7 @@ class EdgeTopology(Proxy[dsviper.ValueStructure]):
 
     @property
     def va_key(self) -> VertexKey:
-        return wrap(self._value.at("vaKey", encoded=False))
+        return typing.cast("VertexKey", wrap(self._value.at("vaKey", encoded=False)))
 
     @va_key.setter
     def va_key(self, value: VertexKey) -> None:
@@ -327,7 +330,7 @@ class EdgeTopology(Proxy[dsviper.ValueStructure]):
 
     @property
     def vb_key(self) -> VertexKey:
-        return wrap(self._value.at("vbKey", encoded=False))
+        return typing.cast("VertexKey", wrap(self._value.at("vbKey", encoded=False)))
 
     @vb_key.setter
     def vb_key(self, value: VertexKey) -> None:
@@ -346,7 +349,7 @@ class GraphDescription(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(GRAPH_DESCRIPTION)
 
-    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+    def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  name: str | NotGiven = NOT_GIVEN,
                  author: str | NotGiven = NOT_GIVEN,
                  create_date: str | NotGiven = NOT_GIVEN) -> None:
@@ -366,7 +369,7 @@ class GraphDescription(Proxy[dsviper.ValueStructure]):
 
     @property
     def name(self) -> str:
-        return self._value.at("name")
+        return typing.cast("str", self._value.at("name"))
 
     @name.setter
     def name(self, value: str) -> None:
@@ -374,7 +377,7 @@ class GraphDescription(Proxy[dsviper.ValueStructure]):
 
     @property
     def author(self) -> str:
-        return self._value.at("author")
+        return typing.cast("str", self._value.at("author"))
 
     @author.setter
     def author(self, value: str) -> None:
@@ -382,7 +385,7 @@ class GraphDescription(Proxy[dsviper.ValueStructure]):
 
     @property
     def create_date(self) -> str:
-        return self._value.at("createDate")
+        return typing.cast("str", self._value.at("createDate"))
 
     @create_date.setter
     def create_date(self, value: str) -> None:
@@ -401,7 +404,7 @@ class GraphSelection(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(GRAPH_SELECTION)
 
-    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+    def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  vertex_keys: containers.Set_of_Graph_VertexKey | NotGiven = NOT_GIVEN,
                  edge_keys: containers.Set_of_Graph_EdgeKey | NotGiven = NOT_GIVEN) -> None:
         if source is None:
@@ -418,7 +421,7 @@ class GraphSelection(Proxy[dsviper.ValueStructure]):
 
     @property
     def vertex_keys(self) -> containers.Set_of_Graph_VertexKey:
-        return wrap(self._value.at("vertexKeys", encoded=False))
+        return typing.cast("containers.Set_of_Graph_VertexKey", wrap(self._value.at("vertexKeys", encoded=False)))
 
     @vertex_keys.setter
     def vertex_keys(self, value: containers.Set_of_Graph_VertexKey) -> None:
@@ -426,7 +429,7 @@ class GraphSelection(Proxy[dsviper.ValueStructure]):
 
     @property
     def edge_keys(self) -> containers.Set_of_Graph_EdgeKey:
-        return wrap(self._value.at("edgeKeys", encoded=False))
+        return typing.cast("containers.Set_of_Graph_EdgeKey", wrap(self._value.at("edgeKeys", encoded=False)))
 
     @edge_keys.setter
     def edge_keys(self, value: containers.Set_of_Graph_EdgeKey) -> None:
@@ -445,7 +448,7 @@ class GraphTopology(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(GRAPH_TOPOLOGY)
 
-    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+    def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  vertex_keys: containers.Set_of_Graph_VertexKey | NotGiven = NOT_GIVEN,
                  edge_keys: containers.Set_of_Graph_EdgeKey | NotGiven = NOT_GIVEN) -> None:
         if source is None:
@@ -462,7 +465,7 @@ class GraphTopology(Proxy[dsviper.ValueStructure]):
 
     @property
     def vertex_keys(self) -> containers.Set_of_Graph_VertexKey:
-        return wrap(self._value.at("vertexKeys", encoded=False))
+        return typing.cast("containers.Set_of_Graph_VertexKey", wrap(self._value.at("vertexKeys", encoded=False)))
 
     @vertex_keys.setter
     def vertex_keys(self, value: containers.Set_of_Graph_VertexKey) -> None:
@@ -470,7 +473,7 @@ class GraphTopology(Proxy[dsviper.ValueStructure]):
 
     @property
     def edge_keys(self) -> containers.Set_of_Graph_EdgeKey:
-        return wrap(self._value.at("edgeKeys", encoded=False))
+        return typing.cast("containers.Set_of_Graph_EdgeKey", wrap(self._value.at("edgeKeys", encoded=False)))
 
     @edge_keys.setter
     def edge_keys(self, value: containers.Set_of_Graph_EdgeKey) -> None:
@@ -489,7 +492,7 @@ class Position(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(POSITION)
 
-    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+    def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  x: float | NotGiven = NOT_GIVEN,
                  y: float | NotGiven = NOT_GIVEN) -> None:
         if source is None:
@@ -506,7 +509,7 @@ class Position(Proxy[dsviper.ValueStructure]):
 
     @property
     def x(self) -> float:
-        return self._value.at("x")
+        return typing.cast("float", self._value.at("x"))
 
     @x.setter
     def x(self, value: float) -> None:
@@ -514,7 +517,7 @@ class Position(Proxy[dsviper.ValueStructure]):
 
     @property
     def y(self) -> float:
-        return self._value.at("y")
+        return typing.cast("float", self._value.at("y"))
 
     @y.setter
     def y(self, value: float) -> None:
@@ -533,7 +536,7 @@ class Rectangle(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(RECTANGLE)
 
-    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+    def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  x: float | NotGiven = NOT_GIVEN,
                  y: float | NotGiven = NOT_GIVEN,
                  w: float | NotGiven = NOT_GIVEN,
@@ -557,7 +560,7 @@ class Rectangle(Proxy[dsviper.ValueStructure]):
     @property
     def x(self) -> float:
         """the x origin."""
-        return self._value.at("x")
+        return typing.cast("float", self._value.at("x"))
 
     @x.setter
     def x(self, value: float) -> None:
@@ -566,7 +569,7 @@ class Rectangle(Proxy[dsviper.ValueStructure]):
     @property
     def y(self) -> float:
         """the y origin."""
-        return self._value.at("y")
+        return typing.cast("float", self._value.at("y"))
 
     @y.setter
     def y(self, value: float) -> None:
@@ -575,7 +578,7 @@ class Rectangle(Proxy[dsviper.ValueStructure]):
     @property
     def w(self) -> float:
         """the width."""
-        return self._value.at("w")
+        return typing.cast("float", self._value.at("w"))
 
     @w.setter
     def w(self, value: float) -> None:
@@ -584,7 +587,7 @@ class Rectangle(Proxy[dsviper.ValueStructure]):
     @property
     def h(self) -> float:
         """the height."""
-        return self._value.at("h")
+        return typing.cast("float", self._value.at("h"))
 
     @h.setter
     def h(self, value: float) -> None:
@@ -603,7 +606,7 @@ class VertexVisualAttributes(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(VERTEX_VISUAL_ATTRIBUTES)
 
-    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+    def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  value: int | NotGiven = NOT_GIVEN,
                  color: Color | NotGiven = NOT_GIVEN) -> None:
         if source is None:
@@ -620,7 +623,7 @@ class VertexVisualAttributes(Proxy[dsviper.ValueStructure]):
 
     @property
     def value(self) -> int:
-        return self._value.at("value")
+        return typing.cast("int", self._value.at("value"))
 
     @value.setter
     def value(self, value: int) -> None:
@@ -628,7 +631,7 @@ class VertexVisualAttributes(Proxy[dsviper.ValueStructure]):
 
     @property
     def color(self) -> Color:
-        return wrap(self._value.at("color", encoded=False))
+        return typing.cast("Color", wrap(self._value.at("color", encoded=False)))
 
     @color.setter
     def color(self, value: Color) -> None:
@@ -647,7 +650,7 @@ class Vertex2DAttributes(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(VERTEX_2D_ATTRIBUTES)
 
-    def __init__(self, source: dsviper.ValueStructure | dict | None = None, /, *,
+    def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  position: Position | NotGiven = NOT_GIVEN) -> None:
         if source is None:
             source = dsviper.ValueStructure(self.type())
@@ -661,7 +664,7 @@ class Vertex2DAttributes(Proxy[dsviper.ValueStructure]):
 
     @property
     def position(self) -> Position:
-        return wrap(self._value.at("position", encoded=False))
+        return typing.cast("Position", wrap(self._value.at("position", encoded=False)))
 
     @position.setter
     def position(self, value: Position) -> None:
