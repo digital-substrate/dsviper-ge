@@ -697,4 +697,4 @@ class Vertex2DAttributes(Proxy[dsviper.ValueStructure]):
 
 register({EDGE: EdgeKey, GRAPH: GraphKey, VERTEX: VertexKey, COLOR: Color, EDGE_TOPOLOGY: EdgeTopology, GRAPH_DESCRIPTION: GraphDescription, GRAPH_SELECTION: GraphSelection, GRAPH_TOPOLOGY: GraphTopology, POSITION: Position, RECTANGLE: Rectangle, VERTEX_2D_ATTRIBUTES: Vertex2DAttributes, VERTEX_VISUAL_ATTRIBUTES: VertexVisualAttributes})
 
-__all__ = ["EdgeKey", "GraphKey", "VertexKey", "Color", "EdgeTopology", "GraphDescription", "GraphSelection", "GraphTopology", "Position", "Rectangle", "Vertex2DAttributes", "VertexVisualAttributes"]
+__all__ = ["EdgeKey", "GraphKey", "VertexKey", "Color", "EdgeTopology", "GraphDescription", "GraphSelection", "GraphTopology", "Position", "Rectangle", "Vertex2DAttributes", "VertexVisualAttributes", "EDGE", "GRAPH", "VERTEX", "COLOR", "EDGE_TOPOLOGY", "GRAPH_DESCRIPTION", "GRAPH_SELECTION", "GRAPH_TOPOLOGY", "POSITION", "RECTANGLE", "VERTEX_2D_ATTRIBUTES", "VERTEX_VISUAL_ATTRIBUTES"]
