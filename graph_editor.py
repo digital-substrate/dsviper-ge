@@ -869,19 +869,19 @@ class MainWindow(QMainWindow):
     def _inspect_document_triggered(self):
         vertex_key = self._render_component.pick_vertex()
         if vertex_key:
-            self._commit_documents_dialog.documents().use_key(vertex_key.vpr_value)
+            self._commit_documents_dialog.documents().use_key(vertex_key.unwrap_value())
             self._show_document_dialog()
             return
 
         edge_key = self._render_component.pick_edge()
         if edge_key:
-            self._commit_documents_dialog.documents().use_key(edge_key.vpr_value)
+            self._commit_documents_dialog.documents().use_key(edge_key.unwrap_value())
             self._show_document_dialog()
             return
 
         graph_key = self._render_component.pick_graph()
         if graph_key:
-            self._commit_documents_dialog.documents().use_key(graph_key.vpr_value)
+            self._commit_documents_dialog.documents().use_key(graph_key.unwrap_value())
             self._show_document_dialog()
 
     def _show_document_dialog(self):

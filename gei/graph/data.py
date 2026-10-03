@@ -281,6 +281,8 @@ class Color(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
         elif source.type() != self.type():
             raise TypeError("this value is not a Graph::Color")
+        else:
+            source = dsviper.ValueStructure(self.type(), source)
         super().__init__(source)
         if not isinstance(red, NotGiven):
             self.red = red
@@ -335,6 +337,8 @@ class EdgeTopology(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
         elif source.type() != self.type():
             raise TypeError("this value is not a Graph::EdgeTopology")
+        else:
+            source = dsviper.ValueStructure(self.type(), source)
         super().__init__(source)
         if not isinstance(va_key, NotGiven):
             self.va_key = va_key
@@ -380,6 +384,8 @@ class GraphDescription(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
         elif source.type() != self.type():
             raise TypeError("this value is not a Graph::GraphDescription")
+        else:
+            source = dsviper.ValueStructure(self.type(), source)
         super().__init__(source)
         if not isinstance(name, NotGiven):
             self.name = name
@@ -434,6 +440,8 @@ class GraphSelection(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
         elif source.type() != self.type():
             raise TypeError("this value is not a Graph::GraphSelection")
+        else:
+            source = dsviper.ValueStructure(self.type(), source)
         super().__init__(source)
         if not isinstance(vertex_keys, NotGiven):
             self.vertex_keys = vertex_keys
@@ -478,6 +486,8 @@ class GraphTopology(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
         elif source.type() != self.type():
             raise TypeError("this value is not a Graph::GraphTopology")
+        else:
+            source = dsviper.ValueStructure(self.type(), source)
         super().__init__(source)
         if not isinstance(vertex_keys, NotGiven):
             self.vertex_keys = vertex_keys
@@ -522,6 +532,8 @@ class Position(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
         elif source.type() != self.type():
             raise TypeError("this value is not a Graph::Position")
+        else:
+            source = dsviper.ValueStructure(self.type(), source)
         super().__init__(source)
         if not isinstance(x, NotGiven):
             self.x = x
@@ -568,6 +580,8 @@ class Rectangle(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
         elif source.type() != self.type():
             raise TypeError("this value is not a Graph::Rectangle")
+        else:
+            source = dsviper.ValueStructure(self.type(), source)
         super().__init__(source)
         if not isinstance(x, NotGiven):
             self.x = x
@@ -636,6 +650,8 @@ class VertexVisualAttributes(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
         elif source.type() != self.type():
             raise TypeError("this value is not a Graph::VertexVisualAttributes")
+        else:
+            source = dsviper.ValueStructure(self.type(), source)
         super().__init__(source)
         if not isinstance(value, NotGiven):
             self.value = value
@@ -679,6 +695,8 @@ class Vertex2DAttributes(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
         elif source.type() != self.type():
             raise TypeError("this value is not a Graph::Vertex2DAttributes")
+        else:
+            source = dsviper.ValueStructure(self.type(), source)
         super().__init__(source)
         if not isinstance(position, NotGiven):
             self.position = position
