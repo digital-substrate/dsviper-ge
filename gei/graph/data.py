@@ -275,6 +275,8 @@ class Color(Proxy[dsviper.ValueStructure]):
                  red: float | NotGiven = NOT_GIVEN,
                  green: float | NotGiven = NOT_GIVEN,
                  blue: float | NotGiven = NOT_GIVEN) -> None:
+        """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
+        type, copied, or a dict keyed by the DSM field names, as the runtime takes it."""
         if source is None:
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
@@ -331,6 +333,8 @@ class EdgeTopology(Proxy[dsviper.ValueStructure]):
     def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  va_key: VertexKey | NotGiven = NOT_GIVEN,
                  vb_key: VertexKey | NotGiven = NOT_GIVEN) -> None:
+        """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
+        type, copied, or a dict keyed by the DSM field names, as the runtime takes it."""
         if source is None:
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
@@ -378,6 +382,8 @@ class GraphDescription(Proxy[dsviper.ValueStructure]):
                  name: str | NotGiven = NOT_GIVEN,
                  author: str | NotGiven = NOT_GIVEN,
                  create_date: str | NotGiven = NOT_GIVEN) -> None:
+        """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
+        type, copied, or a dict keyed by the DSM field names, as the runtime takes it."""
         if source is None:
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
@@ -434,6 +440,8 @@ class GraphSelection(Proxy[dsviper.ValueStructure]):
     def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  vertex_keys: containers.Set_of_Graph_VertexKey | NotGiven = NOT_GIVEN,
                  edge_keys: containers.Set_of_Graph_EdgeKey | NotGiven = NOT_GIVEN) -> None:
+        """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
+        type, copied, or a dict keyed by the DSM field names, as the runtime takes it."""
         if source is None:
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
@@ -480,6 +488,8 @@ class GraphTopology(Proxy[dsviper.ValueStructure]):
     def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  vertex_keys: containers.Set_of_Graph_VertexKey | NotGiven = NOT_GIVEN,
                  edge_keys: containers.Set_of_Graph_EdgeKey | NotGiven = NOT_GIVEN) -> None:
+        """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
+        type, copied, or a dict keyed by the DSM field names, as the runtime takes it."""
         if source is None:
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
@@ -526,6 +536,8 @@ class Position(Proxy[dsviper.ValueStructure]):
     def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  x: float | NotGiven = NOT_GIVEN,
                  y: float | NotGiven = NOT_GIVEN) -> None:
+        """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
+        type, copied, or a dict keyed by the DSM field names, as the runtime takes it."""
         if source is None:
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
@@ -574,6 +586,8 @@ class Rectangle(Proxy[dsviper.ValueStructure]):
                  y: float | NotGiven = NOT_GIVEN,
                  w: float | NotGiven = NOT_GIVEN,
                  h: float | NotGiven = NOT_GIVEN) -> None:
+        """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
+        type, copied, or a dict keyed by the DSM field names, as the runtime takes it."""
         if source is None:
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
@@ -644,6 +658,8 @@ class VertexVisualAttributes(Proxy[dsviper.ValueStructure]):
     def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  value: int | NotGiven = NOT_GIVEN,
                  color: Color | NotGiven = NOT_GIVEN) -> None:
+        """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
+        type, copied, or a dict keyed by the DSM field names, as the runtime takes it."""
         if source is None:
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
@@ -689,6 +705,8 @@ class Vertex2DAttributes(Proxy[dsviper.ValueStructure]):
 
     def __init__(self, source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
                  position: Position | NotGiven = NOT_GIVEN) -> None:
+        """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
+        type, copied, or a dict keyed by the DSM field names, as the runtime takes it."""
         if source is None:
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
