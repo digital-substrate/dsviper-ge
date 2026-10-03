@@ -52,6 +52,8 @@ class EdgeKey(Key):
         instance identifier and a runtime id the key of a concept that is a Edge or descends
         from it. A key of another concept is converted with its to_parent_key() or
         to_any_concept_key(), and back with from_any_concept_key()."""
+        if isinstance(identifier, EdgeKey):
+            raise TypeError(f"{identifier!r} is a Graph::EdgeKey already: use it as it is")
         if isinstance(identifier, Proxy):
             raise TypeError(f"{identifier!r} is not a Graph::EdgeKey: "
                             "widen it with to_parent_key(), or narrow it with from_any_concept_key()")
@@ -129,6 +131,8 @@ class GraphKey(Key):
         instance identifier and a runtime id the key of a concept that is a Graph or descends
         from it. A key of another concept is converted with its to_parent_key() or
         to_any_concept_key(), and back with from_any_concept_key()."""
+        if isinstance(identifier, GraphKey):
+            raise TypeError(f"{identifier!r} is a Graph::GraphKey already: use it as it is")
         if isinstance(identifier, Proxy):
             raise TypeError(f"{identifier!r} is not a Graph::GraphKey: "
                             "widen it with to_parent_key(), or narrow it with from_any_concept_key()")
@@ -206,6 +210,8 @@ class VertexKey(Key):
         instance identifier and a runtime id the key of a concept that is a Vertex or descends
         from it. A key of another concept is converted with its to_parent_key() or
         to_any_concept_key(), and back with from_any_concept_key()."""
+        if isinstance(identifier, VertexKey):
+            raise TypeError(f"{identifier!r} is a Graph::VertexKey already: use it as it is")
         if isinstance(identifier, Proxy):
             raise TypeError(f"{identifier!r} is not a Graph::VertexKey: "
                             "widen it with to_parent_key(), or narrow it with from_any_concept_key()")
