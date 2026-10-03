@@ -46,17 +46,34 @@ class EdgeKey(Key):
     def type(cls) -> dsviper.Type:
         return dsviper.TypeKey(cls.concept())
 
-    def __init__(self, identifier: dsviper.ValueKey | dsviper.ValueUUId | str | NotGiven = NOT_GIVEN) -> None:
+    def __init__(self, identifier: dsviper.ValueKey | dsviper.ValueUUId | str | NotGiven = NOT_GIVEN,
+                 runtime_id: dsviper.ValueUUId | str | NotGiven = NOT_GIVEN) -> None:
+        """No argument gives the invalid key, an instance identifier the key of that instance, an
+        instance identifier and a runtime id the key of a concept that is a Edge or descends
+        from it. A key of another concept is converted with its to_parent_key() or
+        to_any_concept_key(), and back with from_any_concept_key()."""
         if isinstance(identifier, Proxy):
-            raise TypeError(f"{identifier!r} is not a Graph::EdgeKey: convert it with from_key()")
+            raise TypeError(f"{identifier!r} is not a Graph::EdgeKey: "
+                            "widen it with to_parent_key(), or narrow it with from_any_concept_key()")
         if isinstance(identifier, dsviper.ValueKey):
+            if not isinstance(runtime_id, NotGiven):
+                raise TypeError("a key carries its runtime id")
             if identifier.type() != self.type():
                 raise TypeError(f"this value is not a Graph::EdgeKey: {identifier.detail_type_representation()}")
             super().__init__(identifier)
         elif isinstance(identifier, NotGiven):
-            super().__init__(dsviper.ValueKey.create(self.concept(), None))
+            if not isinstance(runtime_id, NotGiven):
+                raise TypeError("a runtime id needs an instance identifier")
+            super().__init__(dsviper.ValueKey.create(self.concept(), dsviper.ValueUUId.INVALID))
         elif isinstance(identifier, (dsviper.ValueUUId, str)):
-            super().__init__(dsviper.ValueKey.create(self.concept(), identifier))
+            if isinstance(runtime_id, NotGiven):
+                super().__init__(dsviper.ValueKey.create(self.concept(), identifier))
+                return
+            concept = definitions().check_concept(dsviper.ValueUUId(runtime_id))
+            key = dsviper.ValueKey.create(concept, identifier)
+            if not key.is_member(self.concept()):
+                raise TypeError(f"{concept.representation()} is not a Graph::Edge")
+            super().__init__(key.to_member_key(self.concept()))
         else:
             raise TypeError(f"{identifier!r} is not an instance identifier")
 
@@ -81,13 +98,6 @@ class EdgeKey(Key):
         value = key._value if isinstance(key, Proxy) else key
         return cls(value.to_member_key(cls.concept())) if value.is_member(cls.concept()) else None
 
-    @classmethod
-    def from_key(cls, key: Proxy[dsviper.ValueKey] | dsviper.ValueKey) -> EdgeKey:
-        value = key._value if isinstance(key, Proxy) else key
-        if not value.is_member(cls.concept()):
-            raise TypeError(f"{value.detail_type_representation()} does not designate a Graph::Edge")
-        return cls(value.to_member_key(cls.concept()))
-
     def description(self) -> str:
         return f"{self._value.instance_id().encoded()}:Graph::EdgeKey{self._held()}"
 
@@ -96,9 +106,6 @@ class EdgeKey(Key):
 
     def __repr__(self) -> str:
         return self.description()
-
-    def to_concept_key(self) -> EdgeKey:
-        return typing.cast("EdgeKey", super().to_concept_key())
 
 
 
@@ -116,17 +123,34 @@ class GraphKey(Key):
     def type(cls) -> dsviper.Type:
         return dsviper.TypeKey(cls.concept())
 
-    def __init__(self, identifier: dsviper.ValueKey | dsviper.ValueUUId | str | NotGiven = NOT_GIVEN) -> None:
+    def __init__(self, identifier: dsviper.ValueKey | dsviper.ValueUUId | str | NotGiven = NOT_GIVEN,
+                 runtime_id: dsviper.ValueUUId | str | NotGiven = NOT_GIVEN) -> None:
+        """No argument gives the invalid key, an instance identifier the key of that instance, an
+        instance identifier and a runtime id the key of a concept that is a Graph or descends
+        from it. A key of another concept is converted with its to_parent_key() or
+        to_any_concept_key(), and back with from_any_concept_key()."""
         if isinstance(identifier, Proxy):
-            raise TypeError(f"{identifier!r} is not a Graph::GraphKey: convert it with from_key()")
+            raise TypeError(f"{identifier!r} is not a Graph::GraphKey: "
+                            "widen it with to_parent_key(), or narrow it with from_any_concept_key()")
         if isinstance(identifier, dsviper.ValueKey):
+            if not isinstance(runtime_id, NotGiven):
+                raise TypeError("a key carries its runtime id")
             if identifier.type() != self.type():
                 raise TypeError(f"this value is not a Graph::GraphKey: {identifier.detail_type_representation()}")
             super().__init__(identifier)
         elif isinstance(identifier, NotGiven):
-            super().__init__(dsviper.ValueKey.create(self.concept(), None))
+            if not isinstance(runtime_id, NotGiven):
+                raise TypeError("a runtime id needs an instance identifier")
+            super().__init__(dsviper.ValueKey.create(self.concept(), dsviper.ValueUUId.INVALID))
         elif isinstance(identifier, (dsviper.ValueUUId, str)):
-            super().__init__(dsviper.ValueKey.create(self.concept(), identifier))
+            if isinstance(runtime_id, NotGiven):
+                super().__init__(dsviper.ValueKey.create(self.concept(), identifier))
+                return
+            concept = definitions().check_concept(dsviper.ValueUUId(runtime_id))
+            key = dsviper.ValueKey.create(concept, identifier)
+            if not key.is_member(self.concept()):
+                raise TypeError(f"{concept.representation()} is not a Graph::Graph")
+            super().__init__(key.to_member_key(self.concept()))
         else:
             raise TypeError(f"{identifier!r} is not an instance identifier")
 
@@ -151,13 +175,6 @@ class GraphKey(Key):
         value = key._value if isinstance(key, Proxy) else key
         return cls(value.to_member_key(cls.concept())) if value.is_member(cls.concept()) else None
 
-    @classmethod
-    def from_key(cls, key: Proxy[dsviper.ValueKey] | dsviper.ValueKey) -> GraphKey:
-        value = key._value if isinstance(key, Proxy) else key
-        if not value.is_member(cls.concept()):
-            raise TypeError(f"{value.detail_type_representation()} does not designate a Graph::Graph")
-        return cls(value.to_member_key(cls.concept()))
-
     def description(self) -> str:
         return f"{self._value.instance_id().encoded()}:Graph::GraphKey{self._held()}"
 
@@ -166,9 +183,6 @@ class GraphKey(Key):
 
     def __repr__(self) -> str:
         return self.description()
-
-    def to_concept_key(self) -> GraphKey:
-        return typing.cast("GraphKey", super().to_concept_key())
 
 
 
@@ -186,17 +200,34 @@ class VertexKey(Key):
     def type(cls) -> dsviper.Type:
         return dsviper.TypeKey(cls.concept())
 
-    def __init__(self, identifier: dsviper.ValueKey | dsviper.ValueUUId | str | NotGiven = NOT_GIVEN) -> None:
+    def __init__(self, identifier: dsviper.ValueKey | dsviper.ValueUUId | str | NotGiven = NOT_GIVEN,
+                 runtime_id: dsviper.ValueUUId | str | NotGiven = NOT_GIVEN) -> None:
+        """No argument gives the invalid key, an instance identifier the key of that instance, an
+        instance identifier and a runtime id the key of a concept that is a Vertex or descends
+        from it. A key of another concept is converted with its to_parent_key() or
+        to_any_concept_key(), and back with from_any_concept_key()."""
         if isinstance(identifier, Proxy):
-            raise TypeError(f"{identifier!r} is not a Graph::VertexKey: convert it with from_key()")
+            raise TypeError(f"{identifier!r} is not a Graph::VertexKey: "
+                            "widen it with to_parent_key(), or narrow it with from_any_concept_key()")
         if isinstance(identifier, dsviper.ValueKey):
+            if not isinstance(runtime_id, NotGiven):
+                raise TypeError("a key carries its runtime id")
             if identifier.type() != self.type():
                 raise TypeError(f"this value is not a Graph::VertexKey: {identifier.detail_type_representation()}")
             super().__init__(identifier)
         elif isinstance(identifier, NotGiven):
-            super().__init__(dsviper.ValueKey.create(self.concept(), None))
+            if not isinstance(runtime_id, NotGiven):
+                raise TypeError("a runtime id needs an instance identifier")
+            super().__init__(dsviper.ValueKey.create(self.concept(), dsviper.ValueUUId.INVALID))
         elif isinstance(identifier, (dsviper.ValueUUId, str)):
-            super().__init__(dsviper.ValueKey.create(self.concept(), identifier))
+            if isinstance(runtime_id, NotGiven):
+                super().__init__(dsviper.ValueKey.create(self.concept(), identifier))
+                return
+            concept = definitions().check_concept(dsviper.ValueUUId(runtime_id))
+            key = dsviper.ValueKey.create(concept, identifier)
+            if not key.is_member(self.concept()):
+                raise TypeError(f"{concept.representation()} is not a Graph::Vertex")
+            super().__init__(key.to_member_key(self.concept()))
         else:
             raise TypeError(f"{identifier!r} is not an instance identifier")
 
@@ -221,13 +252,6 @@ class VertexKey(Key):
         value = key._value if isinstance(key, Proxy) else key
         return cls(value.to_member_key(cls.concept())) if value.is_member(cls.concept()) else None
 
-    @classmethod
-    def from_key(cls, key: Proxy[dsviper.ValueKey] | dsviper.ValueKey) -> VertexKey:
-        value = key._value if isinstance(key, Proxy) else key
-        if not value.is_member(cls.concept()):
-            raise TypeError(f"{value.detail_type_representation()} does not designate a Graph::Vertex")
-        return cls(value.to_member_key(cls.concept()))
-
     def description(self) -> str:
         return f"{self._value.instance_id().encoded()}:Graph::VertexKey{self._held()}"
 
@@ -236,9 +260,6 @@ class VertexKey(Key):
 
     def __repr__(self) -> str:
         return self.description()
-
-    def to_concept_key(self) -> VertexKey:
-        return typing.cast("VertexKey", super().to_concept_key())
 
 
 class Color(Proxy[dsviper.ValueStructure]):
