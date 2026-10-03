@@ -18,75 +18,75 @@ if typing.TYPE_CHECKING:
     from . import containers
     from ._codegen import AnyConceptKey
 
-def type_bool() -> dsviper.TypeBool: return dsviper.TypeBool()
-def type_uint8() -> dsviper.TypeUInt8: return dsviper.TypeUInt8()
-def type_uint16() -> dsviper.TypeUInt16: return dsviper.TypeUInt16()
-def type_uint32() -> dsviper.TypeUInt32: return dsviper.TypeUInt32()
-def type_uint64() -> dsviper.TypeUInt64: return dsviper.TypeUInt64()
-def type_int8() -> dsviper.TypeInt8: return dsviper.TypeInt8()
-def type_int16() -> dsviper.TypeInt16: return dsviper.TypeInt16()
-def type_int32() -> dsviper.TypeInt32: return dsviper.TypeInt32()
-def type_int64() -> dsviper.TypeInt64: return dsviper.TypeInt64()
-def type_float() -> dsviper.TypeFloat: return dsviper.TypeFloat()
-def type_double() -> dsviper.TypeDouble: return dsviper.TypeDouble()
-def type_string() -> dsviper.TypeString: return dsviper.TypeString()
-def type_blob() -> dsviper.TypeBlob: return dsviper.TypeBlob()
-def type_blob_id() -> dsviper.TypeBlobId: return dsviper.TypeBlobId()
-def type_commit_id() -> dsviper.TypeCommitId: return dsviper.TypeCommitId()
-def type_uuid() -> dsviper.TypeUUId: return dsviper.TypeUUId()
-def type_any() -> dsviper.TypeAny: return dsviper.TypeAny()
-def type_AnyConceptKey() -> dsviper.TypeKey: return dsviper.TypeKey(dsviper.TypeAnyConcept())
-def type_Graph_EdgeKey() -> dsviper.Type: return dsviper.TypeKey(definitions().check_concept(graph.data.EDGE))
-def type_Graph_GraphKey() -> dsviper.Type: return dsviper.TypeKey(definitions().check_concept(graph.data.GRAPH))
-def type_Graph_VertexKey() -> dsviper.Type: return dsviper.TypeKey(definitions().check_concept(graph.data.VERTEX))
-def type_Graph_Color() -> dsviper.Type: return definitions().check_structure(graph.data.COLOR)
-def type_Graph_EdgeTopology() -> dsviper.Type: return definitions().check_structure(graph.data.EDGE_TOPOLOGY)
-def type_Graph_GraphDescription() -> dsviper.Type: return definitions().check_structure(graph.data.GRAPH_DESCRIPTION)
-def type_Graph_GraphSelection() -> dsviper.Type: return definitions().check_structure(graph.data.GRAPH_SELECTION)
-def type_Graph_GraphTopology() -> dsviper.Type: return definitions().check_structure(graph.data.GRAPH_TOPOLOGY)
-def type_Graph_Position() -> dsviper.Type: return definitions().check_structure(graph.data.POSITION)
-def type_Graph_Rectangle() -> dsviper.Type: return definitions().check_structure(graph.data.RECTANGLE)
-def type_Graph_Vertex2DAttributes() -> dsviper.Type: return definitions().check_structure(graph.data.VERTEX_2D_ATTRIBUTES)
-def type_Graph_VertexVisualAttributes() -> dsviper.Type: return definitions().check_structure(graph.data.VERTEX_VISUAL_ATTRIBUTES)
+def _type_bool() -> dsviper.TypeBool: return dsviper.TypeBool()
+def _type_uint8() -> dsviper.TypeUInt8: return dsviper.TypeUInt8()
+def _type_uint16() -> dsviper.TypeUInt16: return dsviper.TypeUInt16()
+def _type_uint32() -> dsviper.TypeUInt32: return dsviper.TypeUInt32()
+def _type_uint64() -> dsviper.TypeUInt64: return dsviper.TypeUInt64()
+def _type_int8() -> dsviper.TypeInt8: return dsviper.TypeInt8()
+def _type_int16() -> dsviper.TypeInt16: return dsviper.TypeInt16()
+def _type_int32() -> dsviper.TypeInt32: return dsviper.TypeInt32()
+def _type_int64() -> dsviper.TypeInt64: return dsviper.TypeInt64()
+def _type_float() -> dsviper.TypeFloat: return dsviper.TypeFloat()
+def _type_double() -> dsviper.TypeDouble: return dsviper.TypeDouble()
+def _type_string() -> dsviper.TypeString: return dsviper.TypeString()
+def _type_blob() -> dsviper.TypeBlob: return dsviper.TypeBlob()
+def _type_blob_id() -> dsviper.TypeBlobId: return dsviper.TypeBlobId()
+def _type_commit_id() -> dsviper.TypeCommitId: return dsviper.TypeCommitId()
+def _type_uuid() -> dsviper.TypeUUId: return dsviper.TypeUUId()
+def _type_any() -> dsviper.TypeAny: return dsviper.TypeAny()
+def _type_AnyConceptKey() -> dsviper.TypeKey: return dsviper.TypeKey(dsviper.TypeAnyConcept())
+def _type_Graph_EdgeKey() -> dsviper.Type: return dsviper.TypeKey(definitions().check_concept(graph.data.EDGE))
+def _type_Graph_GraphKey() -> dsviper.Type: return dsviper.TypeKey(definitions().check_concept(graph.data.GRAPH))
+def _type_Graph_VertexKey() -> dsviper.Type: return dsviper.TypeKey(definitions().check_concept(graph.data.VERTEX))
+def _type_Graph_Color() -> dsviper.Type: return definitions().check_structure(graph.data.COLOR)
+def _type_Graph_EdgeTopology() -> dsviper.Type: return definitions().check_structure(graph.data.EDGE_TOPOLOGY)
+def _type_Graph_GraphDescription() -> dsviper.Type: return definitions().check_structure(graph.data.GRAPH_DESCRIPTION)
+def _type_Graph_GraphSelection() -> dsviper.Type: return definitions().check_structure(graph.data.GRAPH_SELECTION)
+def _type_Graph_GraphTopology() -> dsviper.Type: return definitions().check_structure(graph.data.GRAPH_TOPOLOGY)
+def _type_Graph_Position() -> dsviper.Type: return definitions().check_structure(graph.data.POSITION)
+def _type_Graph_Rectangle() -> dsviper.Type: return definitions().check_structure(graph.data.RECTANGLE)
+def _type_Graph_Vertex2DAttributes() -> dsviper.Type: return definitions().check_structure(graph.data.VERTEX_2D_ATTRIBUTES)
+def _type_Graph_VertexVisualAttributes() -> dsviper.Type: return definitions().check_structure(graph.data.VERTEX_VISUAL_ATTRIBUTES)
 
 @functools.cache
-def type_optional_AnyConceptKey() -> dsviper.Type: return dsviper.TypeOptional(type_AnyConceptKey())
+def _type_optional_AnyConceptKey() -> dsviper.Type: return dsviper.TypeOptional(_type_AnyConceptKey())
 @functools.cache
-def type_optional_xarray_string() -> dsviper.Type: return dsviper.TypeOptional(type_xarray_string())
+def _type_optional_xarray_string() -> dsviper.Type: return dsviper.TypeOptional(_type_xarray_string())
 @functools.cache
-def type_optional_Graph_EdgeKey() -> dsviper.Type: return dsviper.TypeOptional(type_Graph_EdgeKey())
+def _type_optional_Graph_EdgeKey() -> dsviper.Type: return dsviper.TypeOptional(_type_Graph_EdgeKey())
 @functools.cache
-def type_optional_Graph_EdgeTopology() -> dsviper.Type: return dsviper.TypeOptional(type_Graph_EdgeTopology())
+def _type_optional_Graph_EdgeTopology() -> dsviper.Type: return dsviper.TypeOptional(_type_Graph_EdgeTopology())
 @functools.cache
-def type_optional_Graph_GraphDescription() -> dsviper.Type: return dsviper.TypeOptional(type_Graph_GraphDescription())
+def _type_optional_Graph_GraphDescription() -> dsviper.Type: return dsviper.TypeOptional(_type_Graph_GraphDescription())
 @functools.cache
-def type_optional_Graph_GraphKey() -> dsviper.Type: return dsviper.TypeOptional(type_Graph_GraphKey())
+def _type_optional_Graph_GraphKey() -> dsviper.Type: return dsviper.TypeOptional(_type_Graph_GraphKey())
 @functools.cache
-def type_optional_Graph_GraphSelection() -> dsviper.Type: return dsviper.TypeOptional(type_Graph_GraphSelection())
+def _type_optional_Graph_GraphSelection() -> dsviper.Type: return dsviper.TypeOptional(_type_Graph_GraphSelection())
 @functools.cache
-def type_optional_Graph_GraphTopology() -> dsviper.Type: return dsviper.TypeOptional(type_Graph_GraphTopology())
+def _type_optional_Graph_GraphTopology() -> dsviper.Type: return dsviper.TypeOptional(_type_Graph_GraphTopology())
 @functools.cache
-def type_optional_Graph_Vertex2DAttributes() -> dsviper.Type: return dsviper.TypeOptional(type_Graph_Vertex2DAttributes())
+def _type_optional_Graph_Vertex2DAttributes() -> dsviper.Type: return dsviper.TypeOptional(_type_Graph_Vertex2DAttributes())
 @functools.cache
-def type_optional_Graph_VertexKey() -> dsviper.Type: return dsviper.TypeOptional(type_Graph_VertexKey())
+def _type_optional_Graph_VertexKey() -> dsviper.Type: return dsviper.TypeOptional(_type_Graph_VertexKey())
 @functools.cache
-def type_optional_Graph_VertexVisualAttributes() -> dsviper.Type: return dsviper.TypeOptional(type_Graph_VertexVisualAttributes())
+def _type_optional_Graph_VertexVisualAttributes() -> dsviper.Type: return dsviper.TypeOptional(_type_Graph_VertexVisualAttributes())
 @functools.cache
-def type_optional_map_string_to_string() -> dsviper.Type: return dsviper.TypeOptional(type_map_string_to_string())
+def _type_optional_map_string_to_string() -> dsviper.Type: return dsviper.TypeOptional(_type_map_string_to_string())
 @functools.cache
-def type_vector_string() -> dsviper.Type: return dsviper.TypeVector(type_string())
+def _type_vector_string() -> dsviper.Type: return dsviper.TypeVector(_type_string())
 @functools.cache
-def type_set_Graph_EdgeKey() -> dsviper.Type: return dsviper.TypeSet(type_Graph_EdgeKey())
+def _type_set_Graph_EdgeKey() -> dsviper.Type: return dsviper.TypeSet(_type_Graph_EdgeKey())
 @functools.cache
-def type_set_Graph_GraphKey() -> dsviper.Type: return dsviper.TypeSet(type_Graph_GraphKey())
+def _type_set_Graph_GraphKey() -> dsviper.Type: return dsviper.TypeSet(_type_Graph_GraphKey())
 @functools.cache
-def type_set_Graph_VertexKey() -> dsviper.Type: return dsviper.TypeSet(type_Graph_VertexKey())
+def _type_set_Graph_VertexKey() -> dsviper.Type: return dsviper.TypeSet(_type_Graph_VertexKey())
 @functools.cache
-def type_set_string() -> dsviper.Type: return dsviper.TypeSet(type_string())
+def _type_set_string() -> dsviper.Type: return dsviper.TypeSet(_type_string())
 @functools.cache
-def type_map_string_to_string() -> dsviper.Type: return dsviper.TypeMap(type_string(), type_string())
+def _type_map_string_to_string() -> dsviper.Type: return dsviper.TypeMap(_type_string(), _type_string())
 @functools.cache
-def type_xarray_string() -> dsviper.Type: return dsviper.TypeXArray(type_string())
+def _type_xarray_string() -> dsviper.Type: return dsviper.TypeXArray(_type_string())
 
 class Optional_of_AnyConceptKey(Declared, Optional["AnyConceptKey"]):
     __slots__ = ()
@@ -96,7 +96,7 @@ class Optional_of_AnyConceptKey(Declared, Optional["AnyConceptKey"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_AnyConceptKey()
+        return _type_optional_AnyConceptKey()
 
 class Optional_of_XArray_of_string(Declared, Optional["containers.XArray_of_string"]):
     __slots__ = ()
@@ -106,7 +106,7 @@ class Optional_of_XArray_of_string(Declared, Optional["containers.XArray_of_stri
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_xarray_string()
+        return _type_optional_xarray_string()
 
 class Optional_of_Graph_EdgeKey(Declared, Optional["graph.EdgeKey"]):
     __slots__ = ()
@@ -116,7 +116,7 @@ class Optional_of_Graph_EdgeKey(Declared, Optional["graph.EdgeKey"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_Graph_EdgeKey()
+        return _type_optional_Graph_EdgeKey()
 
 class Optional_of_Graph_EdgeTopology(Declared, Optional["graph.EdgeTopology"]):
     __slots__ = ()
@@ -126,7 +126,7 @@ class Optional_of_Graph_EdgeTopology(Declared, Optional["graph.EdgeTopology"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_Graph_EdgeTopology()
+        return _type_optional_Graph_EdgeTopology()
 
 class Optional_of_Graph_GraphDescription(Declared, Optional["graph.GraphDescription"]):
     __slots__ = ()
@@ -136,7 +136,7 @@ class Optional_of_Graph_GraphDescription(Declared, Optional["graph.GraphDescript
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_Graph_GraphDescription()
+        return _type_optional_Graph_GraphDescription()
 
 class Optional_of_Graph_GraphKey(Declared, Optional["graph.GraphKey"]):
     __slots__ = ()
@@ -146,7 +146,7 @@ class Optional_of_Graph_GraphKey(Declared, Optional["graph.GraphKey"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_Graph_GraphKey()
+        return _type_optional_Graph_GraphKey()
 
 class Optional_of_Graph_GraphSelection(Declared, Optional["graph.GraphSelection"]):
     __slots__ = ()
@@ -156,7 +156,7 @@ class Optional_of_Graph_GraphSelection(Declared, Optional["graph.GraphSelection"
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_Graph_GraphSelection()
+        return _type_optional_Graph_GraphSelection()
 
 class Optional_of_Graph_GraphTopology(Declared, Optional["graph.GraphTopology"]):
     __slots__ = ()
@@ -166,7 +166,7 @@ class Optional_of_Graph_GraphTopology(Declared, Optional["graph.GraphTopology"])
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_Graph_GraphTopology()
+        return _type_optional_Graph_GraphTopology()
 
 class Optional_of_Graph_Vertex2DAttributes(Declared, Optional["graph.Vertex2DAttributes"]):
     __slots__ = ()
@@ -176,7 +176,7 @@ class Optional_of_Graph_Vertex2DAttributes(Declared, Optional["graph.Vertex2DAtt
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_Graph_Vertex2DAttributes()
+        return _type_optional_Graph_Vertex2DAttributes()
 
 class Optional_of_Graph_VertexKey(Declared, Optional["graph.VertexKey"]):
     __slots__ = ()
@@ -186,7 +186,7 @@ class Optional_of_Graph_VertexKey(Declared, Optional["graph.VertexKey"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_Graph_VertexKey()
+        return _type_optional_Graph_VertexKey()
 
 class Optional_of_Graph_VertexVisualAttributes(Declared, Optional["graph.VertexVisualAttributes"]):
     __slots__ = ()
@@ -196,7 +196,7 @@ class Optional_of_Graph_VertexVisualAttributes(Declared, Optional["graph.VertexV
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_Graph_VertexVisualAttributes()
+        return _type_optional_Graph_VertexVisualAttributes()
 
 class Optional_of_Map_of_string_to_string(Declared, Optional["containers.Map_of_string_to_string"]):
     __slots__ = ()
@@ -206,7 +206,7 @@ class Optional_of_Map_of_string_to_string(Declared, Optional["containers.Map_of_
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_optional_map_string_to_string()
+        return _type_optional_map_string_to_string()
 class Vector_of_string(Declared, Vector["str"]):
     __slots__ = ()
 
@@ -215,7 +215,7 @@ class Vector_of_string(Declared, Vector["str"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_vector_string()
+        return _type_vector_string()
 class Set_of_Graph_EdgeKey(Declared, SetView["graph.EdgeKey"]):
     __slots__ = ()
 
@@ -224,7 +224,7 @@ class Set_of_Graph_EdgeKey(Declared, SetView["graph.EdgeKey"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_set_Graph_EdgeKey()
+        return _type_set_Graph_EdgeKey()
 
 class Set_of_Graph_GraphKey(Declared, SetView["graph.GraphKey"]):
     __slots__ = ()
@@ -234,7 +234,7 @@ class Set_of_Graph_GraphKey(Declared, SetView["graph.GraphKey"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_set_Graph_GraphKey()
+        return _type_set_Graph_GraphKey()
 
 class Set_of_Graph_VertexKey(Declared, SetView["graph.VertexKey"]):
     __slots__ = ()
@@ -244,7 +244,7 @@ class Set_of_Graph_VertexKey(Declared, SetView["graph.VertexKey"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_set_Graph_VertexKey()
+        return _type_set_Graph_VertexKey()
 
 class Set_of_string(Declared, SetView["str"]):
     __slots__ = ()
@@ -254,7 +254,7 @@ class Set_of_string(Declared, SetView["str"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_set_string()
+        return _type_set_string()
 class Map_of_string_to_string(Declared, Mapping["str", "str"]):
     __slots__ = ()
 
@@ -263,7 +263,7 @@ class Map_of_string_to_string(Declared, Mapping["str", "str"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_map_string_to_string()
+        return _type_map_string_to_string()
 class XArray_of_string(Declared, Ordered["str"]):
     __slots__ = ()
 
@@ -272,7 +272,7 @@ class XArray_of_string(Declared, Ordered["str"]):
 
     @classmethod
     def type(cls) -> dsviper.Type:
-        return type_xarray_string()
+        return _type_xarray_string()
 
 from . import graph  # noqa: E402
 
