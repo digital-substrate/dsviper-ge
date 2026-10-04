@@ -288,7 +288,9 @@ class Color(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
-        elif source.type() != self.type():
+        elif isinstance(source, Proxy):
+            raise TypeError(f"{source!r} is a generated value, not a source: copy() it, or pass a dict or a Viper value")
+        elif not isinstance(source, dsviper.ValueStructure) or source.type() != self.type():
             raise TypeError("this value is not a Graph::Color")
         super().__init__(source)
         if not isinstance(red, NotGiven):
@@ -345,7 +347,9 @@ class EdgeTopology(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
-        elif source.type() != self.type():
+        elif isinstance(source, Proxy):
+            raise TypeError(f"{source!r} is a generated value, not a source: copy() it, or pass a dict or a Viper value")
+        elif not isinstance(source, dsviper.ValueStructure) or source.type() != self.type():
             raise TypeError("this value is not a Graph::EdgeTopology")
         super().__init__(source)
         if not isinstance(va_key, NotGiven):
@@ -393,7 +397,9 @@ class GraphDescription(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
-        elif source.type() != self.type():
+        elif isinstance(source, Proxy):
+            raise TypeError(f"{source!r} is a generated value, not a source: copy() it, or pass a dict or a Viper value")
+        elif not isinstance(source, dsviper.ValueStructure) or source.type() != self.type():
             raise TypeError("this value is not a Graph::GraphDescription")
         super().__init__(source)
         if not isinstance(name, NotGiven):
@@ -450,7 +456,9 @@ class GraphSelection(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
-        elif source.type() != self.type():
+        elif isinstance(source, Proxy):
+            raise TypeError(f"{source!r} is a generated value, not a source: copy() it, or pass a dict or a Viper value")
+        elif not isinstance(source, dsviper.ValueStructure) or source.type() != self.type():
             raise TypeError("this value is not a Graph::GraphSelection")
         super().__init__(source)
         if not isinstance(vertex_keys, NotGiven):
@@ -497,7 +505,9 @@ class GraphTopology(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
-        elif source.type() != self.type():
+        elif isinstance(source, Proxy):
+            raise TypeError(f"{source!r} is a generated value, not a source: copy() it, or pass a dict or a Viper value")
+        elif not isinstance(source, dsviper.ValueStructure) or source.type() != self.type():
             raise TypeError("this value is not a Graph::GraphTopology")
         super().__init__(source)
         if not isinstance(vertex_keys, NotGiven):
@@ -544,7 +554,9 @@ class Position(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
-        elif source.type() != self.type():
+        elif isinstance(source, Proxy):
+            raise TypeError(f"{source!r} is a generated value, not a source: copy() it, or pass a dict or a Viper value")
+        elif not isinstance(source, dsviper.ValueStructure) or source.type() != self.type():
             raise TypeError("this value is not a Graph::Position")
         super().__init__(source)
         if not isinstance(x, NotGiven):
@@ -593,7 +605,9 @@ class Rectangle(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
-        elif source.type() != self.type():
+        elif isinstance(source, Proxy):
+            raise TypeError(f"{source!r} is a generated value, not a source: copy() it, or pass a dict or a Viper value")
+        elif not isinstance(source, dsviper.ValueStructure) or source.type() != self.type():
             raise TypeError("this value is not a Graph::Rectangle")
         super().__init__(source)
         if not isinstance(x, NotGiven):
@@ -664,7 +678,9 @@ class VertexVisualAttributes(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
-        elif source.type() != self.type():
+        elif isinstance(source, Proxy):
+            raise TypeError(f"{source!r} is a generated value, not a source: copy() it, or pass a dict or a Viper value")
+        elif not isinstance(source, dsviper.ValueStructure) or source.type() != self.type():
             raise TypeError("this value is not a Graph::VertexVisualAttributes")
         super().__init__(source)
         if not isinstance(value, NotGiven):
@@ -710,7 +726,9 @@ class Vertex2DAttributes(Proxy[dsviper.ValueStructure]):
             source = dsviper.ValueStructure(self.type())
         elif isinstance(source, dict):
             source = dsviper.ValueStructure(self.type(), _unwrap_deep(source))
-        elif source.type() != self.type():
+        elif isinstance(source, Proxy):
+            raise TypeError(f"{source!r} is a generated value, not a source: copy() it, or pass a dict or a Viper value")
+        elif not isinstance(source, dsviper.ValueStructure) or source.type() != self.type():
             raise TypeError("this value is not a Graph::Vertex2DAttributes")
         super().__init__(source)
         if not isinstance(position, NotGiven):
