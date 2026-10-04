@@ -84,7 +84,7 @@ python3 ../kibo-project/kibo_project.py generate
 no file behind.
 
 Only the `Base` feature is generated: types, attachments and the embedded definitions.
-The model's function pools belong to GraphEditor's C++ side and are left out.
+The model's function pools belong to a C++ application and are left out.
 
 Always commit the regenerated files.
 

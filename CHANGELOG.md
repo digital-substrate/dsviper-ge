@@ -15,7 +15,7 @@ runtime version (declared as a dependency in `requirements.txt`).
   declares, by kibo-project (kibo 2): the package `gei`, with the types in `gei.graph` and one scope per
   attachment in `gei.graph.attachments` (`attachments.Graph.topology.union_vertex_keys`).
   It replaces the copy of the 1.2 generated package that lived under `ge/`, and leaves
-  out the model's function pools, which belong to GraphEditor's C++ side.
+  out the model's function pools, which belong to a C++ application.
 - The business functions, formerly `model/`, are the package `ge`.
 - Written against `gei`: a typed container is the package's declared one
   (`containers.Set_of_Graph_VertexKey()` rather than `Set_Graph_VertexKey()`), `get`
