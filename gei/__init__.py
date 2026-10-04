@@ -20,7 +20,7 @@ through an attachment, given the database or a state:
     db = dsviper.Database.create_in_memory()     # a CommitDatabase keeps every commit
     db.extend_definitions(gei.definitions())
     db.begin_transaction()
-    gei.graph.attachments.Concept.attachment.set(db, key, document)
+    gei.graph.attachments.Edge.topology.set(db, key, document)
     db.commit()
 
 A generated object is a box around a Viper value: `p.unwrap_value()` gives it, and
