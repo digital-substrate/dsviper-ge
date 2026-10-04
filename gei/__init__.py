@@ -9,8 +9,10 @@
 Each DSM namespace is a module holding its structures, enumerations and keys, and its
 attachments as `attachments`:
 `gei.graph`.
-`containers` holds the containers the model's structures use, and `definitions()` is the
-model.
+`containers` holds one class per container shape the model uses, in a structure, an
+attachment or a pool; another shape is built with the runtime, from Viper values:
+`dsviper.Value.create(dsviper.TypeSet(Key.type()), [k.unwrap_value() for k in keys])`.
+`definitions()` is the model.
 The pools, rendered with the Pool feature, are imported by their path:
 `import gei.tools`, `import gei.model_graph`, `import gei.model_integrity`, `import gei.model_selection`.
 
