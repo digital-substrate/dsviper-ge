@@ -17,9 +17,9 @@ runtime version (declared as a dependency in `requirements.txt`).
   It replaces the copy of the 1.2 generated package that lived under `ge/`, and leaves
   out the model's function pools, which belong to GraphEditor's C++ side.
 - The business functions, formerly `model/`, are the package `ge`.
-- Written against `gei`: a typed container is a Python one (`set[graph.VertexKey]()`
-  rather than `Set_Graph_VertexKey()`), `get` returns the document or `None` with no
-  optional to unwrap, and fields and methods are spelled in snake_case.
+- Written against `gei`: a typed container is the package's declared one
+  (`containers.Set_of_Graph_VertexKey()` rather than `Set_Graph_VertexKey()`), `get`
+  returns an optional to unwrap, and fields and methods are spelled in snake_case.
 
 ### Added
 - `tests/golden/scenario.py`: the business functions run step by step on an in-memory
