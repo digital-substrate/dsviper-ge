@@ -11,8 +11,9 @@ runtime version (declared as a dependency in `requirements.txt`).
 ## [Unreleased]
 
 ### Changed
+- Requires `dsviper >= 1.2.29`, the floor of the code kibo-template-viper 2.0.0 generates.
 - The typed infrastructure is generated from the Graph Editor model as `kibo.toml`
-  declares, by kibo-project (kibo 2): the package `gei`, with the types in `gei.graph` and one scope per
+  declares, by kibo-project (kibo 2.0.0, kibo-template-viper 2.0.0): the package `gei`, with the types in `gei.graph` and one scope per
   attachment in `gei.graph.attachments` (`attachments.Graph.topology.union_vertex_keys`).
   It replaces the copy of the 1.2 generated package that lived under `ge/`, and leaves
   out the model's function pools, which belong to a C++ application.
