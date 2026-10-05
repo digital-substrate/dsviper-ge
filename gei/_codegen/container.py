@@ -1,4 +1,4 @@
-# The runtime of the kibo-template-viper 2.0.1 Python templates (MIT), copied into every
+# The runtime of the kibo-template-viper 2.0.2 Python templates (MIT), copied into every
 # generated package. Do not edit by hand.
 
 from __future__ import annotations
@@ -334,7 +334,10 @@ class Matrix(View[dsviper.ValueMat], typing.Generic[E]):
 
 
 class Mapping(View[dsviper.ValueMap], typing.Generic[K, E]):
-    """A map. `m[key]` raises KeyError for a key it does not hold; `get(key)` answers None."""
+    """A map. `m[key]` raises KeyError for a key it does not hold; `get(key)` answers None.
+
+    `keys()`, `values()` and `items()` return lists, a snapshot of the map: it can change
+    while one is iterated."""
     __slots__ = ()
 
     def __len__(self) -> int:

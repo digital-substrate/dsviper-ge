@@ -1,5 +1,5 @@
 # Generated from gei.dsm.json by kibo-2.0.0.jar. Do not edit by hand.
-# Templates: kibo-template-viper 2.0.1 (MIT), Template Model 2.
+# Templates: kibo-template-viper 2.0.2 (MIT), Template Model 2.
 # Runtime: this file imports `dsviper` >=1.2.29 <1.3.0,
 # distributed under LicenseRef-DigitalSubstrate-Commercial-1.2.
 # Commercial use requires a Commercial Licence from Digital Substrate.
@@ -17,6 +17,28 @@ from ._codegen import AnyValue, Declared, Fixed, Mapping, Matrix, Optional, Orde
 if typing.TYPE_CHECKING:
     from . import containers
     from ._codegen import AnyConceptKey
+
+__all__ = [
+    "Optional_of_AnyConceptKey",
+    "Optional_of_XArray_of_string",
+    "Optional_of_Graph_EdgeKey",
+    "Optional_of_Graph_EdgeTopology",
+    "Optional_of_Graph_GraphDescription",
+    "Optional_of_Graph_GraphKey",
+    "Optional_of_Graph_GraphSelection",
+    "Optional_of_Graph_GraphTopology",
+    "Optional_of_Graph_Vertex2DAttributes",
+    "Optional_of_Graph_VertexKey",
+    "Optional_of_Graph_VertexVisualAttributes",
+    "Optional_of_Map_of_string_to_string",
+    "Vector_of_string",
+    "Set_of_Graph_EdgeKey",
+    "Set_of_Graph_GraphKey",
+    "Set_of_Graph_VertexKey",
+    "Set_of_string",
+    "Map_of_string_to_string",
+    "XArray_of_string",
+]
 
 def _type_bool() -> dsviper.TypeBool: return dsviper.TypeBool()
 def _type_uint8() -> dsviper.TypeUInt8: return dsviper.TypeUInt8()
