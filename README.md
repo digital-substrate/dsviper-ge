@@ -49,9 +49,9 @@ of the AppKit reference application, whose definitions live in
 from gei import graph
 from gei.graph import attachments
 
-topology = attachments.Graph.topology.get(attachment_getting, graph_key)   # the document, or None
-if topology:
-    vertex_keys = topology.vertex_keys
+opt = attachments.Graph.topology.get(attachment_getting, graph_key)   # an optional, empty when there is no document
+if opt:
+    vertex_keys = opt.unwrap().vertex_keys
 
 attachments.Graph.selection.union_vertex_keys(attachment_mutating, graph_key, {vertex_key})
 attachments.Vertex.visual_attributes.set(attachment_mutating, vertex_key,
