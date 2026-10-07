@@ -1,5 +1,5 @@
-# Generated from gei.dsm.json by kibo-2.0.2.jar. Do not edit by hand.
-# Templates: kibo-template-viper 2.0.3 (MIT), Template Model 2.
+# Generated from gei.dsm.json by kibo-2.0.0.jar. Do not edit by hand.
+# Templates: kibo-template-viper 2.0.0 (MIT), Template Model 2.
 # Runtime: this file imports `dsviper` >=1.2.29 <1.3.0,
 # distributed under LicenseRef-DigitalSubstrate-Commercial-1.2.
 # Commercial use requires a Commercial Licence from Digital Substrate.
@@ -12,7 +12,7 @@ import typing
 import dsviper
 
 from . import definitions
-from ._codegen import AnyValue, Declared, Fixed, Mapping, Matrix, Optional, Ordered, SetView, Variant, Vector, declare
+from ._codegen import AnyValue, Declared, Fixed, Mapping, Matrix, Option, Ordered, SetView, Variant, Vector, declare, wrap
 
 if typing.TYPE_CHECKING:
     from . import containers
@@ -110,7 +110,7 @@ def _type_map_string_to_string() -> dsviper.Type: return dsviper.TypeMap(_type_s
 @functools.cache
 def _type_xarray_string() -> dsviper.Type: return dsviper.TypeXArray(_type_string())
 
-class Optional_of_AnyConceptKey(Declared, Optional["AnyConceptKey"]):
+class Optional_of_AnyConceptKey(Declared, Option["AnyConceptKey"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_AnyConceptKey | dsviper.ValueOptional | AnyConceptKey | None = None) -> None:
@@ -120,7 +120,7 @@ class Optional_of_AnyConceptKey(Declared, Optional["AnyConceptKey"]):
     def type(cls) -> dsviper.Type:
         return _type_optional_AnyConceptKey()
 
-class Optional_of_XArray_of_string(Declared, Optional["containers.XArray_of_string"]):
+class Optional_of_XArray_of_string(Declared, Option["containers.XArray_of_string"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_XArray_of_string | dsviper.ValueOptional | containers.XArray_of_string | typing.Sequence[str] | None = None) -> None:
@@ -130,7 +130,7 @@ class Optional_of_XArray_of_string(Declared, Optional["containers.XArray_of_stri
     def type(cls) -> dsviper.Type:
         return _type_optional_xarray_string()
 
-class Optional_of_Graph_EdgeKey(Declared, Optional["graph.EdgeKey"]):
+class Optional_of_Graph_EdgeKey(Declared, Option["graph.EdgeKey"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_Graph_EdgeKey | dsviper.ValueOptional | graph.EdgeKey | None = None) -> None:
@@ -140,7 +140,7 @@ class Optional_of_Graph_EdgeKey(Declared, Optional["graph.EdgeKey"]):
     def type(cls) -> dsviper.Type:
         return _type_optional_Graph_EdgeKey()
 
-class Optional_of_Graph_EdgeTopology(Declared, Optional["graph.EdgeTopology"]):
+class Optional_of_Graph_EdgeTopology(Declared, Option["graph.EdgeTopology"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_Graph_EdgeTopology | dsviper.ValueOptional | graph.EdgeTopology | None = None) -> None:
@@ -150,7 +150,7 @@ class Optional_of_Graph_EdgeTopology(Declared, Optional["graph.EdgeTopology"]):
     def type(cls) -> dsviper.Type:
         return _type_optional_Graph_EdgeTopology()
 
-class Optional_of_Graph_GraphDescription(Declared, Optional["graph.GraphDescription"]):
+class Optional_of_Graph_GraphDescription(Declared, Option["graph.GraphDescription"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_Graph_GraphDescription | dsviper.ValueOptional | graph.GraphDescription | None = None) -> None:
@@ -160,7 +160,7 @@ class Optional_of_Graph_GraphDescription(Declared, Optional["graph.GraphDescript
     def type(cls) -> dsviper.Type:
         return _type_optional_Graph_GraphDescription()
 
-class Optional_of_Graph_GraphKey(Declared, Optional["graph.GraphKey"]):
+class Optional_of_Graph_GraphKey(Declared, Option["graph.GraphKey"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_Graph_GraphKey | dsviper.ValueOptional | graph.GraphKey | None = None) -> None:
@@ -170,7 +170,7 @@ class Optional_of_Graph_GraphKey(Declared, Optional["graph.GraphKey"]):
     def type(cls) -> dsviper.Type:
         return _type_optional_Graph_GraphKey()
 
-class Optional_of_Graph_GraphSelection(Declared, Optional["graph.GraphSelection"]):
+class Optional_of_Graph_GraphSelection(Declared, Option["graph.GraphSelection"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_Graph_GraphSelection | dsviper.ValueOptional | graph.GraphSelection | None = None) -> None:
@@ -180,7 +180,7 @@ class Optional_of_Graph_GraphSelection(Declared, Optional["graph.GraphSelection"
     def type(cls) -> dsviper.Type:
         return _type_optional_Graph_GraphSelection()
 
-class Optional_of_Graph_GraphTopology(Declared, Optional["graph.GraphTopology"]):
+class Optional_of_Graph_GraphTopology(Declared, Option["graph.GraphTopology"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_Graph_GraphTopology | dsviper.ValueOptional | graph.GraphTopology | None = None) -> None:
@@ -190,7 +190,7 @@ class Optional_of_Graph_GraphTopology(Declared, Optional["graph.GraphTopology"])
     def type(cls) -> dsviper.Type:
         return _type_optional_Graph_GraphTopology()
 
-class Optional_of_Graph_Vertex2DAttributes(Declared, Optional["graph.Vertex2DAttributes"]):
+class Optional_of_Graph_Vertex2DAttributes(Declared, Option["graph.Vertex2DAttributes"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_Graph_Vertex2DAttributes | dsviper.ValueOptional | graph.Vertex2DAttributes | None = None) -> None:
@@ -200,7 +200,7 @@ class Optional_of_Graph_Vertex2DAttributes(Declared, Optional["graph.Vertex2DAtt
     def type(cls) -> dsviper.Type:
         return _type_optional_Graph_Vertex2DAttributes()
 
-class Optional_of_Graph_VertexKey(Declared, Optional["graph.VertexKey"]):
+class Optional_of_Graph_VertexKey(Declared, Option["graph.VertexKey"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_Graph_VertexKey | dsviper.ValueOptional | graph.VertexKey | None = None) -> None:
@@ -210,7 +210,7 @@ class Optional_of_Graph_VertexKey(Declared, Optional["graph.VertexKey"]):
     def type(cls) -> dsviper.Type:
         return _type_optional_Graph_VertexKey()
 
-class Optional_of_Graph_VertexVisualAttributes(Declared, Optional["graph.VertexVisualAttributes"]):
+class Optional_of_Graph_VertexVisualAttributes(Declared, Option["graph.VertexVisualAttributes"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_Graph_VertexVisualAttributes | dsviper.ValueOptional | graph.VertexVisualAttributes | None = None) -> None:
@@ -220,7 +220,7 @@ class Optional_of_Graph_VertexVisualAttributes(Declared, Optional["graph.VertexV
     def type(cls) -> dsviper.Type:
         return _type_optional_Graph_VertexVisualAttributes()
 
-class Optional_of_Map_of_string_to_string(Declared, Optional["containers.Map_of_string_to_string"]):
+class Optional_of_Map_of_string_to_string(Declared, Option["containers.Map_of_string_to_string"]):
     __slots__ = ()
 
     def __init__(self, value: Optional_of_Map_of_string_to_string | dsviper.ValueOptional | containers.Map_of_string_to_string | dict[str, str] | None = None) -> None:

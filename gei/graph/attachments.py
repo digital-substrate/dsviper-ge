@@ -1,5 +1,5 @@
-# Generated from gei.dsm.json by kibo-2.0.2.jar. Do not edit by hand.
-# Templates: kibo-template-viper 2.0.3 (MIT), Template Model 2.
+# Generated from gei.dsm.json by kibo-2.0.0.jar. Do not edit by hand.
+# Templates: kibo-template-viper 2.0.0 (MIT), Template Model 2.
 # Runtime: this file imports `dsviper` >=1.2.29 <1.3.0,
 # distributed under LicenseRef-DigitalSubstrate-Commercial-1.2.
 # Commercial use requires a Commercial Licence from Digital Substrate.
@@ -14,15 +14,16 @@ import typing
 from .._codegen import AnyConceptKey, AnyValue, AttachmentProxy
 from .. import containers
 from .. import graph
+from . import paths as _graph_paths
 
 class Edge:
     class _Topology(AttachmentProxy[graph.EdgeKey, graph.EdgeTopology, containers.Set_of_Graph_EdgeKey, graph.EdgeTopology]):
 
         def set_va_key(self, mutating: dsviper.AttachmentMutating, key: graph.EdgeKey, value: graph.VertexKey) -> None:
-            self._update(mutating, key, "vaKey", value)
+            self._update(mutating, key, _graph_paths.EdgeTopology.va_key, value)
 
         def set_vb_key(self, mutating: dsviper.AttachmentMutating, key: graph.EdgeKey, value: graph.VertexKey) -> None:
-            self._update(mutating, key, "vbKey", value)
+            self._update(mutating, key, _graph_paths.EdgeTopology.vb_key, value)
 
     topology = _Topology(
         dsviper.ValueUUId.create("44178d14-4702-e96c-de66-8ca5108aa560"), definitions, graph.EdgeKey, graph.EdgeTopology)
@@ -45,13 +46,13 @@ class Graph:
     class _Description(AttachmentProxy[graph.GraphKey, graph.GraphDescription, containers.Set_of_Graph_GraphKey, graph.GraphDescription]):
 
         def set_name(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: str) -> None:
-            self._update(mutating, key, "name", value)
+            self._update(mutating, key, _graph_paths.GraphDescription.name, value)
 
         def set_author(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: str) -> None:
-            self._update(mutating, key, "author", value)
+            self._update(mutating, key, _graph_paths.GraphDescription.author, value)
 
         def set_create_date(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: str) -> None:
-            self._update(mutating, key, "createDate", value)
+            self._update(mutating, key, _graph_paths.GraphDescription.create_date, value)
 
     description = _Description(
         dsviper.ValueUUId.create("5f4ea545-87cb-4292-b40a-3e5b2e78174e"), definitions, graph.GraphKey, graph.GraphDescription)
@@ -59,35 +60,35 @@ class Graph:
     class _Selection(AttachmentProxy[graph.GraphKey, graph.GraphSelection, containers.Set_of_Graph_GraphKey, graph.GraphSelection]):
 
         def set_vertex_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_VertexKey) -> None:
-            self._update(mutating, key, "vertexKeys", value)
+            self._update(mutating, key, _graph_paths.GraphSelection.vertex_keys, value)
 
         def union_vertex_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_VertexKey) -> None:
-            self._union_in_set(mutating, key, "vertexKeys", value)
+            self._union_in_set(mutating, key, _graph_paths.GraphSelection.vertex_keys, value)
 
         def subtract_vertex_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_VertexKey) -> None:
-            self._subtract_in_set(mutating, key, "vertexKeys", value)
+            self._subtract_in_set(mutating, key, _graph_paths.GraphSelection.vertex_keys, value)
 
         def set_edge_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_EdgeKey) -> None:
-            self._update(mutating, key, "edgeKeys", value)
+            self._update(mutating, key, _graph_paths.GraphSelection.edge_keys, value)
 
         def union_edge_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_EdgeKey) -> None:
-            self._union_in_set(mutating, key, "edgeKeys", value)
+            self._union_in_set(mutating, key, _graph_paths.GraphSelection.edge_keys, value)
 
         def subtract_edge_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_EdgeKey) -> None:
-            self._subtract_in_set(mutating, key, "edgeKeys", value)
+            self._subtract_in_set(mutating, key, _graph_paths.GraphSelection.edge_keys, value)
 
     selection = _Selection(
         dsviper.ValueUUId.create("eb6f1b63-68dd-1ecc-6bbc-2853648380c4"), definitions, graph.GraphKey, graph.GraphSelection)
 
     class _Tags(AttachmentProxy[graph.GraphKey, containers.Map_of_string_to_string, containers.Set_of_Graph_GraphKey, containers.Map_of_string_to_string | dict[str, str]]):
 
-        def union(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Map_of_string_to_string) -> None:
+        def union(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Map_of_string_to_string | dict[str, str]) -> None:
             self._union_in_map(mutating, key, None, value)
 
-        def subtract(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_string) -> None:
+        def subtract(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_string | typing.Iterable[str]) -> None:
             self._subtract_in_map(mutating, key, None, value)
 
-        def update(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Map_of_string_to_string) -> None:
+        def update(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Map_of_string_to_string | dict[str, str]) -> None:
             self._update_in_map(mutating, key, None, value)
 
     tags = _Tags(
@@ -96,22 +97,22 @@ class Graph:
     class _Topology(AttachmentProxy[graph.GraphKey, graph.GraphTopology, containers.Set_of_Graph_GraphKey, graph.GraphTopology]):
 
         def set_vertex_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_VertexKey) -> None:
-            self._update(mutating, key, "vertexKeys", value)
+            self._update(mutating, key, _graph_paths.GraphTopology.vertex_keys, value)
 
         def union_vertex_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_VertexKey) -> None:
-            self._union_in_set(mutating, key, "vertexKeys", value)
+            self._union_in_set(mutating, key, _graph_paths.GraphTopology.vertex_keys, value)
 
         def subtract_vertex_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_VertexKey) -> None:
-            self._subtract_in_set(mutating, key, "vertexKeys", value)
+            self._subtract_in_set(mutating, key, _graph_paths.GraphTopology.vertex_keys, value)
 
         def set_edge_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_EdgeKey) -> None:
-            self._update(mutating, key, "edgeKeys", value)
+            self._update(mutating, key, _graph_paths.GraphTopology.edge_keys, value)
 
         def union_edge_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_EdgeKey) -> None:
-            self._union_in_set(mutating, key, "edgeKeys", value)
+            self._union_in_set(mutating, key, _graph_paths.GraphTopology.edge_keys, value)
 
         def subtract_edge_keys(self, mutating: dsviper.AttachmentMutating, key: graph.GraphKey, value: containers.Set_of_Graph_EdgeKey) -> None:
-            self._subtract_in_set(mutating, key, "edgeKeys", value)
+            self._subtract_in_set(mutating, key, _graph_paths.GraphTopology.edge_keys, value)
 
     topology = _Topology(
         dsviper.ValueUUId.create("09e8fcfb-e07d-3dd7-49d7-d8944538038b"), definitions, graph.GraphKey, graph.GraphTopology)
@@ -120,7 +121,7 @@ class Vertex:
     class _Render2DAttributes(AttachmentProxy[graph.VertexKey, graph.Vertex2DAttributes, containers.Set_of_Graph_VertexKey, graph.Vertex2DAttributes]):
 
         def set_position(self, mutating: dsviper.AttachmentMutating, key: graph.VertexKey, value: graph.Position) -> None:
-            self._update(mutating, key, "position", value)
+            self._update(mutating, key, _graph_paths.Vertex2DAttributes.position, value)
 
     render_2d_attributes = _Render2DAttributes(
         dsviper.ValueUUId.create("7e190bc3-1a6b-ccbe-eecc-6a53b70778cb"), definitions, graph.VertexKey, graph.Vertex2DAttributes)
@@ -128,10 +129,10 @@ class Vertex:
     class _VisualAttributes(AttachmentProxy[graph.VertexKey, graph.VertexVisualAttributes, containers.Set_of_Graph_VertexKey, graph.VertexVisualAttributes]):
 
         def set_value(self, mutating: dsviper.AttachmentMutating, key: graph.VertexKey, value: int) -> None:
-            self._update(mutating, key, "value", value)
+            self._update(mutating, key, _graph_paths.VertexVisualAttributes.value, value)
 
         def set_color(self, mutating: dsviper.AttachmentMutating, key: graph.VertexKey, value: graph.Color) -> None:
-            self._update(mutating, key, "color", value)
+            self._update(mutating, key, _graph_paths.VertexVisualAttributes.color, value)
 
     visual_attributes = _VisualAttributes(
         dsviper.ValueUUId.create("e09f1e7a-cd64-00f8-66b8-ea072397400d"), definitions, graph.VertexKey, graph.VertexVisualAttributes)

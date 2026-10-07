@@ -6,6 +6,6 @@ infrastructure = "gei"
 templates = "2"
 
 [target.python]
-features = ["Base"]
+features = ["Base", "Attachments"]
 output = "."
 clean = true

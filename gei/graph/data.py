@@ -1,5 +1,5 @@
-# Generated from gei.dsm.json by kibo-2.0.2.jar. Do not edit by hand.
-# Templates: kibo-template-viper 2.0.3 (MIT), Template Model 2.
+# Generated from gei.dsm.json by kibo-2.0.0.jar. Do not edit by hand.
+# Templates: kibo-template-viper 2.0.0 (MIT), Template Model 2.
 # Runtime: this file imports `dsviper` >=1.2.29 <1.3.0,
 # distributed under LicenseRef-DigitalSubstrate-Commercial-1.2.
 # Commercial use requires a Commercial Licence from Digital Substrate.
@@ -279,13 +279,13 @@ class Color(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(COLOR)
 
-    def __init__(_self, _source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
+    def __init__(_self, _source: dsviper.Value | dict[str, typing.Any] | None = None, /, *,
                  red: float | NotGiven = NOT_GIVEN,
                  green: float | NotGiven = NOT_GIVEN,
                  blue: float | NotGiven = NOT_GIVEN) -> None:
         """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
         type, boxed and not copied, or a dict keyed by the DSM field names, as the runtime
-        takes it."""
+        takes it. A Viper value of another type raises TypeError."""
         _init_structure(_self, _self.type(), _source, "Graph::Color")
         if not _builtins.isinstance(red, _NotGiven):
             _self.red = red
@@ -331,12 +331,12 @@ class EdgeTopology(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(EDGE_TOPOLOGY)
 
-    def __init__(_self, _source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
+    def __init__(_self, _source: dsviper.Value | dict[str, typing.Any] | None = None, /, *,
                  va_key: VertexKey | NotGiven = NOT_GIVEN,
                  vb_key: VertexKey | NotGiven = NOT_GIVEN) -> None:
         """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
         type, boxed and not copied, or a dict keyed by the DSM field names, as the runtime
-        takes it."""
+        takes it. A Viper value of another type raises TypeError."""
         _init_structure(_self, _self.type(), _source, "Graph::EdgeTopology")
         if not _builtins.isinstance(va_key, _NotGiven):
             _self.va_key = va_key
@@ -372,13 +372,13 @@ class GraphDescription(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(GRAPH_DESCRIPTION)
 
-    def __init__(_self, _source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
+    def __init__(_self, _source: dsviper.Value | dict[str, typing.Any] | None = None, /, *,
                  name: str | NotGiven = NOT_GIVEN,
                  author: str | NotGiven = NOT_GIVEN,
                  create_date: str | NotGiven = NOT_GIVEN) -> None:
         """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
         type, boxed and not copied, or a dict keyed by the DSM field names, as the runtime
-        takes it."""
+        takes it. A Viper value of another type raises TypeError."""
         _init_structure(_self, _self.type(), _source, "Graph::GraphDescription")
         if not _builtins.isinstance(name, _NotGiven):
             _self.name = name
@@ -424,12 +424,12 @@ class GraphSelection(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(GRAPH_SELECTION)
 
-    def __init__(_self, _source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
+    def __init__(_self, _source: dsviper.Value | dict[str, typing.Any] | None = None, /, *,
                  vertex_keys: containers.Set_of_Graph_VertexKey | NotGiven = NOT_GIVEN,
                  edge_keys: containers.Set_of_Graph_EdgeKey | NotGiven = NOT_GIVEN) -> None:
         """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
         type, boxed and not copied, or a dict keyed by the DSM field names, as the runtime
-        takes it."""
+        takes it. A Viper value of another type raises TypeError."""
         _init_structure(_self, _self.type(), _source, "Graph::GraphSelection")
         if not _builtins.isinstance(vertex_keys, _NotGiven):
             _self.vertex_keys = vertex_keys
@@ -465,12 +465,12 @@ class GraphTopology(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(GRAPH_TOPOLOGY)
 
-    def __init__(_self, _source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
+    def __init__(_self, _source: dsviper.Value | dict[str, typing.Any] | None = None, /, *,
                  vertex_keys: containers.Set_of_Graph_VertexKey | NotGiven = NOT_GIVEN,
                  edge_keys: containers.Set_of_Graph_EdgeKey | NotGiven = NOT_GIVEN) -> None:
         """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
         type, boxed and not copied, or a dict keyed by the DSM field names, as the runtime
-        takes it."""
+        takes it. A Viper value of another type raises TypeError."""
         _init_structure(_self, _self.type(), _source, "Graph::GraphTopology")
         if not _builtins.isinstance(vertex_keys, _NotGiven):
             _self.vertex_keys = vertex_keys
@@ -506,12 +506,12 @@ class Position(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(POSITION)
 
-    def __init__(_self, _source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
+    def __init__(_self, _source: dsviper.Value | dict[str, typing.Any] | None = None, /, *,
                  x: float | NotGiven = NOT_GIVEN,
                  y: float | NotGiven = NOT_GIVEN) -> None:
         """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
         type, boxed and not copied, or a dict keyed by the DSM field names, as the runtime
-        takes it."""
+        takes it. A Viper value of another type raises TypeError."""
         _init_structure(_self, _self.type(), _source, "Graph::Position")
         if not _builtins.isinstance(x, _NotGiven):
             _self.x = x
@@ -547,14 +547,14 @@ class Rectangle(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(RECTANGLE)
 
-    def __init__(_self, _source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
+    def __init__(_self, _source: dsviper.Value | dict[str, typing.Any] | None = None, /, *,
                  x: float | NotGiven = NOT_GIVEN,
                  y: float | NotGiven = NOT_GIVEN,
                  w: float | NotGiven = NOT_GIVEN,
                  h: float | NotGiven = NOT_GIVEN) -> None:
         """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
         type, boxed and not copied, or a dict keyed by the DSM field names, as the runtime
-        takes it."""
+        takes it. A Viper value of another type raises TypeError."""
         _init_structure(_self, _self.type(), _source, "Graph::Rectangle")
         if not _builtins.isinstance(x, _NotGiven):
             _self.x = x
@@ -614,12 +614,12 @@ class VertexVisualAttributes(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(VERTEX_VISUAL_ATTRIBUTES)
 
-    def __init__(_self, _source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
+    def __init__(_self, _source: dsviper.Value | dict[str, typing.Any] | None = None, /, *,
                  value: int | NotGiven = NOT_GIVEN,
                  color: Color | NotGiven = NOT_GIVEN) -> None:
         """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
         type, boxed and not copied, or a dict keyed by the DSM field names, as the runtime
-        takes it."""
+        takes it. A Viper value of another type raises TypeError."""
         _init_structure(_self, _self.type(), _source, "Graph::VertexVisualAttributes")
         if not _builtins.isinstance(value, _NotGiven):
             _self.value = value
@@ -655,11 +655,11 @@ class Vertex2DAttributes(Proxy[dsviper.ValueStructure]):
     def type(cls) -> dsviper.TypeStructure:
         return definitions().check_structure(VERTEX_2D_ATTRIBUTES)
 
-    def __init__(_self, _source: dsviper.ValueStructure | dict[str, typing.Any] | None = None, /, *,
+    def __init__(_self, _source: dsviper.Value | dict[str, typing.Any] | None = None, /, *,
                  position: Position | NotGiven = NOT_GIVEN) -> None:
         """Fields by keyword, in snake_case; or a source: a Viper ValueStructure of this
         type, boxed and not copied, or a dict keyed by the DSM field names, as the runtime
-        takes it."""
+        takes it. A Viper value of another type raises TypeError."""
         _init_structure(_self, _self.type(), _source, "Graph::Vertex2DAttributes")
         if not _builtins.isinstance(position, _NotGiven):
             _self.position = position
