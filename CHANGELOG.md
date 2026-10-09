@@ -27,6 +27,11 @@ runtime version (declared as a dependency in `requirements.txt`).
   database, and every document they leave behind is compared with a recording made
   from the 1.2 code.
 
+### Fixed
+
+- **The commits view enables Delete on a head again**: it compared the method `commit_id`
+  with the head ids instead of calling it, so the button never enabled (dsviper-components).
+
 ## [1.2.0] - 2026-06-17
 
 First standalone release of the Graph Editor (Qt Widgets).
