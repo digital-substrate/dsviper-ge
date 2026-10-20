@@ -10,7 +10,7 @@ from ge.context import Context
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
 from transient_notifier import TransientNotifier
 from gei import graph as gei_graph
-from gei.graph import attachments
+from gei.graph import commit_attachments as attachments
 from .graph import RenderGraph
 from .vertex import RenderVertex
 from . import graph_builder

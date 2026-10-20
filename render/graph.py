@@ -288,7 +288,7 @@ class RenderGraph:
 
     def move_copy_collect_vertices(self):
         from ge.context import Context
-        from gei.graph import attachments
+        from gei.graph import commit_attachments as attachments
         from ge import tools
 
         context = Context.instance()

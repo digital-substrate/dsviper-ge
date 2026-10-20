@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dsviper import *
 from gei import graph
-from gei.graph import attachments
+from gei.graph import commit_attachments as attachments
 print(f'{ctx.state().cache_requests()=}')
 print(f'{ctx.state().cache_hits()=}')
 print(f'{ctx.state().cache_hit_rate()=}')

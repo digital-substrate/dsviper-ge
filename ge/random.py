@@ -3,7 +3,7 @@ import string
 
 from dsviper import AttachmentMutating, AttachmentGetting, ValueUUId
 
-from gei.graph import attachments
+from gei.graph import commit_attachments as attachments
 from gei import containers, graph as gei_graph
 
 from ge import vertex as model_vertex

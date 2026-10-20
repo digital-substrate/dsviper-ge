@@ -7,7 +7,7 @@ from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QDialog, QWidget, QListWidgetItem
 
 from ge.context import Context
-from gei.graph import attachments
+from gei.graph import commit_attachments as attachments
 from gei import graph
 
 from ui_select_graph_dialog import Ui_SelectGraphDialog

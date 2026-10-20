@@ -8,7 +8,7 @@ from .ui_vertex import Ui_VertexComponent
 from ge.context import Context
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
 from transient_notifier import TransientNotifier
-from gei.graph import attachments
+from gei.graph import commit_attachments as attachments
 from gei import graph
 
 

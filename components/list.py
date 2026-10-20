@@ -9,7 +9,7 @@ from PySide6.QtWidgets import QFrame, QListWidgetItem
 from .ui_list import Ui_ListComponent
 from ge.context import Context
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
-from gei.graph import attachments
+from gei.graph import commit_attachments as attachments
 from gei import containers, graph
 from ge import selection_mixed
 from list.element import ListVertex, ListEdge

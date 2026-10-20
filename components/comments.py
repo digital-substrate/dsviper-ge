@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QFrame, QListWidgetItem, QApplication
 from .ui_comments import Ui_CommentsComponent
 from ge.context import Context
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
-from gei.graph import attachments
+from gei.graph import commit_attachments as attachments
 
 
 class CommentsItem(QListWidgetItem):

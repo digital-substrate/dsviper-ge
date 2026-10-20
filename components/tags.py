@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QFrame, QTreeWidgetItem, QApplication
 from .ui_tags import Ui_TagsComponent
 from ge.context import Context
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
-from gei.graph import attachments
+from gei.graph import commit_attachments as attachments
 from gei import containers, graph
 
 

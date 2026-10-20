@@ -3,7 +3,7 @@ from __future__ import annotations
 from dsviper import CommitStore, CommitDatabase, CommitStateBuilder, CommitState, CommitMutableState, ValueCommitId
 
 from gei import definitions, graph
-from gei.graph import attachments
+from gei.graph import commit_attachments as attachments
 from ge import graph as ge_graph
 
 

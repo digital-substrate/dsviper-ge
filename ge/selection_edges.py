@@ -1,6 +1,6 @@
 from dsviper import AttachmentMutating, AttachmentGetting
 
-from gei.graph import attachments
+from gei.graph import commit_attachments as attachments
 from gei import containers, graph
 
 from ge import tools

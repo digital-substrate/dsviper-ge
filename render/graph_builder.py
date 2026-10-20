@@ -4,7 +4,7 @@ from dsviper import AttachmentGetting
 from PySide6.QtCore import QPointF
 from PySide6.QtGui import QColor
 
-from gei.graph import attachments
+from gei.graph import commit_attachments as attachments
 from gei import graph as gei_graph
 from .vertex import RenderVertex
 from .edge import RenderEdge

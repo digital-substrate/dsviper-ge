@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QFrame, QWidget
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
 from .ui_statistics import Ui_StatisticsComponent
 from ge.context import Context
-from gei.graph import attachments as attachments
+from gei.graph import commit_attachments as attachments
 from gei import containers, graph
 class StatisticsComponent(QWidget, Ui_StatisticsComponent):
     def __init__(self, *args, **kwargs):

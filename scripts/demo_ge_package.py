@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dsviper import *
 from gei import containers, graph
-from gei.graph import attachments as A
+from gei.graph import commit_attachments as A
 import random
 import traceback
 

@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QApplication, QWidget
 from dsviper_components.ds_commit_store_notifier import DSCommitStoreNotifier
 from .ui_title import Ui_TitleComponent
 from ge.context import Context
-from gei.graph import attachments as attachments
+from gei.graph import commit_attachments as attachments
 class TitleComponent(QWidget, Ui_TitleComponent):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
