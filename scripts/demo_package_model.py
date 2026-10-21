@@ -1,6 +1,6 @@
 """Demo script — exercises the model package (application business logic).
 
-Unlike demo_ge_package.py which uses the ge generated code directly,
+Unlike demo_gei_package.py which uses the gei generated code directly,
 this script uses the higher-level model functions provided with the application.
 These are the same functions used by the menus and toolbar buttons.
 
