@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating
+from dsviper import CommitAttachmentMutating
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
@@ -6,7 +6,7 @@ from gei import containers, graph
 from render.graph import MoveCopyData
 
 
-def run(attachment_mutating: AttachmentMutating,
+def run(attachment_mutating: CommitAttachmentMutating,
         graph_key: graph.GraphKey,
         move_copy_data: MoveCopyData,
         offset: graph.Position) -> None:

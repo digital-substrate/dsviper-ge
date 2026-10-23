@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating
+from dsviper import CommitAttachmentMutating
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
@@ -7,7 +7,7 @@ from ge import tools
 from ge import random as model_random
 
 
-def find_valid_vertex_keys(attachment_mutating: AttachmentMutating) -> containers.Set_of_Graph_VertexKey:
+def find_valid_vertex_keys(attachment_mutating: CommitAttachmentMutating) -> containers.Set_of_Graph_VertexKey:
     """Find vertices that have both visual and render attributes."""
     visual_keys = attachments.Vertex.visual_attributes.keys(attachment_mutating)
     render_keys = attachments.Vertex.render_2d_attributes.keys(attachment_mutating)
@@ -25,7 +25,7 @@ def _may_delete(vertex_key: graph.VertexKey,
         edges_to_remove_keys.add(edge_key)
 
 
-def restore_by_deleting(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def restore_by_deleting(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Restore integrity by deleting invalid vertices and edges."""
     vertex_keys = containers.Set_of_Graph_VertexKey()
     edge_keys = containers.Set_of_Graph_EdgeKey()
@@ -79,7 +79,7 @@ def _may_restore_edge_vertex(vertex_key: graph.VertexKey,
         edge_to_remove_keys.add(edge_key)
 
 
-def restore_by_respawning(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def restore_by_respawning(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Restore integrity by respawning valid vertices and removing invalid ones."""
     vertex_keys = containers.Set_of_Graph_VertexKey()
     edge_keys = containers.Set_of_Graph_EdgeKey()
@@ -121,7 +121,7 @@ class _RespawnState:
         self.vertex_to_respawn_keys = containers.Set_of_Graph_VertexKey()
 
 
-def _respawn(attachment_mutating: AttachmentMutating,
+def _respawn(attachment_mutating: CommitAttachmentMutating,
              vertex_key: graph.VertexKey,
              vertex_visual_attributes_keys: containers.Set_of_Graph_VertexKey,
              vertex_render_2d_attributes_keys: containers.Set_of_Graph_VertexKey,
@@ -147,7 +147,7 @@ def _respawn(attachment_mutating: AttachmentMutating,
     state.vertex_to_respawn_keys.add(vertex_key)
 
 
-def restore_by_creating(attachment_mutating: AttachmentMutating,
+def restore_by_creating(attachment_mutating: CommitAttachmentMutating,
                         graph_key: graph.GraphKey,
                         value: int) -> None:
     """Restore integrity by creating missing vertex attributes."""

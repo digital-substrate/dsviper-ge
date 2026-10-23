@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating, AttachmentGetting
+from dsviper import CommitAttachmentMutating, AttachmentGetting
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
@@ -6,7 +6,7 @@ from gei import containers, graph
 from ge import tools
 
 
-def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def select_all(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Select all vertices and edges in the graph."""
     vertex_keys = containers.Set_of_Graph_VertexKey()
     edge_keys = containers.Set_of_Graph_EdgeKey()
@@ -21,7 +21,7 @@ def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKe
     attachments.Graph.selection.union_edge_keys(attachment_mutating, graph_key, edge_keys)
 
 
-def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def deselect_all(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Deselect all vertices and edges in the graph."""
     vertex_keys = containers.Set_of_Graph_VertexKey()
     edge_keys = containers.Set_of_Graph_EdgeKey()
@@ -36,7 +36,7 @@ def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
     attachments.Graph.selection.subtract_edge_keys(attachment_mutating, graph_key, edge_keys)
 
 
-def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def invert(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Invert the selection of all vertices and edges."""
     vertex_keys = containers.Set_of_Graph_VertexKey()
     edge_keys = containers.Set_of_Graph_EdgeKey()
@@ -64,7 +64,7 @@ def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -
         attachment_mutating, graph_key, tools.difference_edge_keys(edge_keys, selected_edge_keys))
 
 
-def set_selection(attachment_mutating: AttachmentMutating,
+def set_selection(attachment_mutating: CommitAttachmentMutating,
                   graph_key: graph.GraphKey,
                   vertex_keys: containers.Set_of_Graph_VertexKey,
                   edge_keys: containers.Set_of_Graph_EdgeKey) -> None:

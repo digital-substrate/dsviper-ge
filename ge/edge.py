@@ -1,10 +1,10 @@
-from dsviper import AttachmentMutating
+from dsviper import CommitAttachmentMutating
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
 
 
-def create(attachment_mutating: AttachmentMutating,
+def create(attachment_mutating: CommitAttachmentMutating,
            va_key: graph.VertexKey,
            vb_key: graph.VertexKey) -> graph.EdgeKey:
 
@@ -18,7 +18,7 @@ def create(attachment_mutating: AttachmentMutating,
     return edge_key
 
 
-def add(attachment_mutating: AttachmentMutating,
+def add(attachment_mutating: CommitAttachmentMutating,
         graph_key: graph.GraphKey,
         va_key: graph.VertexKey,
         vb_key: graph.VertexKey) -> graph.EdgeKey:

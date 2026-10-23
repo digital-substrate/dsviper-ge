@@ -1,7 +1,7 @@
 import random
 import string
 
-from dsviper import AttachmentMutating, AttachmentGetting, ValueUUId
+from dsviper import CommitAttachmentMutating, AttachmentGetting, ValueUUId
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph as gei_graph
@@ -38,7 +38,7 @@ def make_color() -> gei_graph.Color:
     return color
 
 
-def create_vertex(attachment_mutating: AttachmentMutating,
+def create_vertex(attachment_mutating: CommitAttachmentMutating,
                   value: int,
                   rect: gei_graph.Rectangle) -> gei_graph.VertexKey:
 
@@ -53,7 +53,7 @@ def create_vertex(attachment_mutating: AttachmentMutating,
     return model_vertex.create(attachment_mutating, value, position, make_color())
 
 
-def add_vertex(attachment_mutating: AttachmentMutating,
+def add_vertex(attachment_mutating: CommitAttachmentMutating,
                graph_key: gei_graph.GraphKey,
                rect: gei_graph.Rectangle) -> gei_graph.VertexKey:
 
@@ -143,7 +143,7 @@ def has_edge(attachment_getting: AttachmentGetting,
     return False
 
 
-def add_edge(attachment_mutating: AttachmentMutating,
+def add_edge(attachment_mutating: CommitAttachmentMutating,
              graph_key: gei_graph.GraphKey) -> gei_graph.EdgeKey | None:
     """Add a random edge to the graph."""
     topology = find_edge_topology(attachment_mutating, graph_key)
@@ -153,7 +153,7 @@ def add_edge(attachment_mutating: AttachmentMutating,
     return model_edge.add(attachment_mutating, graph_key, topology.va_key, topology.vb_key)
 
 
-def graph(attachment_mutating: AttachmentMutating,
+def graph(attachment_mutating: CommitAttachmentMutating,
           graph_key: gei_graph.GraphKey,
           vertex_count: int,
           edge_count: int,
@@ -175,7 +175,7 @@ def graph(attachment_mutating: AttachmentMutating,
     attachments.Graph.topology.union_edge_keys(attachment_mutating, graph_key, edge_keys)
 
 
-def add_edges(attachment_mutating: AttachmentMutating,
+def add_edges(attachment_mutating: CommitAttachmentMutating,
               edge_count: int,
               vertex_keys: list[gei_graph.VertexKey]) -> containers.Set_of_Graph_EdgeKey:
     """Add multiple random edges between given vertices."""
@@ -214,7 +214,7 @@ def has_edge_in_list(va_key: gei_graph.VertexKey,
     return False
 
 
-def tag(attachment_mutating: AttachmentMutating, graph_key: gei_graph.GraphKey) -> None:
+def tag(attachment_mutating: CommitAttachmentMutating, graph_key: gei_graph.GraphKey) -> None:
     """Add a random tag to the graph."""
     key = make_word(3)
     value = make_word(5)
@@ -222,7 +222,7 @@ def tag(attachment_mutating: AttachmentMutating, graph_key: gei_graph.GraphKey) 
     attachments.Graph.tags.union(attachment_mutating, graph_key, tags)
 
 
-def comment(attachment_mutating: AttachmentMutating, graph_key: gei_graph.GraphKey) -> None:
+def comment(attachment_mutating: CommitAttachmentMutating, graph_key: gei_graph.GraphKey) -> None:
     """Add a random comment to the graph."""
     text = make_word(10)
     attachments.Graph.comments.insert(

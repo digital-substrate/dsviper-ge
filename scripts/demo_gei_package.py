@@ -14,12 +14,12 @@ def random_word(size: int):
     return result
 
 
-def random_comment(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey):
+def random_comment(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey):
     v = random_word(10)
     A.Graph.comments.insert(attachment_mutating, graph_key, ValueUUId.INVALID, ValueUUId.create(), v)
 
 
-def random_tag(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey):
+def random_tag(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey):
     A.Graph.tags.union(attachment_mutating, graph_key,
                       containers.Map_of_string_to_string({random_word(3): random_word(5)}))
 
@@ -34,7 +34,7 @@ def random_color(min: int, max: int) -> graph.Color:
                        blue=random.randint(min, max) / 255)
 
 
-def create_vertex(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey, value: int, position: graph.Position, color: graph.Color) -> graph.VertexKey:
+def create_vertex(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey, value: int, position: graph.Position, color: graph.Color) -> graph.VertexKey:
     va = graph.VertexVisualAttributes(value=value, color=color)
     vr = graph.Vertex2DAttributes(position=position)
 
@@ -45,7 +45,7 @@ def create_vertex(attachment_mutating: AttachmentMutating, graph_key: graph.Grap
     return vertex_key
 
 
-def add_vertex(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey, value: int, position: graph.Position, color: graph.Color) -> graph.VertexKey:
+def add_vertex(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey, value: int, position: graph.Position, color: graph.Color) -> graph.VertexKey:
     vertex_key = create_vertex(attachment_mutating, graph_key, value, position, color)
     keys = containers.Set_of_Graph_VertexKey()
     keys.add(vertex_key)
@@ -53,13 +53,13 @@ def add_vertex(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKe
     return vertex_key
 
 
-def random_vertex(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey):
+def random_vertex(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey):
     position = random_position(40, 400)
     color = random_color(40, 100)
     add_vertex(attachment_mutating, graph_key, random.randint(1, 100), position, color)
 
 
-def create_edge(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey, va_key: graph.VertexKey, vb_key: graph.VertexKey) -> graph.EdgeKey:
+def create_edge(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey, va_key: graph.VertexKey, vb_key: graph.VertexKey) -> graph.EdgeKey:
     edge_key = graph.EdgeKey.create()
     A.Edge.topology.set(attachment_mutating, edge_key, graph.EdgeTopology(va_key=va_key, vb_key=vb_key))
     keys = containers.Set_of_Graph_EdgeKey()
@@ -68,7 +68,7 @@ def create_edge(attachment_mutating: AttachmentMutating, graph_key: graph.GraphK
     return edge_key
 
 
-def has_edge(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey, va_key: graph.VertexKey, vb_key: graph.VertexKey) -> graph.EdgeKey | None:
+def has_edge(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey, va_key: graph.VertexKey, vb_key: graph.VertexKey) -> graph.EdgeKey | None:
     topology = A.Graph.topology.get(attachment_mutating, graph_key).unwrap()
     for edge_key in topology.edge_keys:
         opt_topology = A.Edge.topology.get(attachment_mutating, edge_key)
@@ -83,7 +83,7 @@ def has_edge(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey,
 
     return None
 
-def random_edge(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> graph.EdgeKey:
+def random_edge(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> graph.EdgeKey:
     topology = A.Graph.topology.get(attachment_mutating, graph_key).unwrap()
     vertex_keys = topology.vertex_keys
     edge_keys = topology.edge_keys
@@ -106,7 +106,7 @@ def random_edge(attachment_mutating: AttachmentMutating, graph_key: graph.GraphK
         if not has_edge(attachment_mutating, graph_key, va_key, vb_key):
             return create_edge(attachment_mutating, graph_key, va_key, vb_key)
 
-def random_graph(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey, vertex_count: int, edge_count: int):
+def random_graph(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey, vertex_count: int, edge_count: int):
 
     def r_next_value(attachment_getting: AttachmentGetting) -> int:
         value = -1
@@ -115,7 +115,7 @@ def random_graph(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
                 value = max(value, v.unwrap().value)
         return value + 1
 
-    def r_vertex(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey, value) -> graph.VertexKey:
+    def r_vertex(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey, value) -> graph.VertexKey:
         position = random_position(40, 400)
         color = random_color(40, 100)
         return create_vertex(attachment_mutating, graph_key, value, position, color)
@@ -126,14 +126,14 @@ def random_graph(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
                return True
         return False
 
-    def r_add_edge(attachment_mutating: AttachmentMutating, va_key: graph.VertexKey, vb_key: graph.VertexKey, edges: list[graph.EdgeTopology], edge_keys: containers.Set_of_Graph_EdgeKey):
+    def r_add_edge(attachment_mutating: CommitAttachmentMutating, va_key: graph.VertexKey, vb_key: graph.VertexKey, edges: list[graph.EdgeTopology], edge_keys: containers.Set_of_Graph_EdgeKey):
         edge_key = graph.EdgeKey.create()
         edge = graph.EdgeTopology(va_key=va_key, vb_key=vb_key)
         A.Edge.topology.set(attachment_mutating, edge_key, edge)
         edges.append(edge)
         edge_keys.add(edge_key)
 
-    def r_add_edges(attachment_mutating: AttachmentMutating, edge_count: int, vertex_keys: containers.Set_of_Graph_VertexKey):
+    def r_add_edges(attachment_mutating: CommitAttachmentMutating, edge_count: int, vertex_keys: containers.Set_of_Graph_VertexKey):
         candidate_keys = list(vertex_keys)
         edges: list[graph.EdgeTopology] = list()
         edge_keys = containers.Set_of_Graph_EdgeKey()

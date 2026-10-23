@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating
+from dsviper import CommitAttachmentMutating
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
@@ -6,7 +6,7 @@ from gei import containers, graph
 from ge import tools
 
 
-def restore(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def restore(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Restore selection to only include vertices and edges that exist in topology."""
     vertex_keys = containers.Set_of_Graph_VertexKey()
     edge_keys = containers.Set_of_Graph_EdgeKey()

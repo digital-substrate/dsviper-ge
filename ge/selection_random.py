@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating
+from dsviper import CommitAttachmentMutating
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
@@ -6,13 +6,13 @@ from gei import containers, graph
 from ge import random as model_random
 
 
-def mixed(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def mixed(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Randomly select both vertices and edges."""
     vertices(attachment_mutating, graph_key)
     edges(attachment_mutating, graph_key)
 
 
-def vertices(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def vertices(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Randomly select approximately 1/4 of the vertices."""
     vertex_keys = containers.Set_of_Graph_VertexKey()
 
@@ -34,7 +34,7 @@ def vertices(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey)
     attachments.Graph.selection.union_vertex_keys(attachment_mutating, graph_key, random_vertex_keys)
 
 
-def edges(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def edges(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Randomly select approximately 1/4 of the edges."""
     edge_keys = containers.Set_of_Graph_EdgeKey()
 

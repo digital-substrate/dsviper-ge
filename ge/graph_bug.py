@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating
+from dsviper import CommitAttachmentMutating
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
@@ -8,7 +8,7 @@ from ge import edge as model_edge
 from ge import random as model_random
 
 
-def create_with_missing_vertex(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def create_with_missing_vertex(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Create a graph with missing vertices (intentionally buggy for testing)."""
     pos0 = graph.Position()
     pos0.x, pos0.y = 100, 100
@@ -44,7 +44,7 @@ def create_with_missing_vertex(attachment_mutating: AttachmentMutating, graph_ke
     attachments.Graph.selection.set(attachment_mutating, graph_key, graph.GraphSelection())
 
 
-def create_with_missing_vertex_properties(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def create_with_missing_vertex_properties(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Create a graph with vertices missing their properties (intentionally buggy)."""
     # Create vertices without properties (just keys)
     v0 = graph.VertexKey.create()
@@ -91,7 +91,7 @@ def create_with_missing_vertex_properties(attachment_mutating: AttachmentMutatin
     attachments.Graph.selection.set(attachment_mutating, graph_key, graph.GraphSelection())
 
 
-def create_with_error(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def create_with_error(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Create a graph and then raise an error (for testing error handling)."""
     pos0 = graph.Position()
     pos0.x, pos0.y = 100, 100

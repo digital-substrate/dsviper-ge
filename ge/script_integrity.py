@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating
+from dsviper import CommitAttachmentMutating
 
 from gei import graph
 
@@ -7,21 +7,21 @@ from ge import selection_integrity
 from ge import tools
 
 
-def restore_by_respawning(attachment_mutating: AttachmentMutating,
+def restore_by_respawning(attachment_mutating: CommitAttachmentMutating,
                           graph_key: graph.GraphKey) -> None:
     """Restore graph integrity by respawning missing vertices, then restore selection."""
     graph_integrity.restore_by_respawning(attachment_mutating, graph_key)
     selection_integrity.restore(attachment_mutating, graph_key)
 
 
-def restore_by_deleting(attachment_mutating: AttachmentMutating,
+def restore_by_deleting(attachment_mutating: CommitAttachmentMutating,
                         graph_key: graph.GraphKey) -> None:
     """Restore graph integrity by deleting orphaned edges, then restore selection."""
     graph_integrity.restore_by_deleting(attachment_mutating, graph_key)
     selection_integrity.restore(attachment_mutating, graph_key)
 
 
-def restore_by_creating(attachment_mutating: AttachmentMutating,
+def restore_by_creating(attachment_mutating: CommitAttachmentMutating,
                         graph_key: graph.GraphKey) -> None:
     """Restore graph integrity by creating missing vertices, then restore selection."""
     value = tools.next_vertex_value(attachment_mutating, graph_key)

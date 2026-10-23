@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating, AttachmentGetting
+from dsviper import CommitAttachmentMutating, AttachmentGetting
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
@@ -6,7 +6,7 @@ from gei import containers, graph
 from ge import tools
 
 
-def select(attachment_mutating: AttachmentMutating,
+def select(attachment_mutating: CommitAttachmentMutating,
            graph_key: graph.GraphKey,
            vertex_key: graph.VertexKey) -> None:
     """Select a single vertex, deselecting all others."""
@@ -27,7 +27,7 @@ def select(attachment_mutating: AttachmentMutating,
     attachments.Graph.selection.subtract_edge_keys(attachment_mutating, graph_key, selected_edge_keys)
 
 
-def select_multiple(attachment_mutating: AttachmentMutating,
+def select_multiple(attachment_mutating: CommitAttachmentMutating,
                     graph_key: graph.GraphKey,
                     vertex_keys: containers.Set_of_Graph_VertexKey) -> None:
     """Select multiple vertices, deselecting all others."""
@@ -45,7 +45,7 @@ def select_multiple(attachment_mutating: AttachmentMutating,
     attachments.Graph.selection.subtract_edge_keys(attachment_mutating, graph_key, selected_edge_keys)
 
 
-def combine(attachment_mutating: AttachmentMutating,
+def combine(attachment_mutating: CommitAttachmentMutating,
             graph_key: graph.GraphKey,
             vertex_key: graph.VertexKey,
             selected: bool) -> None:
@@ -59,7 +59,7 @@ def combine(attachment_mutating: AttachmentMutating,
         attachments.Graph.selection.subtract_vertex_keys(attachment_mutating, graph_key, vertex_keys)
 
 
-def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def select_all(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Select all vertices in the graph."""
     vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
@@ -69,7 +69,7 @@ def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKe
     attachments.Graph.selection.union_vertex_keys(attachment_mutating, graph_key, vertex_keys)
 
 
-def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def deselect_all(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Deselect all vertices in the graph."""
     vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
@@ -79,7 +79,7 @@ def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
     attachments.Graph.selection.subtract_vertex_keys(attachment_mutating, graph_key, vertex_keys)
 
 
-def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def invert(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Invert the vertex selection."""
     vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
@@ -96,7 +96,7 @@ def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -
         attachment_mutating, graph_key, tools.difference_vertex_keys(vertex_keys, selected_vertex_keys))
 
 
-def restore(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def restore(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Restore selected vertices to the topology."""
     selected_vertex_keys = containers.Set_of_Graph_VertexKey()
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
@@ -106,7 +106,7 @@ def restore(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) 
     attachments.Graph.topology.union_vertex_keys(attachment_mutating, graph_key, selected_vertex_keys)
 
 
-def increment_value(attachment_mutating: AttachmentMutating,
+def increment_value(attachment_mutating: CommitAttachmentMutating,
                     graph_key: graph.GraphKey,
                     increment: int) -> None:
     """Increment the value of all selected vertices."""

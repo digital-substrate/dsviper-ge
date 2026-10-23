@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating, AttachmentGetting
+from dsviper import CommitAttachmentMutating, AttachmentGetting
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
@@ -6,7 +6,7 @@ from gei import containers, graph
 from ge import tools
 
 
-def select(attachment_mutating: AttachmentMutating,
+def select(attachment_mutating: CommitAttachmentMutating,
            graph_key: graph.GraphKey,
            edge_key: graph.EdgeKey) -> None:
     """Select a single edge, deselecting all others."""
@@ -27,7 +27,7 @@ def select(attachment_mutating: AttachmentMutating,
     attachments.Graph.selection.subtract_vertex_keys(attachment_mutating, graph_key, vertex_keys)
 
 
-def combine(attachment_mutating: AttachmentMutating,
+def combine(attachment_mutating: CommitAttachmentMutating,
             graph_key: graph.GraphKey,
             edge_key: graph.EdgeKey,
             selected: bool) -> None:
@@ -41,7 +41,7 @@ def combine(attachment_mutating: AttachmentMutating,
         attachments.Graph.selection.subtract_edge_keys(attachment_mutating, graph_key, edge_keys)
 
 
-def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def select_all(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Select all edges in the graph."""
     edge_keys = containers.Set_of_Graph_EdgeKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)
@@ -51,7 +51,7 @@ def select_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKe
     attachments.Graph.selection.union_edge_keys(attachment_mutating, graph_key, edge_keys)
 
 
-def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def deselect_all(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Deselect all edges in the graph."""
     edge_keys = containers.Set_of_Graph_EdgeKey()
     opt = attachments.Graph.selection.get(attachment_mutating, graph_key)
@@ -61,7 +61,7 @@ def deselect_all(attachment_mutating: AttachmentMutating, graph_key: graph.Graph
     attachments.Graph.selection.subtract_edge_keys(attachment_mutating, graph_key, edge_keys)
 
 
-def invert(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def invert(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Invert the edge selection."""
     edge_keys = containers.Set_of_Graph_EdgeKey()
     opt = attachments.Graph.topology.get(attachment_mutating, graph_key)

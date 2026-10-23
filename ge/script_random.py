@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating
+from dsviper import CommitAttachmentMutating
 
 from gei import graph
 
@@ -6,7 +6,7 @@ from ge import random as model_random
 from ge import selection_random
 
 
-def random_graph(attachment_mutating: AttachmentMutating,
+def random_graph(attachment_mutating: CommitAttachmentMutating,
                  graph_key: graph.GraphKey,
                  vertex_count: int,
                  edge_count: int,

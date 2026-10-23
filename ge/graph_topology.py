@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating, AttachmentGetting
+from dsviper import CommitAttachmentMutating, AttachmentGetting
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
@@ -6,7 +6,7 @@ from gei import containers, graph
 from ge import tools
 
 
-def clear(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) -> None:
+def clear(attachment_mutating: CommitAttachmentMutating, graph_key: graph.GraphKey) -> None:
     """Clear all topology, selection, comments, and tags from a graph."""
     attachments.Graph.topology.set(attachment_mutating, graph_key, graph.GraphTopology())
     attachments.Graph.selection.set(attachment_mutating, graph_key, graph.GraphSelection())
@@ -14,7 +14,7 @@ def clear(attachment_mutating: AttachmentMutating, graph_key: graph.GraphKey) ->
     attachments.Graph.tags.set(attachment_mutating, graph_key, containers.Map_of_string_to_string())
 
 
-def remove(attachment_mutating: AttachmentMutating,
+def remove(attachment_mutating: CommitAttachmentMutating,
            graph_key: graph.GraphKey,
            vertex_keys: containers.Set_of_Graph_VertexKey,
            edge_keys: containers.Set_of_Graph_EdgeKey) -> None:
@@ -40,7 +40,7 @@ def remove(attachment_mutating: AttachmentMutating,
     attachments.Graph.topology.subtract_edge_keys(attachment_mutating, graph_key, all_edges_to_remove)
 
 
-def remove_bugged(attachment_mutating: AttachmentMutating,
+def remove_bugged(attachment_mutating: CommitAttachmentMutating,
                   graph_key: graph.GraphKey,
                   vertex_keys: containers.Set_of_Graph_VertexKey) -> None:
     """Remove vertices without removing connected edges (intentionally buggy)."""

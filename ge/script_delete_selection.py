@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating
+from dsviper import CommitAttachmentMutating
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
@@ -7,7 +7,7 @@ from ge import graph_topology
 from ge import selection_edges
 
 
-def delete_selection(attachment_mutating: AttachmentMutating,
+def delete_selection(attachment_mutating: CommitAttachmentMutating,
                      graph_key: graph.GraphKey) -> None:
     """Delete selected vertices and edges from the graph."""
     vertex_keys = containers.Set_of_Graph_VertexKey()
@@ -23,7 +23,7 @@ def delete_selection(attachment_mutating: AttachmentMutating,
     selection_edges.deselect_all(attachment_mutating, graph_key)
 
 
-def delete_selection_bugged(attachment_mutating: AttachmentMutating,
+def delete_selection_bugged(attachment_mutating: CommitAttachmentMutating,
                             graph_key: graph.GraphKey) -> None:
     """Delete selected vertices (bugged version for testing)."""
     vertex_keys = containers.Set_of_Graph_VertexKey()

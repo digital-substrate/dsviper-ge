@@ -1,4 +1,4 @@
-from dsviper import AttachmentMutating, AttachmentGetting
+from dsviper import CommitAttachmentMutating, AttachmentGetting
 
 from gei.graph import commit_attachments as attachments
 from gei import containers, graph
@@ -28,7 +28,7 @@ def referenced_keys(attachment_getting: AttachmentGetting,
     return vertex_keys
 
 
-def increment_value(attachment_mutating: AttachmentMutating,
+def increment_value(attachment_mutating: CommitAttachmentMutating,
                     vertex_keys: containers.Set_of_Graph_VertexKey,
                     increment: int) -> None:
     """Increment the value of vertices."""
@@ -45,7 +45,7 @@ def increment_value(attachment_mutating: AttachmentMutating,
             )
 
 
-def move(attachment_mutating: AttachmentMutating,
+def move(attachment_mutating: CommitAttachmentMutating,
          vertex_keys, offset: graph.Position) -> None:
     """Move vertices by an offset."""
     for vertex_key in vertex_keys:
