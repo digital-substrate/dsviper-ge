@@ -76,15 +76,17 @@ python3 ../kibo-project/kibo_project.py generate
 
 - `../kibo-project` — the tool that reads `kibo.toml` and drives kibo;
 - `../com.digitalsubstrate.ge` — the model's definitions (`definitions/Ge`);
-- `../kibo-template-viper` on `kibo-2-dev` — the kibo 2 template pack, with the Python
-  runtime copied into `gei/_codegen` (or set `KIBO_TEMPLATES`);
+- `../kibo-template-viper` on `main` — the kibo 2 template pack, 2.1.0 or later, with the
+  Python runtime copied into `gei/_codegen` (or set `KIBO_TEMPLATES`);
 - `../kibo`, built: the newest `target/kibo-X.Y.Z.jar` the pack accepts, or set `KIBO_JAR`.
 
 `gei/` is emptied before each generation, so a type the model no longer declares leaves
 no file behind.
 
-Only the `Base` feature is generated: types, attachments and the embedded definitions.
-The model's function pools belong to a C++ application and are left out.
+The `Base` and `CommitAttachments` features are generated: the types, the embedded
+definitions, and the attachments over a Commit state (`gei.graph.commit_attachments`), the
+usage of an editor whose document is a Commit database. The model's function pools belong
+to a C++ application and are left out.
 
 Always commit the regenerated files.
 

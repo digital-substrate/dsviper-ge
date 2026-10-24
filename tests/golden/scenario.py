@@ -14,9 +14,8 @@ out of sets of keys, and the order of those depends on the UUIDs.
     python3 tests/golden/scenario.py --record   # write golden.json from this checkout
     python3 tests/golden/scenario.py --root <checkout> [--record]
 
-The same scenario runs on the code written against the 1.2 package (`model`, `ge.data`) and on
-the code written against the kibo 2 one (`ge`, `gei`): an adapter absorbs the two spellings, so
-that a golden recorded on the first is the proof the second behaves the same.
+`golden.json` is the behaviour the model layer must keep: a change that moves a document fails
+the comparison until the recording is redone on purpose.
 """
 from __future__ import annotations
 
@@ -60,50 +59,29 @@ class _DeterministicUUId(metaclass=_UUIdMeta):
         return _REAL_UUID.create(f'00000000-0000-4000-8000-{next(_COUNTER):012x}')
 
 
-# -- the two spellings ----------------------------------------------------------------------------
+# -- the checkout ---------------------------------------------------------------------------------
 
 class Api:
-    """What the scenario needs that the two generations spell differently."""
+    """The checkout the scenario runs: its business modules (`ge`) and its generated package (`gei`)."""
 
     def __init__(self, root: Path):
         sys.path.insert(0, str(root))
         dsviper.ValueUUId = _DeterministicUUId   # before any generated module is imported
-        if (root / 'gei').is_dir():
-            from gei import definitions, graph
-            self.definitions = definitions()
-            self.business = 'ge'
-            self._graph = graph
-        else:
-            from ge.definitions import definitions
-            import ge.data as data
-            self.definitions = definitions()
-            self.business = 'model'
-            self._graph = None
-            self._data = data
+        from gei import definitions, graph
+        self.definitions = definitions()
+        self._graph = graph
 
     def module(self, name: str):
-        return __import__(f'{self.business}.{name}', fromlist=[name])
+        return __import__(f'ge.{name}', fromlist=[name])
 
     def position(self, x: float, y: float):
-        if self._graph:
-            return self._graph.Position(x=x, y=y)
-        p = self._data.Graph_Position()
-        p.x, p.y = x, y
-        return p
+        return self._graph.Position(x=x, y=y)
 
     def rectangle(self, x: float, y: float, w: float, h: float):
-        if self._graph:
-            return self._graph.Rectangle(x=x, y=y, w=w, h=h)
-        r = self._data.Graph_Rectangle()
-        r.x, r.y, r.w, r.h = x, y, w, h
-        return r
+        return self._graph.Rectangle(x=x, y=y, w=w, h=h)
 
     def color(self, r: float, g: float, b: float):
-        if self._graph:
-            return self._graph.Color(red=r, green=g, blue=b)
-        c = self._data.Graph_Color()
-        c.red, c.green, c.blue = r, g, b
-        return c
+        return self._graph.Color(red=r, green=g, blue=b)
 
 
 # -- the record -----------------------------------------------------------------------------------
