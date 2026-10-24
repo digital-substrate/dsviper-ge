@@ -1,6 +1,6 @@
-# Generated from gei.dsm.json by kibo-2.0.0.jar. Do not edit by hand.
-# Templates: kibo-template-viper 2.0.0 (MIT), Template Model 2.
-# Runtime: this file imports `dsviper` >=1.2.29 <1.3.0,
+# Generated from gei.dsm.json by kibo-2.1.0.jar. Do not edit by hand.
+# Templates: kibo-template-viper 2.1.0 (MIT), Template Model 2.
+# Runtime: this file imports `dsviper` >=1.2.31 <1.3.0,
 # distributed under LicenseRef-DigitalSubstrate-Commercial-1.2.
 # Commercial use requires a Commercial Licence from Digital Substrate.
 
@@ -10,7 +10,8 @@ Each DSM namespace is a module holding its structures, enumerations and keys:
 `gei.graph`. Its attachments are
 a submodule per usage, imported by its path: `<unit>.database_attachments` over a
 dsviper.Database (the DatabaseAttachments feature), `<unit>.commit_attachments` over a Commit
-state (the CommitAttachments feature).
+state (the CommitAttachments feature), `<unit>.reads` over an AttachmentGetting from either,
+reading only (the Reads feature).
 `containers` holds one class per container shape the model uses, in a structure, an
 attachment or a pool; another shape is built with the runtime, from Viper values:
 `dsviper.Value.create(dsviper.TypeSet(gei.graph.EdgeKey.type()), [k.unwrap_value() for k in keys])`.
